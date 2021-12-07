@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-
+    <base href="/">
     <!-- Bootstrap core CSS -->
 
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
@@ -10,9 +10,10 @@
 <script src="assets/js/angular-route.js"></script>
 <script src="app/app.js"></script>
 <script src="app/routes.js"></script>
+<script src="app/controllers/userCtrl.js"></script>
 
   </head>
-  <body>
+  <body ng-app='userApp'>
 
 
 
@@ -28,9 +29,9 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Inventory</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
+          <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
+          <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="/register" class="nav-link px-2 link-dark">Register</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
         </ul>
 
@@ -51,13 +52,18 @@
           </ul>
         </div>
         
+
+      
+
       </div>
     </div>
 
+    <div ng-view></div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/bootstrap.bundle.js"></script>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
   </body>
 </html>
