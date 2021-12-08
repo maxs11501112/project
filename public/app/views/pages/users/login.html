@@ -1,0 +1,40 @@
+<div class="page-header">
+    <h1>User Login</h1> 
+</div>
+
+
+<form ng-submit='main.doLogin(loginData)'>
+    <!--Username-->
+
+    <label>username:</label>
+    <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model='main.loginData.username'>
+    <br>
+
+    <!--Password-->
+
+    <label>password:</label>
+    <input class="form-control" type="text" name="password" placeholder="please enter password" ng-model='main.loginData.password'>
+    <br>
+    <button class = "btn btn-primary" type="submit">Login</button>
+
+</form>
+
+<br>
+
+<div class="jumbotron text-center" ng-show='main.loading' >
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <h1>Loading....</h1>
+</div>
+
+
+<div class="row show-hide-message" ng-show="main.successMsg">
+    <div class="alert alert-success">  {{ main.successMsg }}</div>
+</div>
+
+<br>
+
+<div class="row show-hide-message" ng-show="main.errorMsg">
+    <div class="alert alert-danger"> {{ main.errorMsg }}  </div>
+</div>

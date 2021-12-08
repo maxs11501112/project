@@ -6,25 +6,37 @@
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+<link rel="stylesheet" type='text/css' href="assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 
    <!-- Main Angular Files -->
 <script src="assets/js/angular.js"></script>
 <script src="assets/js/angular-route.js"></script>
 <script src="assets/js/angular-animate.js"></script>
+
 <!-- Angular Config/Routes -->
 <script src="app/app.js"></script>
 <script src="app/routes.js"></script>
+
 <!-- Angular Controllers -->
 <script src="app/controllers/userCtrl.js"></script>
+<script src="app/controllers/mainCtrl.js"></script>
+
 <!-- Angular Sirvices -->
 <script src="app/services/userServices.js"></script>
+<script src="app/services/authServices.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+
+
 
 
   </head>
-  <body ng-app='userApp'>
+  <body ng-app='userApp' ng-controller='mainCtrl as main'>
 
-
-
+    
 
 
   <div class="b-example-divider"></div>
@@ -38,7 +50,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
-          <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="/login" class="nav-link px-2 link-dark">Login</a></li>
           <li><a href="/register" class="nav-link px-2 link-dark">Register</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
         </ul>
@@ -56,7 +68,7 @@
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="#" ng-click='main.logout()'>Sign out</a></li>
           </ul>
         </div>
         

@@ -15,7 +15,6 @@ angular.module('userControllers',['userServices'])
                 app.loading =false
                 //create success Msg
                 app.successMsg = data.data.message;
-                
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page

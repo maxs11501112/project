@@ -1,6 +1,12 @@
 var User = require('../models/user')
 
+//token --> https://github.com/auth0/node-jsonwebtoken
+var jwt = require('jsonwebtoken');
+var secret = 'aaa'
+
 module.exports = function(router){
+    //User register route
+    //http://localhost:8000/api/users
     router.post('/users',function(req,res) {
         var user = new User();
         user.username = req.body.username
@@ -21,5 +27,34 @@ module.exports = function(router){
         }
     
     })
+
+    //User login route
+    router.post('/authenticate',function(req,res){
+        User.findOne({ username : req.body.username}).select('email username password').exec(function(err,user){
+            if(err) throw err;
+            if(!user){
+                res.json({success: false, message:'Could not autheticate user'})
+            } else if (user){
+                if(req.body.password){
+                    var validPassword = user.comparePassword(req.body.password)
+                }else{
+                    res.json({success : false ,message : 'No password provided'})
+                }
+                
+                if (!validPassword){
+                    res.json({success : false ,message : 'Could not autheticate password'})
+                }else{
+                    var token = jwt.sign({ username : user.username , email : user.email },secret,{ expiresIn: '24h' });
+                    res.json({success : true ,message : 'User autheticated',token :token})
+                }
+            }
+            
+        })
+    })
+
+
     return router;
+
+
+
 }
