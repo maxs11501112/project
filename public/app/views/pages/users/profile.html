@@ -1,0 +1,31 @@
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<div class="page-header">
+    <h1>{{main.username}}'s Profile</h1>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center;"><strong>User Profile</strong></div> 
+    
+    <table class="table">
+        
+        <tr>
+            <td><strong>Username</strong></td>
+            <td><strong>Email Address</strong></td>
+            
+        </tr>
+
+        <tr>
+            <td>{{ main.username}} </td>
+            <td><strong>{{ main.useremail}}</strong></td>
+            
+        </tr>
+
+    </table>
+</div>
