@@ -10,8 +10,8 @@ angular.module('mainController',['authServices'])
             Auth.getUser().then(function(data){
                 console.log(data.data.username)
                 app.username = data.data.username
-                app.useremail = data.data.useremail
-                app.loadme =true
+                app.useremail = data.data.email
+                app.loadme = true
             })
         }else{
             app.isLoggedIn = false
@@ -39,7 +39,7 @@ angular.module('mainController',['authServices'])
                     app.loginData = ''
                     app.successMsg = false
                     //redirect to home page
-                    $location.path('/about')
+                    $location.path('/')
                 },2000)
                 
     

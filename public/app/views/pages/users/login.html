@@ -1,40 +1,57 @@
-<div class="page-header">
-    <h1>User Login</h1> 
-</div>
+<head>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-<form ng-submit='main.doLogin(loginData)'>
-    <!--Username-->
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height:80vh">
 
-    <label>username:</label>
-    <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model='main.loginData.username'>
+    <div class="col-4">
+
+    <div class="page-header">
+        <h1>Login</h1> 
+    </div>
+
+    <form ng-submit='main.doLogin(loginData)'>
+
+        <!--Username-->
+
+        <label>Id:</label>
+        <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model='main.loginData.username'>
+        <br>
+
+        <!--Password-->
+
+        <label>Password:</label>
+        <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model='main.loginData.password'>
+        <br>
+        <button class = "btn btn-primary" type="submit">Login</button>
+
+    </form>
+
     <br>
 
-    <!--Password-->
-
-    <label>password:</label>
-    <input class="form-control" type="text" name="password" placeholder="please enter password" ng-model='main.loginData.password'>
-    <br>
-    <button class = "btn btn-primary" type="submit">Login</button>
-
-</form>
-
-<br>
-
-<div class="jumbotron text-center" ng-show='main.loading' >
-    <div class="spinner-border" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <h1>Loading....</h1>
-</div>
+    <div class="text-center" ng-show='main.loading' >
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+        <h3>Loading....</h3>
+    </div>
 
 
-<div class="row show-hide-message" ng-show="main.successMsg">
+    <div class="row show-hide-message" ng-show="main.successMsg">
     <div class="alert alert-success">  {{ main.successMsg }}</div>
-</div>
+    </div>
 
-<br>
+    <br>
 
-<div class="row show-hide-message" ng-show="main.errorMsg">
-    <div class="alert alert-danger"> {{ main.errorMsg }}  </div>
+    <div class="row show-hide-message" ng-show="main.errorMsg">
+        <div class="alert alert-danger"> {{ main.errorMsg }}  </div>
+    </div>
+
+
+    </div>
+    </div>
 </div>
