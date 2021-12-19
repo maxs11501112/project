@@ -21,10 +21,12 @@
 <!-- Angular Controllers -->
 <script src="app/controllers/userCtrl.js"></script>
 <script src="app/controllers/mainCtrl.js"></script>
+<script src="app/controllers/crudCtrl.js"></script>
 
-<!-- Angular Sirvices -->
+<!-- Angular Services -->
 <script src="app/services/userServices.js"></script>
 <script src="app/services/authServices.js"></script>
+<script src="app/services/crudServices.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="assets/js/bootstrap.min.js"></script>
@@ -42,6 +44,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
+          <li><a href="/create" class="nav-link px-2 link-dark">Create</a></li>
         </ul>
 
           <div><a ng-show='!main.isLoggedIn' href="/login" class="nav-link px-2 link-dark">Login</a></div>

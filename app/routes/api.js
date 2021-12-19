@@ -1,10 +1,43 @@
 var User = require('../models/user')
+var requestForm = require('../models/requestForm')
 
 //token --> https://github.com/auth0/node-jsonwebtoken
 var jwt = require('jsonwebtoken');
-var secret = 'aaa'
+const user = require('../models/user');
+var secret = 'MaxDekHere';
 
 module.exports = function(router){
+
+    //ต้องทำ get สำหรับเรียกใช้ข้อมูลผ่าน api
+    /*router.get('/requestForm',function(req,res){
+        var request = new RequestForm();
+        
+    })*/
+
+
+    router.post('/requestForm',function(req,res){
+        var request = new requestForm();
+        request.title = req.body.title
+        request.term = req.body.term
+        request.year = req.body.year
+        request.tel = req.body.tel
+        request.stdId = req.body.stdId
+        request.formStatus = req.body.formStatus
+        if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.stdId== null|| req.body.stdId == ' ' ){
+            res.json({ success : false, message : 'กรุณาใส่ข้อมูลให้ครบถ้วน'})
+            
+        }else{
+            request.save(function(err) {
+                if(err){
+                    res.json({ success : false, message : 'error : '+err})
+                }
+                else{
+                    res.json({ success : true, message : 'บันทึกข้อมูลเสร็จสิ้น'})
+                }
+            });
+        }
+    })
+
     //User register route
     //http://localhost:8000/api/users
     router.post('/users',function(req,res) {

@@ -1,4 +1,5 @@
 angular.module('mainController',['authServices'])
+
 .controller('mainCtrl',function(Auth, $location, $timeout, $rootScope){
     var app =this;
     app.loadme = false
@@ -8,7 +9,7 @@ angular.module('mainController',['authServices'])
         if(Auth.isLoggedIn()){
             app.isLoggedIn = true
             Auth.getUser().then(function(data){
-                console.log(data.data.username)
+                console.log('User : '+data.data.username)
                 app.username = data.data.username
                 app.useremail = data.data.email
                 app.loadme = true
@@ -31,7 +32,7 @@ angular.module('mainController',['authServices'])
         Auth.login(app.loginData).then(function(data){
     
             if(data.data.success){
-                app.loading =false
+                app.loading = false
                 //create success Msg
                 app.successMsg = data.data.message;
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);

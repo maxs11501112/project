@@ -1,28 +1,25 @@
-angular.module('userControllers',['userServices'])
+angular.module('crudControllers',['crudServices'])
 
-.controller('regCtrl',function($http,$location,$timeout,User){
+.controller('crudCtrl',function($http,$location,$timeout,Form){
     
     var app = this;
 
-    this.regUser = function(regData){
+    this.createForm = function(regData){
         app.loading = true
         app.errorMsg = false
        
 
-        User.create(app.regData).then(function(data){
+        Form.create(app.regData).then(function(data){
 
             if(data.data.success){
                 app.loading =false
                 //create success Msg
-
                 app.successMsg = data.data.message;
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page
-                    $location.path('/login')
+                    $location.path('/')
                 },2000)
-                
-
             }else{
                 app.loading =false
                 app.errorMsg = data.data.message;

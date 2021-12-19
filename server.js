@@ -19,7 +19,7 @@ app.use('/api',appRoutes)
 
 mongoose.connect('mongodb://localhost:27017/tutoral',function(err){
     if (err){
-        console.log('Not connected to the database: '+err)
+        console.log('Can not connected to the database : '+err)
     }else{
         console.log('Successfully conected to MongoDB')
     }

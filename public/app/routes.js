@@ -12,7 +12,7 @@ angular.module('appRoutes',['ngRoute'])
     .when('/register',{
         templateUrl : 'app/views/pages/users/register.html',
         controller : 'regCtrl',
-        controllerAs: 'register'   
+        controllerAs: 'register' 
     })
     
 
@@ -30,6 +30,12 @@ angular.module('appRoutes',['ngRoute'])
     .when('/profile',{
         templateUrl : 'app/views/pages/users/profile.html',
 
+    })
+
+    .when('/create',{
+        templateUrl : 'app/views/pages/manageRequestForm/create.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'createForm1' 
     })
 
     .otherwise({ redirectTo: '/'})

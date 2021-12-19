@@ -1,0 +1,78 @@
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height:80vh">
+
+    <div class="col-4">
+
+        <div class="page-header">
+            <h1>Create Request Form</h1> 
+        </div>
+
+
+        <form ng-submit='createForm1.createForm(regData)'>
+
+            <!-- Title -->
+            <label>Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="please enter title" ng-model='createForm1.regData.title'>
+            <br>
+
+            <!-- Term -->
+            <label>Term:</label>
+                <input class="form-control" type="text" name="term" placeholder="please enter term" ng-model='createForm1.regData.term'>
+            <br>
+            
+            <!-- Year -->
+            <label>Year:</label>
+                <input class="form-control" type="text" name="year" placeholder="please enter year" ng-model='createForm1.regData.year'>
+            <br>
+            
+            <!-- Tel -->
+            <label>Tel:</label>
+                <input class="form-control" type="text" name="tel" placeholder="please enter tel" ng-model='createForm1.regData.tel'>
+            <br>
+            
+            <!-- Description -->
+            <label>Description:</label>
+                <input class="form-control" type="text" name="description" placeholder="please enter description" ng-model='createForm1.regData.description'>
+            <br>
+            
+            <!-- stdId -->
+            <label>Student ID:</label>
+                <input class="form-control" type="text" name="stdId" placeholder="please enter stdId" ng-model='createForm1.regData.stdId'>
+            <br>
+            
+            <button class = "btn btn-primary" type="submit">Create</button>
+
+        </form>
+
+        <br>
+<!--
+        <div class="text-center" ng-show='main.loading' >
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+            <h3>Loading....</h3>
+        </div>
+
+
+        <div class="row show-hide-message" ng-show="createForm1.successMsg">
+            <div class="alert alert-success">  {{ createForm1.successMsg }}</div>
+        </div>
+
+        <br>
+
+        <div class="row show-hide-message" ng-show="createForm1.errorMsg">
+            <div class="alert alert-danger"> {{ createForm1.errorMsg }}  </div>
+        </div>
+        -->
+
+    </div>
+
+    </div>
+</div>
