@@ -1,5 +1,10 @@
-var User = require('../models/user')
-var requestForm = require('../models/requestForm')
+var User = require('../models/user');
+var requestForm = require('../models/requestForm');
+
+const express = require('express');
+const app = express();
+
+const form = express.Router();
 
 //token --> https://github.com/auth0/node-jsonwebtoken
 var jwt = require('jsonwebtoken');
@@ -14,16 +19,25 @@ module.exports = function(router){
         
     })*/
 
-
-    router.post('/requestForm',function(req,res){
+    //get all Request Form
+    router.get('/get-all',function(req,res){
+        requestForm.find({},function(err,forms) {
+            if (err) throw err;
+                res.json({ forms: forms})
+        })
+    })
+    
+    //create Request Form
+    router.post('/create-RequestForm',function(req,res){
         var request = new requestForm();
         request.title = req.body.title
         request.term = req.body.term
         request.year = req.body.year
         request.tel = req.body.tel
-        request.stdId = req.body.stdId
-        request.formStatus = req.body.formStatus
-        if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.stdId== null|| req.body.stdId == ' ' ){
+        request.description = req.body.description
+        request.studentId = req.body.studentId
+        request.formStatus = "un-submit"//req.body.formStatus
+        if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' ' ){
             res.json({ success : false, message : 'กรุณาใส่ข้อมูลให้ครบถ้วน'})
             
         }else{
@@ -37,6 +51,46 @@ module.exports = function(router){
             });
         }
     })
+
+    //read Request Form
+    router.get('/read-RequestForm/:id',function(req,res){
+        requestForm.findById(req.params.id, (error,data) => {
+            if (error) {
+                return next(error);
+            }else{
+                res.json(data);
+            }
+        })
+    })
+
+    //update Request Form
+    router.put('/update-RequestForm/:id',function(req, res, next){
+        requestForm.findByIdAndUpdate(req.params.id,{
+            $set: req.body
+        }, (error,data) => {
+            if (error) {
+                return next(error);
+                console.log(error)
+            }else{
+                res.json(data);
+                console.log('Request Form Updated Successfully!!')
+            }
+        })
+    })
+
+    //delete Request Form
+    router.delete('/delete-RequestForm/:id',function(req, res, next){
+        requestForm.findByIdAndRemove(req.params.id, (error, data) => {
+            if (error) {
+                return next(error);
+            }else{
+                res.status(200).json({
+                    msg: data
+                });
+            }
+        })
+    })
+
 
     //User register route
     //http://localhost:8000/api/users

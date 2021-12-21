@@ -28,7 +28,7 @@ var requestFormSchema = new Schema({
     },
     formStatus: {
         type : String,
-        default : 'send'
+        default : 'un-submit'
     }
 })
 

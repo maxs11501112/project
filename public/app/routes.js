@@ -38,6 +38,12 @@ angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'createForm1' 
     })
 
+    .when('/manageRequestForm',{
+        templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management' 
+    })
+
     .otherwise({ redirectTo: '/'})
 
     $locationProvider.html5Mode({

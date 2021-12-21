@@ -1,0 +1,48 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+
+    <div class="col-50">
+
+<div class="page-header">
+    <h1>{{main.username}}'s Profile</h1>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center;"><strong>User Profile</strong></div> 
+    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Term</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Tel</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="form in management.forms">
+                    <td scope="row">{{form.studentId}}</td>
+                    <td>{{form.title}}</td>
+                    <td>{{form.term}}</td>
+                    <td>{{form.year}}</td>
+                    <td>{{form.tel}}</td>
+                    <td>{{form.description}}</td>
+                    <td>{{form.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
