@@ -44,6 +44,11 @@ angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management' 
     })
 
+    .when('/user_data',{
+        templateUrl : 'app/views/pages/users/user_data.html',
+        permission : ['advisor','executive']
+    })
+
     .otherwise({ redirectTo: '/'})
 
     $locationProvider.html5Mode({

@@ -9,6 +9,12 @@ angular.module('userControllers',['userServices'])
         app.errorMsg = false
        
 
+
+        User.getPermission().then(function(data){
+            console.log('Permission : '+data)
+
+        })
+
         User.create(app.regData).then(function(data){
 
             if(data.data.success){
@@ -19,7 +25,7 @@ angular.module('userControllers',['userServices'])
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page
-                    $location.path('/login')
+                    $location.path('/')
                 },2000)
                 
 

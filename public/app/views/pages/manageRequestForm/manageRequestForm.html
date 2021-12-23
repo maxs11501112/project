@@ -9,12 +9,12 @@
 
     <div class="col-50">
 
-<div class="page-header">
-    <h1>{{main.username}}'s Profile</h1>
+<div class="page-header" align = 'center'>
+    <h1>Manage Request Form</h1>
 </div>
 
 <div class="panel panel-info">
-    <div class="panel-heading" style="text-align: center;"><strong>User Profile</strong></div> 
+    <div class="panel-heading" style="text-align: center;"><strong>RequestForm</strong></div> 
     
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -30,14 +30,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="form in management.forms">
+                <tr ng-repeat="form in management.forms | filter: main.username | filter: 'hello mafuqer'">
                     <td scope="row">{{form.studentId}}</td>
                     <td>{{form.title}}</td>
                     <td>{{form.term}}</td>
                     <td>{{form.year}}</td>
                     <td>{{form.tel}}</td>
                     <td>{{form.description}}</td>
-                    <td>{{form.status}}</td>
+                    <td>{{form.formStatus}}</td>
                 </tr>
             </tbody>
         </table>

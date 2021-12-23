@@ -1,8 +1,14 @@
-angular.module('mainController',['authServices'])
+angular.module('mainController',['authServices','userServices'])
 
 .controller('mainCtrl',function(Auth, $location, $timeout, $rootScope){
     var app =this;
     app.loadme = false
+
+    Auth.getAllUser().then(function(data){
+        app.users = data.data.users;
+        console.log('User : '+app.users.username)
+    })
+
 
     $rootScope.$on('$routeChangeStart', function(){
 

@@ -4,7 +4,11 @@ angular.module('authServices',[])
     .factory('Auth',function($http,AuthToken){
         var authFactory = {}
 
-        //Auth.create(regData)
+        authFactory.getAllUser = function(){
+            return $http.get('/api/get-all-user');
+        }
+
+
         authFactory.login = function(loginData){
             return $http.post('/api/authenticate', loginData).then(function(data){
 
@@ -57,6 +61,7 @@ angular.module('authServices',[])
 
         return authTokenFactory;
     })
+    
 
     .factory('AuthInterceptors',function(AuthToken){
         var authInterceptorsFactory = {}

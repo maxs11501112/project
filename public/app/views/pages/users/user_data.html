@@ -1,0 +1,40 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+
+    <div class="col-50">
+
+<div class="page-header" align = 'center'>
+    <h1>Manage User</h1>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center;"><strong>User</strong></div> 
+    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Permission</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in main.users">
+                    <td scope="row">{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.permission}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>

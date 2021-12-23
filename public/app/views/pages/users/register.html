@@ -33,6 +33,23 @@
             <label>Password:</label>
                 <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model='register.regData.password'>
             <br>
+
+            <label for="student">Student</label>
+                <input type="radio" id="student" name="permission" value="student" ng-model='register.regData.permission'>
+            <br>
+
+            <!-- Term -->
+            <label for="advisor">Advisor</label>
+                <input type="radio" id="advisor" name="permission" value="advisor" ng-model='register.regData.permission'>
+            <br>
+
+            <!-- Term -->
+            <label for="executive">Executive</label>
+                <input type="radio" id="executive" name="permission" value="executive" ng-model='register.regData.permission'>
+            <br>
+            <br>
+
+
             <button class = "btn btn-primary" type="submit">Register</button>
 
         </form>

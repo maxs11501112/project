@@ -46,6 +46,7 @@
           <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
           <li><a href="/create" class="nav-link px-2 link-dark">Create</a></li>
           <li><a href="/manageRequestForm" class="nav-link px-2 link-dark">Manage</a></li>
+          <li><a ng-show='main.isLoggedIn' href="/user_data" class="nav-link px-2 link-dark">User Data</a></li>
         </ul>
 
           <div><a ng-show='!main.isLoggedIn' href="/login" class="nav-link px-2 link-dark">Login</a></div>

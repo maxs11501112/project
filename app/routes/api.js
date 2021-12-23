@@ -26,6 +26,20 @@ module.exports = function(router){
                 res.json({ forms: forms})
         })
     })
+
+    router.get('/permission',function(req,res){
+        User.findOne({ username : req.decoded.username },function(err,user) {
+            if (err) throw err;
+                res.json({ permission: user.permission})
+        })
+    })
+
+    router.get('/get-all-user',function(req,res){
+        User.find({},function(err,users) {
+            if (err) throw err;
+                res.json({ users: users})
+        })
+    })
     
     //create Request Form
     router.post('/create-RequestForm',function(req,res){
@@ -36,7 +50,7 @@ module.exports = function(router){
         request.tel = req.body.tel
         request.description = req.body.description
         request.studentId = req.body.studentId
-        request.formStatus = "un-submit"//req.body.formStatus
+        //request.formStatus = "un-submit"//req.body.formStatus
         if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' ' ){
             res.json({ success : false, message : 'กรุณาใส่ข้อมูลให้ครบถ้วน'})
             
@@ -99,7 +113,8 @@ module.exports = function(router){
         user.username = req.body.username
         user.password = req.body.password
         user.email = req.body.email
-        if (req.body.username == null || req.body.username == ' ' ||req.body.password == null  || req.body.password == ' ' ||req.body.email== null|| req.body.email == ' ' ){
+        user.permission = req.body.permission
+        if (req.body.username == null || req.body.username == ' ' ||req.body.password == null  || req.body.password == ' ' ||req.body.email== null|| req.body.email == ' ' ||req.body.permission== null|| req.body.permission == ' ' ){
             res.json({ success : false, message : 'Ensure username,email and password were provided'})
             
         }else{
