@@ -34,14 +34,6 @@ angular.module('crudControllers',['crudServices'])
         })
 
     }
-    
-    /*this.getAll = function(regData){
-
-        Form.getAll().then(function(data){
-            console.log('read-RequestForm : Eiei');
-        })
-
-    }*/
 
     this.readForm = function(regData){
         

@@ -1,21 +1,39 @@
 angular.module('mainController',['authServices','userServices'])
 
-.controller('mainCtrl',function(Auth, $location, $timeout, $rootScope){
+.controller('mainCtrl',function(User,Auth, $location, $timeout, $rootScope){
     var app =this;
     app.loadme = false
+    app.isAdvisor = false
 
-    Auth.getAllUser().then(function(data){
+    User.getUsers().then(function(data){
+        console.log('Permission : '+data.data.permissions)
+        console.log('Name : '+data.data.name)
         app.users = data.data.users;
-        console.log('User : '+app.users.username)
+        if(data.data.permissions ==='advisor'||data.data.permissions ==='executive'){
+            app.isAdvisor = true
+        }
+
     })
+    
+
+    
+
 
 
     $rootScope.$on('$routeChangeStart', function(){
 
+
+
+        User.getUsers().then(function(data){
+            console.log('permission : '+data.data.permissions)
+        })
+
+
         if(Auth.isLoggedIn()){
             app.isLoggedIn = true
             Auth.getUser().then(function(data){
-                console.log('User : '+data.data.username)
+                console.log('Username : '+data.data.username)
+                console.log('Email : '+data.data.email)
                 app.username = data.data.username
                 app.useremail = data.data.email
                 app.loadme = true

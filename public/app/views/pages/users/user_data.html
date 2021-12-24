@@ -20,6 +20,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th scope="col">Name</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">Permission</th>
@@ -27,7 +28,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in main.users">
-                    <td scope="row">{{user.username}}</td>
+                    <td scope="row">{{user.name}}</td>
+                    <td>{{user.username}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.permission}}</td>
                 </tr>

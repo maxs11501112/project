@@ -10,28 +10,31 @@
     <div class="col-50">
 
 <div class="page-header" align = 'center'>
-    <h1>Manage Request Form</h1>
+    <h1>จัดการใบคำร้อง</h1>
 </div>
 
 <div class="panel panel-info">
-    <div class="panel-heading" style="text-align: center;"><strong>RequestForm</strong></div> 
+    <div class="panel-heading" style="text-align: center;"><strong>รายการใบคำร้อง</strong></div> 
     
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Term</th>
-                    <th scope="col">Year</th>
-                    <th scope="col">Tel</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">รหัสนักศึกษา</th>
+                    <th scope="col">ชื่อนักศึกษา</th>
+                    <th scope="col">เรื่อง</th>
+                    <th scope="col">เทอม</th>
+                    <th scope="col">ชั้นปี</th>
+                    <th scope="col">เบอร์โทรศัพท์</th>
+                    <th scope="col">รายละเอียด</th>
+                    <th scope="col">สถานะ</th>
                 </tr>
             </thead>
+            
             <tbody>
-                <tr ng-repeat="form in management.forms | filter: main.username | filter: 'hello mafuqer'">
+                <tr ng-repeat="form in management.forms | filter: main.username | filter: 'un-submit'">
                     <td scope="row">{{form.studentId}}</td>
+                    <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
                     <td>{{form.term}}</td>
                     <td>{{form.year}}</td>

@@ -8,57 +8,74 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="height:80vh">
 
-    <div class="col-4">
+    <div class="col-50">
 
         <div class="page-header">
-            <h1>Create Request Form</h1> 
+            <h1>สร้างใบคำร้องทั่วไป</h1> 
         </div>
 
 
         <form ng-submit='createForm1.createForm(regData)'>
+            
+            <div class="col-6">
+
+
+            <!-- stdId -->
+            <label>รหัสนักศึกษา :</label>
+                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='createForm1.regData.studentId'>
+            <br>
+
+            <!-- stdName -->
+            <label>ชื่อ-นามสกุล :</label>
+                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='createForm1.regData.studentName'>
+            <br>
 
             <!-- Title -->
-            <label>Title:</label>
-                <input class="form-control" type="text" name="title" placeholder="please enter title" ng-model='createForm1.regData.title'>
+            <label>เรื่อง :</label>
+                <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='createForm1.regData.title'>
             <br>
 
             <!-- Term -->
-            <label for="term 0">Term 0</label>
+            <label for="term 0">เทอม 0 :</label>
                 <input type="radio" id="0" name="term" value="0" ng-model='createForm1.regData.term'>
             <br>
 
             <!-- Term -->
-            <label for="term 1">Term 1</label>
+            <label for="term 1">เทอม 1 :</label>
                 <input type="radio" id="1" name="term" value="1" ng-model='createForm1.regData.term'>
             <br>
 
             <!-- Term -->
-            <label for="term 2">Term 2</label>
+            <label for="term 2">เทอม 2 :</label>
                 <input type="radio" id="2" name="term" value="2" ng-model='createForm1.regData.term'>
             <br>
             <br>
             
             <!-- Year -->
-            <label>Year:</label>
-                <input class="form-control" type="text" name="year" placeholder="please enter year" ng-model='createForm1.regData.year'>
+            <label>ชั้นปี :</label>
+                <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='createForm1.regData.year'>
             <br>
             
             <!-- Tel -->
-            <label>Tel:</label>
-                <input class="form-control" type="text" name="tel" placeholder="please enter tel" ng-model='createForm1.regData.tel'>
+            <label>เบอร์โทรศัพท์ :</label>
+                <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='createForm1.regData.tel'>
             <br>
             
-            <!-- Description -->
+            <!-- Description 
             <label>Description:</label>
                 <input class="form-control" type="text" name="description" placeholder="please enter description" ng-model='createForm1.regData.description'>
             <br>
+
+
+            -->
+            </div>
+            <label>รายละเอียด:</label>
+            <textarea rows=”4”  cols= “80” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='createForm1.regData.description'>
+            </textarea> 
+            <br/>
+
             
-            <!-- stdId -->
-            <label>Student ID:</label>
-                <input class="form-control" type="text" name="studentId" placeholder="please enter student Id" ng-model='createForm1.regData.studentId'>
-            <br>
-            
-            <button class = "btn btn-primary" type="submit">Create</button>
+            <button class = "btn btn-primary" type="submit">สร้างใบคำร้อง</button>
 
         </form>
 

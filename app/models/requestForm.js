@@ -26,10 +26,15 @@ var requestFormSchema = new Schema({
         type : String,
         required : true
     },
+    studentName: {
+        type : String,
+        require : true
+    },
     formStatus: {
         type : String,
         default : "un-submit"
     }
+
 })
 
 module.exports= mongoose.model('requestForm',requestFormSchema)

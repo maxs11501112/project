@@ -1,4 +1,4 @@
-angular.module('appRoutes',['ngRoute'])
+var app = angular.module('appRoutes',['ngRoute'])
 .config(function($routeProvider,$locationProvider){
     $routeProvider
     .when('/',{
@@ -46,7 +46,10 @@ angular.module('appRoutes',['ngRoute'])
 
     .when('/user_data',{
         templateUrl : 'app/views/pages/users/user_data.html',
-        permission : ['advisor','executive']
+        controller : 'mainCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management',
+        authenticated : true,
+        permission : [ 'advisor','executive']
     })
 
     .otherwise({ redirectTo: '/'})
@@ -57,5 +60,32 @@ angular.module('appRoutes',['ngRoute'])
       });
 
 })
+app.run(['$rootScope','Auth','$location','User',function($rootScope,Auth,$location,User){
 
+    $rootScope.$on('$routeChangStart',function(event,next,current){
+
+        if(next.$$route !== undefined){
+            if(next.$$route.authenticated === true){
+                if(!Auth.isLoggedIn()){
+                    event.preventDefault();
+                    $location.path('/');
+                }else if(next.$$route.permission){
+                    User.getPermission().then(function(data){
+                        console.log(data);
+                    })
+
+
+
+                }
+            }
+        }else if(next.$$route.authenticated === false){
+
+            if(Auth.isLoggedIn()){
+                event.preventDefault();
+                $location.path('/profile');
+            }
+
+        }    
+    });
+}]);
 

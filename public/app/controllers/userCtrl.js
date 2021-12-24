@@ -10,10 +10,6 @@ angular.module('userControllers',['userServices'])
        
 
 
-        User.getPermission().then(function(data){
-            console.log('Permission : '+data)
-
-        })
 
         User.create(app.regData).then(function(data){
 

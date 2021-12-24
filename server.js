@@ -37,9 +37,4 @@ app.listen(port,function(){
 );
 
 
-/*
-const API_Route = require('../project/app/routes/api')
-//API root
-app.use('/api', API_Route)
-*/
 

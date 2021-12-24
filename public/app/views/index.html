@@ -22,6 +22,7 @@
 <script src="app/controllers/userCtrl.js"></script>
 <script src="app/controllers/mainCtrl.js"></script>
 <script src="app/controllers/crudCtrl.js"></script>
+<script src="app/controllers/managementCtrl.js"></script>
 
 <!-- Angular Services -->
 <script src="app/services/userServices.js"></script>
@@ -33,8 +34,6 @@
 
 
 
-
-
   </head>
   <body ng-app='userApp' ng-controller='mainCtrl as main' ng-show ='main.loadme' ng-cloak>
 
@@ -43,27 +42,25 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
-          <li><a href="/create" class="nav-link px-2 link-dark">Create</a></li>
-          <li><a href="/manageRequestForm" class="nav-link px-2 link-dark">Manage</a></li>
-          <li><a ng-show='main.isLoggedIn' href="/user_data" class="nav-link px-2 link-dark">User Data</a></li>
+          <li><a href="/" class="nav-link px-4 link-dark">หน้าแรก</a></li>
+          <li><a href="/create" class="nav-link px-4 link-dark">สร้างใบคำร้อง</a></li>
+          <li><a href="/manageRequestForm" class="nav-link px-4 link-dark">จัดการใบคำร้อง</a></li>
+          <li><a ng-show='main.isLoggedIn && main.isAdvisor' href="/user_data" class="nav-link px-4 link-dark">ข้อมูลผู้ใช้งาน</a></li>
         </ul>
 
-          <div><a ng-show='!main.isLoggedIn' href="/login" class="nav-link px-2 link-dark">Login</a></div>
-          <div><a ng-show='!main.isLoggedIn' href="/register" class="nav-link px-2 link-dark">Register</a></div>
+          <div><a ng-show='!main.isLoggedIn' href="/login" class="nav-link px-2 link-dark">เข้าสู่ระบบ</a></div>
+          <div><a ng-show='!main.isLoggedIn' href="/register" class="nav-link px-2 link-dark">ลงทะเบียนผู้ใช้</a></div>
 
-        <li class="nav-link px-2 link-dark"><a ng-show='main.isLoggedIn' href="#" >{{main.username}}</a></li>
+        <li class="nav-link px-2 link-dark"><a ng-show='main.isLoggedIn' href="/profile" >{{main.username}}</a></li>
         
         <div class="nav-link px-2 link-dark dropdown text-end" ng-show='main.isLoggedIn'>
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://www.sermpisit.com/wp-content/uploads/2018/08/profile.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/profile">โปรไฟล์</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" ng-click='main.logout()'>Sign out</a></li>
+            <li><a class="dropdown-item" href="#" ng-click='main.logout()'>ออกจากระบบ</a></li>
           </ul>
         </div>
 

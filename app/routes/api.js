@@ -8,16 +8,11 @@ const form = express.Router();
 
 //token --> https://github.com/auth0/node-jsonwebtoken
 var jwt = require('jsonwebtoken');
-const user = require('../models/user');
+var user = require('../models/user');
 var secret = 'MaxDekHere';
 
 module.exports = function(router){
 
-    //ต้องทำ get สำหรับเรียกใช้ข้อมูลผ่าน api
-    /*router.get('/requestForm',function(req,res){
-        var request = new RequestForm();
-        
-    })*/
 
     //get all Request Form
     router.get('/get-all',function(req,res){
@@ -27,10 +22,10 @@ module.exports = function(router){
         })
     })
 
-    router.get('/permission',function(req,res){
-        User.findOne({ username : req.decoded.username },function(err,user) {
-            if (err) throw err;
-                res.json({ permission: user.permission})
+    router.post('/get-permission',function(req,res){
+        User.findOne({ username:req.decoded.username },function(err,permission) {
+            if (err) throw err
+                res.send({ permission:permission })
         })
     })
 
@@ -50,8 +45,9 @@ module.exports = function(router){
         request.tel = req.body.tel
         request.description = req.body.description
         request.studentId = req.body.studentId
+        request.studentName = req.body.studentName
         //request.formStatus = "un-submit"//req.body.formStatus
-        if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' ' ){
+        if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' '||req.body.studentName== null|| req.body.studentName == ' ' ){
             res.json({ success : false, message : 'กรุณาใส่ข้อมูลให้ครบถ้วน'})
             
         }else{
@@ -68,7 +64,7 @@ module.exports = function(router){
 
     //read Request Form
     router.get('/read-RequestForm/:id',function(req,res){
-        requestForm.findById(req.params.id, (error,data) => {
+        requestForm.find(req.params.id, (error,data) => {
             if (error) {
                 return next(error);
             }else{
@@ -114,7 +110,8 @@ module.exports = function(router){
         user.password = req.body.password
         user.email = req.body.email
         user.permission = req.body.permission
-        if (req.body.username == null || req.body.username == ' ' ||req.body.password == null  || req.body.password == ' ' ||req.body.email== null|| req.body.email == ' ' ||req.body.permission== null|| req.body.permission == ' ' ){
+        user.name = req.body.name
+        if (req.body.username == null || req.body.username == ' ' ||req.body.password == null  || req.body.password == ' ' ||req.body.email== null|| req.body.email == ' ' ||req.body.permission== null|| req.body.permission == ' '||req.body.name== null|| req.body.name == ' ' ){
             res.json({ success : false, message : 'Ensure username,email and password were provided'})
             
         }else{
@@ -146,7 +143,7 @@ module.exports = function(router){
                 if (!validPassword){
                     res.json({success : false ,message : 'Could not autheticate password'})
                 }else{
-                    var token = jwt.sign({ username : user.username , email : user.email },secret,{ expiresIn: '24h' });
+                    var token = jwt.sign({ username : user.username , email : user.email , permission : user.permission},secret,{ expiresIn: '24h' });
                     res.json({success : true ,message : 'User autheticated',token :token})
                 }
             }
@@ -173,8 +170,43 @@ module.exports = function(router){
 
     })
 
+    
     router.post('/me',function(req,res){
-        res.send(req.decoded)
+        res.send( req.decoded )
+    })
+
+    router.get('/permission',function(req,res){
+        User.findOne({ username: req.decoded.username },function(err,user){
+            if (err) throw err;
+            if(!user){
+                res.json({ success: false, message: 'No user not found'});
+            }else{
+                res.json({ success: true, permissions: user.permission });
+            }
+        })
+    })
+
+
+    router.get('/management',function(req,res){
+        User.find({},function(err,users){
+            if (err) throw err;
+            User.findOne({ username: req.decoded.username },function(err,mainUser){
+                if (err) throw err;
+                if(!mainUser){
+                    res.json({ success: false, message: 'No user not found'});
+                }else{
+                    if (mainUser.permission === 'advisor' || mainUser.permission === 'executive'){
+                        if(!user){
+                            res.json({ success : false, message: 'Users not found'});
+                        }else{
+                            res.json({ success: true, users: users, permissions: mainUser.permission, name: mainUser.name })
+                        }
+                    }else{
+                        res.json({ success: false, message: 'Insufficient Permissions' })
+                    }
+                }
+            })
+        })
     })
 
     return router;
