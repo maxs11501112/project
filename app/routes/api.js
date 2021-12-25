@@ -48,7 +48,7 @@ module.exports = function(router){
         request.studentName = req.body.studentName
         //request.formStatus = "un-submit"//req.body.formStatus
         if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' '||req.body.studentName== null|| req.body.studentName == ' ' ){
-            res.json({ success : false, message : 'กรุณาใส่ข้อมูลให้ครบถ้วน'})
+            res.json({ success : false, message : 'Please ensure data were provided'})
             
         }else{
             request.save(function(err) {
@@ -56,7 +56,7 @@ module.exports = function(router){
                     res.json({ success : false, message : 'error : '+err})
                 }
                 else{
-                    res.json({ success : true, message : 'บันทึกข้อมูลเสร็จสิ้น'})
+                    res.json({ success : true, message : 'Data has been saved!'})
                 }
             });
         }
@@ -90,7 +90,8 @@ module.exports = function(router){
 
     //delete Request Form
     router.delete('/delete-RequestForm/:id',function(req, res, next){
-        requestForm.findByIdAndRemove(req.params.id, (error, data) => {
+        var deleteRequestForm = req.params.id;
+        requestForm.findByIdAndRemove(deleteRequestForm, (error, data) => {
             if (error) {
                 return next(error);
             }else{
@@ -206,6 +207,25 @@ module.exports = function(router){
                     }
                 }
             })
+        })
+    })
+
+    router.delete('/management/:username',function(req,res){
+        var deletedUser = req.params.username;
+        User.findOne({username: req.decoded.username }, function(err,mainUser){
+            if (err) throw err;
+            if(!mainUser){
+                res.json({ success: false, message: 'No user found'});
+            }else{
+                if(mainUser.permission === 'student'){
+                    res.json({ success: false, message: 'Insufficient Permissions'});
+                }else{
+                    User.findOneAndRemove({ username: deletedUser }, function(err,user){
+                        if (err) throw err;
+                        res.json({ success: true });
+                    })
+                }
+            }
         })
     })
 

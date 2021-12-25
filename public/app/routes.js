@@ -41,12 +41,12 @@ var app = angular.module('appRoutes',['ngRoute'])
     .when('/manageRequestForm',{
         templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm.html',
         controller : 'crudCtrl',
-        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management' 
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
     .when('/user_data',{
         templateUrl : 'app/views/pages/users/user_data.html',
-        controller : 'mainCtrl',
+        controller : 'managementCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management',
         authenticated : true,
         permission : [ 'advisor','executive']

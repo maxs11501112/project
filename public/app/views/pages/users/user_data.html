@@ -1,42 +1,87 @@
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
 
-<div class="container">
-    <div class="row justify-content-center align-items-center">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
 
-    <div class="col-50">
+        <div class="col-50">
 
-<div class="page-header" align = 'center'>
-    <h1>Manage User</h1>
-</div>
 
-<div class="panel panel-info">
-    <div class="panel-heading" style="text-align: center;"><strong>User</strong></div> 
-    
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Permission</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="user in main.users">
-                    <td scope="row">{{user.name}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.permission}}</td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="page-header" align = 'center'>
+        <h1>การจัดการผู้ใช้งาน</h1>
     </div>
-</div>
-</div>
-</div>
-</div>
+
+    <br>
+
+
+    <!-- <div class="showmore">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">Result to display:</span>
+                <input type="text" class="form-control" ng-model="number">
+            </div>
+                <button type="button" class="btn btn-success">Apply Filter</button>
+                <button type="button" class="btn btn-warning">Show All</button>
+        </div>
+    </div>
+
+    <br>
+    <br> -->
+
+    <div class="panel panel-success">
+        <div class="panel-heading" style="text-align: center;"><strong>User</strong></div> 
+        
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Permission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in management.users">
+                        <td scope="row">{{user.name}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.permission}}</td>
+                        <td>
+                        <a href="/edit/{{ user._id}}">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                        </a>
+                            <button type="button" ng-click="management.deleteUser(user.username)" class="btn btn-danger">Delete</button>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="text-center" ng-show='main.loading' >
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+                <h3>Loading....</h3>
+            </div>
+
+
+            <div class="row show-hide-message" ng-show="register.successMsg">
+                <div class="alert alert-success">  {{ register.successMsg }}</div>
+            </div>
+
+            <br>
+
+            <div class="row show-hide-message" ng-show="register.errorMsg">
+                <div class="alert alert-danger"> {{ register.errorMsg }}  </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>

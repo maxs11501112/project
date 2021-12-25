@@ -5,28 +5,21 @@ angular.module('mainController',['authServices','userServices'])
     app.loadme = false
     app.isAdvisor = false
 
-    User.getUsers().then(function(data){
-        console.log('Permission : '+data.data.permissions)
-        console.log('Name : '+data.data.name)
-        app.users = data.data.users;
-        if(data.data.permissions ==='advisor'||data.data.permissions ==='executive'){
-            app.isAdvisor = true
-        }
-
-    })
-    
-
-    
-
-
 
     $rootScope.$on('$routeChangeStart', function(){
 
-
-
         User.getUsers().then(function(data){
-            console.log('permission : '+data.data.permissions)
+            app.users = data.data.users;
+            if(data.data.permissions ==='advisor'||data.data.permissions ==='executive'){
+                app.isAdvisor = true
+            }
+
         })
+
+
+        // User.getUsers().then(function(data){
+        //     console.log('permission : '+data.data.permissions)
+        // })
 
 
         if(Auth.isLoggedIn()){

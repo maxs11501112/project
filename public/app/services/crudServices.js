@@ -20,8 +20,8 @@ angular.module('crudServices',[])
         }
 
         //delete Request Form
-        formFactory.delete = function(regData){
-            return $http.delete('/api/delete-RequestForm', regData)
+        formFactory.delete = function(id){
+            return $http.delete('/api/delete-RequestForm/'+id)
         }
 
         //get all Request Form 

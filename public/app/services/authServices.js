@@ -4,14 +4,6 @@ angular.module('authServices',[])
     .factory('Auth',function($http,AuthToken){
         var authFactory = {}
 
-        //authFactory.getAllUser = function(){
-        //    return $http.get('/api/get-all-user');
-        //}
-
-        //authFactory.getPermission = function(){
-         //   return $http.get('/api/get-permission');
-        //}
-
         authFactory.login = function(loginData){
             return $http.post('/api/authenticate', loginData).then(function(data){
 
@@ -20,16 +12,6 @@ angular.module('authServices',[])
                 return data
             })
         }
-
-
-        /*authFactory.isAdvisor = function(){
-            if (this.getUser().permission == 'advi'){
-                return true;
-            }else{
-                return false;
-            }
-        }*/
-
 
         //   check isLoggedIn       Auth.isLoggedIn()
         authFactory.isLoggedIn = function(){

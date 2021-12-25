@@ -13,7 +13,7 @@
     <h1>จัดการใบคำร้อง</h1>
 </div>
 
-<div class="panel panel-info">
+<div class="panel panel-success">
     <div class="panel-heading" style="text-align: center;"><strong>รายการใบคำร้อง</strong></div> 
     
     <div class="table-responsive">
@@ -28,11 +28,12 @@
                     <th scope="col">เบอร์โทรศัพท์</th>
                     <th scope="col">รายละเอียด</th>
                     <th scope="col">สถานะ</th>
+                    <th scope="col">แก้ไข/ลบ</th>
                 </tr>
             </thead>
             
             <tbody>
-                <tr ng-repeat="form in management.forms | filter: main.username | filter: 'un-submit'">
+                <tr ng-repeat="form in crud.forms | filter: main.username | filter: 'un-submit'">
                     <td scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
@@ -41,6 +42,9 @@
                     <td>{{form.tel}}</td>
                     <td>{{form.description}}</td>
                     <td>{{form.formStatus}}</td>
+                    <td>
+                    <button type="button" ng-click="crud.deleteRequestForm(form._id)" class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

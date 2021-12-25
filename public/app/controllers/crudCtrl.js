@@ -3,9 +3,11 @@ angular.module('crudControllers',['crudServices'])
 .controller('crudCtrl',function($http,$location,$timeout,Form){
     var app = this;
 
+
     Form.getAll().then(function(data){
         app.forms = data.data.forms;
     })
+
 
     this.createForm = function(regData){
         app.loading = true
@@ -17,7 +19,7 @@ angular.module('crudControllers',['crudServices'])
             if(data.data.success){
                 app.loading =false
                 //create success Msg
-                console.log('เย่ๆๆ : '+data.data.message);
+                console.log('success : '+data.data.message);
                 app.successMsg = data.data.message;
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
@@ -51,11 +53,16 @@ angular.module('crudControllers',['crudServices'])
 
     }
 
-    this.deleteForm = function(regData){
-        
-        Form.delete(app.regData).then(function(data){
+    this.deleteRequestForm = function(id){
+        Form.delete(id).then(function(data){
+            Form.getAll().then(function(data){
+                app.forms = data.data.forms;
+            })
             console.log('delete-RequestForm : Eiei');
         })
 
     }
+
+
+   
 })

@@ -16,8 +16,8 @@
 
 
         <form ng-submit='createForm1.createForm(regData)'>
-            
-            <div class="col-6">
+                
+            <div class="col-4">
 
 
             <!-- stdId -->
@@ -50,37 +50,36 @@
                 <input type="radio" id="2" name="term" value="2" ng-model='createForm1.regData.term'>
             <br>
             <br>
-            
+                
             <!-- Year -->
             <label>ชั้นปี :</label>
                 <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='createForm1.regData.year'>
             <br>
-            
+                
             <!-- Tel -->
             <label>เบอร์โทรศัพท์ :</label>
                 <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='createForm1.regData.tel'>
             <br>
-            
+                
             <!-- Description 
             <label>Description:</label>
                 <input class="form-control" type="text" name="description" placeholder="please enter description" ng-model='createForm1.regData.description'>
             <br>
-
-
             -->
             </div>
+
             <label>รายละเอียด:</label>
-            <textarea rows=”4”  cols= “80” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='createForm1.regData.description'>
+            <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='createForm1.regData.description'>
             </textarea> 
             <br/>
 
-            
+                
             <button class = "btn btn-primary" type="submit">สร้างใบคำร้อง</button>
 
         </form>
 
         <br>
-<!--
+    <!--
         <div class="text-center" ng-show='main.loading' >
             <div class="spinner-border" role="status">
                 <span class="visually-hidden"></span>
