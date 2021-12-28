@@ -9,7 +9,7 @@
 
     <div class="col-50">
 
-<div class="page-header" align = 'center'>
+<div class="page-header">
     <h1>จัดการใบคำร้อง</h1>
 </div>
 
@@ -17,9 +17,9 @@
     <div class="panel-heading" style="text-align: center;"><strong>รายการใบคำร้อง</strong></div> 
     
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered">
             <thead>
-                <tr>
+                <tr align="right">
                     <th scope="col">รหัสนักศึกษา</th>
                     <th scope="col">ชื่อนักศึกษา</th>
                     <th scope="col">เรื่อง</th>
@@ -28,12 +28,12 @@
                     <th scope="col">เบอร์โทรศัพท์</th>
                     <th scope="col">รายละเอียด</th>
                     <th scope="col">สถานะ</th>
-                    <th class="align-center" scope="col">ยืนยัน/แก้ไข/ลบ</th>
+                    <th scope="col">อนุมัติใบคำร้อง</th>
                 </tr>
             </thead>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms">
+                <tr ng-repeat="form in crud.forms | filter: 'submit'">
                     <td scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
@@ -42,11 +42,8 @@
                     <td>{{form.tel}}</td>
                     <td>{{form.description}}</td>
                     <td>{{form.formStatus}}</td>
-                    <td ng-show="!main.isSubmit"class"col-12 col-lg-auto justify-content-center d-flex flex-wrap">
-                    
-                    <button type="button" ng-click="crud.approveRequestForm(form._id)" class="btn btn-outline-success">ยืนยัน</button>
-                    <a href="/edit/{{form._id}}"> <button type="button" class="btn btn-outline-warning">แก้ไข</button></a>
-                    <button type="button" ng-click="crud.deleteRequestForm(form._id)" class="btn btn-outline-danger">ลบ</button>
+                    <td class"col-12 col-lg-auto justify-content-center d-flex flex-wrap">
+                    <button type="button" ng-click="crud.approveRequestForm(form._id)" class="btn btn-success">อนุมัติ</button>
                     </td>
                 </tr>
             </tbody>

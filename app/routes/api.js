@@ -18,7 +18,9 @@ module.exports = function(router){
     router.get('/get-all',function(req,res){
         requestForm.find({},function(err,forms) {
             if (err) throw err;
+            else{
                 res.json({ forms: forms})
+            }
         })
     })
 
@@ -46,7 +48,6 @@ module.exports = function(router){
         request.description = req.body.description
         request.studentId = req.body.studentId
         request.studentName = req.body.studentName
-        //request.formStatus = "un-submit"//req.body.formStatus
         if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' '||req.body.studentName== null|| req.body.studentName == ' ' ){
             res.json({ success : false, message : 'Please ensure data were provided'})
             
@@ -62,29 +63,37 @@ module.exports = function(router){
         }
     })
 
-    //read Request Form
-    router.get('/read-RequestForm/:id',function(req,res){
-        requestForm.find(req.params.id, (error,data) => {
-            if (error) {
-                return next(error);
-            }else{
-                res.json(data);
-            }
+
+
+    //update Request Form
+    router.get('/update-RequestForm/:id',function(req, res){
+        editRequestForm = req.body.title
+        if (req.body.title) var newTitle = req.body.title
+        if (req.body.term) var newTerm = req.body.term
+        if (req.body.year) var newYear = req.body.year
+        if (req.body.tel) var newTel = req.body.tel
+        if (req.body.description) var newDescription = req.body.description
+        if (req.body.studentId) var newStudentId = req.body.studentId
+        if (req.body.studentName) var newStudentName = req.body.studentName
+        requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName}),function(err){
+                if (err) {
+                    console.log(err)
+                }else{
+                    res.json({success : true})
+                }
         })
     })
 
-    //update Request Form
-    router.put('/update-RequestForm/:id',function(req, res, next){
-        requestForm.findByIdAndUpdate(req.params.id,{
-            $set: req.body
-        }, (error,data) => {
-            if (error) {
-                return next(error);
-                console.log(error)
-            }else{
-                res.json(data);
-                console.log('Request Form Updated Successfully!!')
-            }
+    router.get('/edit/:id', function(req,res){
+        requestForm.findOne({ _id : req.params.id},function(err,form){
+            if (err) throw err;
+
+            res.json({ success: true ,title: form. title });
+            // if (!form){
+            //     res.json({ success : true})
+            // }else{
+            //     res.json({ success : true ,title : form.title})
+            // }
         })
     })
 
@@ -99,6 +108,19 @@ module.exports = function(router){
                     msg: data
                 });
             }
+        })
+    })
+
+    //approve Request Form
+    router.get('/approve-RequestForm/:id',function(req, res){
+        var approveRequestForm = req.params.id;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit'}) ,function(err) {
+                if(err){
+                    res.json({ success : false, message : 'Approve error'})
+                }
+                else{
+                    res.json({ success : true, message : 'Approved!!'})
+                }
         })
     })
 
@@ -200,7 +222,7 @@ module.exports = function(router){
                         if(!user){
                             res.json({ success : false, message: 'Users not found'});
                         }else{
-                            res.json({ success: true, users: users, permissions: mainUser.permission, name: mainUser.name })
+                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name })
                         }
                     }else{
                         res.json({ success: false, message: 'Insufficient Permissions' })
@@ -210,7 +232,7 @@ module.exports = function(router){
         })
     })
 
-    router.delete('/management/:username',function(req,res){
+    router.delete('/delete-User/:username',function(req,res){
         var deletedUser = req.params.username;
         User.findOne({username: req.decoded.username }, function(err,mainUser){
             if (err) throw err;

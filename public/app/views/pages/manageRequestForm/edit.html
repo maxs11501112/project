@@ -1,0 +1,99 @@
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height:80vh">
+
+    <div class="col-10">
+
+        <div class="page-header">
+            <h1>แก้ไขใบคำร้อง</h1> 
+        </div>
+
+
+        <form ng-submit='editForm1.updateForm(regData)'>
+                
+            <div class="col-6">
+
+
+            <!-- stdregData -->
+            <label>รหัสนักศึกษา :</label>
+                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='editForm1.regData.studentId'>
+            <br>
+
+            <!-- stdName -->
+            <label>ชื่อ-นามสกุล :</label>
+                <input class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='editForm1.regData.studentName'>
+            <br>
+
+            <!-- Title -->
+            <label>เรื่อง :</label>
+                <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='editForm1.regData.title'>
+            <br>
+
+            <!-- Term -->
+            <label for="term 0">เทอมต้น :</label>
+                <input type="radio" regData="0" name="term" value="ต้น" ng-model='editForm1.regData.term'>
+            <br>
+
+            <!-- Term -->
+            <label for="term 1">เทอมปลาย :</label>
+                <input type="radio" regData="1" name="term" value="ปลาย" ng-model='editForm1.regData.term'>
+            <br>
+
+            <!-- Term -->
+            <label for="term 2">ซัมเมอร์ :</label>
+                <input type="radio" regData="2" name="term" value="ซัมเมอร์" ng-model='editForm1.regData.term'>
+            <br>
+            <br>
+                
+            <!-- Year -->
+            <label>ชั้นปี :</label>
+                <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='editForm1.regData.year'>
+            <br>
+                
+            <!-- Tel -->
+            <label>เบอร์โทรศัพท์ :</label>
+                <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='editForm1.regData.tel'>
+            <br>
+            </div>
+
+            <label>รายละเอียด:</label>
+            <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='editForm1.regData.description'>
+            </textarea> 
+            <br/>
+
+                
+            <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
+
+        </form>
+
+        <br>
+    <!--
+        <div class="text-center" ng-show='main.loading' >
+            <div class="spinner-border" role="status">
+                <span class="visually-hregDataden"></span>
+            </div>
+            <h3>Loading....</h3>
+        </div>
+
+
+        <div class="row show-hregDatae-message" ng-show="editForm1.successMsg">
+            <div class="alert alert-success">  {{ editForm1.successMsg }}</div>
+        </div>
+
+        <br>
+
+        <div class="row show-hregDatae-message" ng-show="editForm1.errorMsg">
+            <div class="alert alert-danger"> {{ editForm1.errorMsg }}  </div>
+        </div>
+        -->
+
+    </div>
+
+    </div>
+</div>

@@ -38,11 +38,24 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'createForm1' 
     })
 
+    .when('/edit/:id',{
+        templateUrl : 'app/views/pages/manageRequestForm/edit.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'editForm1' 
+    })
+
     .when('/manageRequestForm',{
         templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm.html',
         controller : 'crudCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
+
+    .when('/manageRequestForm-Advisor',{
+        templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm-Advisor.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
+    })
+
 
     .when('/user_data',{
         templateUrl : 'app/views/pages/users/user_data.html',

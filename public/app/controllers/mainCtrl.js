@@ -4,6 +4,7 @@ angular.module('mainController',['authServices','userServices'])
     var app =this;
     app.loadme = false
     app.isAdvisor = false
+    app.isSubmit = false
 
 
     $rootScope.$on('$routeChangeStart', function(){
@@ -15,11 +16,6 @@ angular.module('mainController',['authServices','userServices'])
             }
 
         })
-
-
-        // User.getUsers().then(function(data){
-        //     console.log('permission : '+data.data.permissions)
-        // })
 
 
         if(Auth.isLoggedIn()){
@@ -74,7 +70,7 @@ angular.module('mainController',['authServices','userServices'])
         $location.path('/logout')
         $timeout(function(){
             $location.path('/')
-        },2000)
+        },)
     }
 })
 

@@ -1,6 +1,6 @@
 angular.module('userControllers',['userServices'])
 
-.controller('regCtrl',function($http,$location,$timeout,User){
+.controller('regCtrl',function($location,$timeout,User){
     
     var app = this;
 

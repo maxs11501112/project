@@ -1,6 +1,6 @@
 angular.module('crudControllers',['crudServices'])
 
-.controller('crudCtrl',function($http,$location,$timeout,Form){
+.controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope){
     var app = this;
 
 
@@ -8,8 +8,7 @@ angular.module('crudControllers',['crudServices'])
         app.forms = data.data.forms;
     })
 
-
-    this.createForm = function(regData){
+    app.createForm = function(regData){
         app.loading = true
         app.errorMsg = false
        
@@ -24,7 +23,7 @@ angular.module('crudControllers',['crudServices'])
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page
-                    $location.path('/')
+                    $location.path('/manageRequestForm')
                 },2000)
             }else{
                 app.loading =false
@@ -37,32 +36,42 @@ angular.module('crudControllers',['crudServices'])
 
     }
 
-    this.readForm = function(regData){
-        
-        Form.read(app.regData).then(function(data){
-            console.log('read-RequestForm : Eiei');
-        })
+    Form.getForm($routeParams.id).then(function(data) {
+        console.log('sawaddee : '+data.data.title)
+        console.log('sawaddeeeeee : '+$routeParams.id)
+        if(data.data.success){
+            console.log('sawaddee kub success : '+data.data.title)
+            $scope.newTitle = data.data.forms.title;
+            $scope.newTerm = data.data.forms.term;
+            $scope.newTel = data.data.forms.tel;
+            $scope.newYear = data.data.forms.year;
+            $scope.newStudentId = data.data.forms.studentId;
+            $scope.newStudentName = data.data.forms.studentName;
+            $scope.newDescription = data.data.forms.description;
+        }
+    })
 
+    // app.updateForm = function(regData){
+    //     Form.updateForm().then(function(data))
+    // }
+
+    app.approveRequestForm = function(id){
+        Form.approve(id).then(function(data){
+            Form.getAll().then(function(data){
+                app.forms = data.data.forms;
+                console.log('approve-RequestForm');
+            })
+        })
     }
 
-    this.updateForm = function(regData){
-        
-        Form.update(app.regData).then(function(data){
-            console.log('update-RequestForm : Eiei');
-        })
-
-    }
-
-    this.deleteRequestForm = function(id){
+    app.deleteRequestForm = function(id){
         Form.delete(id).then(function(data){
             Form.getAll().then(function(data){
                 app.forms = data.data.forms;
             })
-            console.log('delete-RequestForm : Eiei');
+            console.log('delete-RequestForm');
         })
-
     }
-
 
    
 })

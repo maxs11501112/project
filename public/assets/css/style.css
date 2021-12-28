@@ -39,7 +39,11 @@ header.navbar{
     list-style-type: style;
 }
 
+li{
+}
+
 li.headMenu{
+    list-style-type: disc;
     display: inline-block;
 }
 
@@ -48,7 +52,7 @@ li.headMenu:hover {
 }
 
 li.headMenu a{
-    transition: all 0.3s ease 0s;
+    transition: all 0s ease 0s;
 }
 
 li.headMenu a:hover {

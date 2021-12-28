@@ -9,19 +9,23 @@ angular.module('crudServices',[])
             return $http.post('/api/create-RequestForm', regData)
         }
 
-        //read Request Form
-        formFactory.read = function(regData){
-            return $http.get('/api/read-RequestForm', regData)
+        //update Request Form
+        formFactory.update = function(id){
+            return $http.get('/api/update-RequestForm/'+id, id)
         }
 
-        //update Request Form
-        formFactory.update = function(regData){
-            return $http.put('/api/update-RequestForm', regData)
+        //approve Request Form
+        formFactory.approve = function(id){
+            return $http.get('/api/approve-RequestForm/'+id)
         }
 
         //delete Request Form
         formFactory.delete = function(id){
             return $http.delete('/api/delete-RequestForm/'+id)
+        }
+
+        formFactory.getForm = function(id){
+            return $http.get('/api/edit'+id);
         }
 
         //get all Request Form 

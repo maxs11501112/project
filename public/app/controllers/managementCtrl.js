@@ -12,6 +12,10 @@ angular.module('managementController',['userServices'])
     function getUsers(){
         User.getUsers().then(function(data){
             app.users = data.data.users;
+            console.log('From getUsers : ')
+            console.log('Username : '+data.data.username)
+            console.log('Email : '+data.data.email)
+            console.log('Permission : '+data.data.permissions)
             if(data.data.success){
                 if(data.data.permissions ==='advisor' || data.data.permissions ==='executive'){
                     console.log('aaaaaa : '+data.data.permissions)
