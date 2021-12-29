@@ -10,8 +10,8 @@ angular.module('crudServices',[])
         }
 
         //update Request Form
-        formFactory.update = function(id){
-            return $http.get('/api/update-RequestForm/'+id, id)
+        formFactory.update = function(id,data){
+            return $http.put('/api/update-RequestForm/'+id,data)
         }
 
         //approve Request Form
@@ -25,12 +25,12 @@ angular.module('crudServices',[])
         }
 
         formFactory.getForm = function(id){
-            return $http.get('/api/edit'+id);
+            return $http.get('/api/edit/'+id);
         }
 
         //get all Request Form 
-        formFactory.getAll = function(){
-            return $http.get('/api/get-all');
+        formFactory.getForms = function(){
+            return $http.get('/api/manageRequestForm');
         }
 
         return formFactory;

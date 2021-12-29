@@ -40,8 +40,8 @@ var app = angular.module('appRoutes',['ngRoute'])
 
     .when('/edit/:id',{
         templateUrl : 'app/views/pages/manageRequestForm/edit.html',
-        controller : 'crudCtrl',
-        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'editForm1' 
+        controller : 'editCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
     })
 
     .when('/manageRequestForm',{

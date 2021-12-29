@@ -3,8 +3,7 @@ angular.module('crudControllers',['crudServices'])
 .controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope){
     var app = this;
 
-
-    Form.getAll().then(function(data){
+    Form.getForms().then(function(data){
         app.forms = data.data.forms;
     })
 
@@ -35,21 +34,8 @@ angular.module('crudControllers',['crudServices'])
         })
 
     }
-
-    Form.getForm($routeParams.id).then(function(data) {
-        console.log('sawaddee : '+data.data.title)
-        console.log('sawaddeeeeee : '+$routeParams.id)
-        if(data.data.success){
-            console.log('sawaddee kub success : '+data.data.title)
-            $scope.newTitle = data.data.forms.title;
-            $scope.newTerm = data.data.forms.term;
-            $scope.newTel = data.data.forms.tel;
-            $scope.newYear = data.data.forms.year;
-            $scope.newStudentId = data.data.forms.studentId;
-            $scope.newStudentName = data.data.forms.studentName;
-            $scope.newDescription = data.data.forms.description;
-        }
-    })
+    
+    
 
     // app.updateForm = function(regData){
     //     Form.updateForm().then(function(data))
@@ -57,7 +43,7 @@ angular.module('crudControllers',['crudServices'])
 
     app.approveRequestForm = function(id){
         Form.approve(id).then(function(data){
-            Form.getAll().then(function(data){
+            Form.getForms().then(function(data){
                 app.forms = data.data.forms;
                 console.log('approve-RequestForm');
             })
@@ -66,12 +52,71 @@ angular.module('crudControllers',['crudServices'])
 
     app.deleteRequestForm = function(id){
         Form.delete(id).then(function(data){
-            Form.getAll().then(function(data){
+            Form.getForms().then(function(data){
                 app.forms = data.data.forms;
+                console.log('delete-RequestForm');
             })
-            console.log('delete-RequestForm');
         })
     }
 
    
+})
+
+.controller('editCtrl',function(Form,$routeParams,$scope){
+    var app=this;
+
+
+    function getForm(){
+        Form.getForm($routeParams.id).then(function(data) {
+            console.log('sawaddee : '+data.data.title)
+            console.log('sawaddeeeeee : '+$routeParams.id)
+            if(data.data.success){
+                // console.log('newStudentId : '+data.data.form.studentId)
+                // console.log('newStudentNames : '+data.data.form.studentName)
+                // console.log('newTitle : '+data.data.form.title)
+                // console.log('newTerm : '+data.data.form.term)
+                // console.log('newYear : '+data.data.form.year)
+                // console.log('newTel : '+data.data.form.tel)
+                // console.log('newDescription : '+data.data.form.description)
+                $scope.newTitle = data.data.form.title;
+                $scope.newTerm = data.data.form.term;
+                $scope.newTel = data.data.form.tel;
+                $scope.newYear = data.data.form.year;
+                $scope.newStudentId = data.data.form.studentId;
+                $scope.newStudentName = data.data.form.studentName;
+                $scope.newDescription = data.data.form.description;
+            }else{
+                console.log('notsuccess')
+            }
+        })
+    }
+
+    getForm();
+
+    app.updateRequestForm = function(){
+        var formObject = {};
+
+        formObject.title = $scope.newTitle;
+        formObject.term = $scope.newTerm;
+        formObject.tel = $scope.newTel;
+        formObject.year = $scope.newYear;
+        formObject.studentId = $scope.newStudentId;
+        formObject.studentName = $scope.newStudentName;
+        formObject.description = $scope.newDescription;
+        Form.update($routeParams.id,formObject).then(function(data){
+            if(data.data.success){
+                console.log('Success Update')
+            }else{
+                console.log('Noooooo')
+            }
+        })
+        getForm();
+
+    }
+
+
+
+
+
+
 })

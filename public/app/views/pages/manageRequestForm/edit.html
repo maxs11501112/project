@@ -15,55 +15,55 @@
         </div>
 
 
-        <form ng-submit='editForm1.updateForm(regData)'>
+        <form ng-submit='edit.updateRequestForm(regData)'>
                 
             <div class="col-6">
 
 
             <!-- stdregData -->
             <label>รหัสนักศึกษา :</label>
-                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='editForm1.regData.studentId'>
+                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
             <br>
 
             <!-- stdName -->
             <label>ชื่อ-นามสกุล :</label>
-                <input class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='editForm1.regData.studentName'>
+                <input class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
             <br>
 
             <!-- Title -->
             <label>เรื่อง :</label>
-                <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='editForm1.regData.title'>
+                <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
             <br>
 
             <!-- Term -->
             <label for="term 0">เทอมต้น :</label>
-                <input type="radio" regData="0" name="term" value="ต้น" ng-model='editForm1.regData.term'>
+                <input type="radio" regData="0" name="term" value="ต้น" ng-model='newTerm'>
             <br>
 
             <!-- Term -->
             <label for="term 1">เทอมปลาย :</label>
-                <input type="radio" regData="1" name="term" value="ปลาย" ng-model='editForm1.regData.term'>
+                <input type="radio" regData="1" name="term" value="ปลาย" ng-model='newTerm'>
             <br>
 
             <!-- Term -->
             <label for="term 2">ซัมเมอร์ :</label>
-                <input type="radio" regData="2" name="term" value="ซัมเมอร์" ng-model='editForm1.regData.term'>
+                <input type="radio" regData="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
             <br>
             <br>
                 
             <!-- Year -->
             <label>ชั้นปี :</label>
-                <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='editForm1.regData.year'>
+                <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
             <br>
                 
             <!-- Tel -->
             <label>เบอร์โทรศัพท์ :</label>
-                <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='editForm1.regData.tel'>
+                <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
             <br>
             </div>
 
             <label>รายละเอียด:</label>
-            <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='editForm1.regData.description'>
+            <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'>
             </textarea> 
             <br/>
 

@@ -15,19 +15,12 @@ module.exports = function(router){
 
 
     //get all Request Form
-    router.get('/get-all',function(req,res){
+    router.get('/manageRequestForm',function(req,res){
         requestForm.find({},function(err,forms) {
             if (err) throw err;
             else{
                 res.json({ forms: forms})
             }
-        })
-    })
-
-    router.post('/get-permission',function(req,res){
-        User.findOne({ username:req.decoded.username },function(err,permission) {
-            if (err) throw err
-                res.send({ permission:permission })
         })
     })
 
@@ -66,8 +59,8 @@ module.exports = function(router){
 
 
     //update Request Form
-    router.get('/update-RequestForm/:id',function(req, res){
-        editRequestForm = req.body.title
+    router.put('/update-RequestForm/:id',function(req, res){
+        editRequestForm = req.params.id
         if (req.body.title) var newTitle = req.body.title
         if (req.body.term) var newTerm = req.body.term
         if (req.body.year) var newYear = req.body.year
@@ -82,18 +75,86 @@ module.exports = function(router){
                     res.json({success : true})
                 }
         })
+        // if (req.body.title) {
+        // var newTitle = req.body.title
+        // requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle}),function(err){
+        //     if (err) {
+        //         console.log(err)
+        //     }else{
+        //         res.json({success : true})
+        //     }
+        // })    
+        // }
+        // if (req.body.term) {
+        //     var newTerm = req.body.term
+        //     requestForm.findByIdAndUpdate(editRequestForm,({term : newTerm}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
+        // if (req.body.year) {
+        //     var newYear = req.body.year
+        //     requestForm.findByIdAndUpdate(editRequestForm,({year : newYear}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
+        // if (req.body.tel) {
+        //     var newTel = req.body.tel
+        //     requestForm.findByIdAndUpdate(editRequestForm,({tel : newTel}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
+        // if (req.body.description) {
+        //     var newDescription = req.body.description
+        //     requestForm.findByIdAndUpdate(editRequestForm,({description : newDescription}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
+        // if (req.body.studentId) {
+        //     var newStudentId = req.body.studentId
+        //     requestForm.findByIdAndUpdate(editRequestForm,({studentId : newStudentId}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
+        // if (req.body.studentName) {
+        //     var newStudentName = req.body.studentName
+        //     requestForm.findByIdAndUpdate(editRequestForm,({studentName : newStudentName}),function(err){
+        //         if (err) {
+        //             console.log(err)
+        //         }else{
+        //             res.json({success : true})
+        //         }
+        //     }) 
+        // }
     })
 
     router.get('/edit/:id', function(req,res){
         requestForm.findOne({ _id : req.params.id},function(err,form){
             if (err) throw err;
-
-            res.json({ success: true ,title: form. title });
-            // if (!form){
-            //     res.json({ success : true})
-            // }else{
-            //     res.json({ success : true ,title : form.title})
-            // }
+            if (!form){
+                res.json({ success : false})
+            }else{
+                res.json({ success : true ,form : form})
+            }
         })
     })
 
@@ -250,6 +311,8 @@ module.exports = function(router){
             }
         })
     })
+
+    
 
     return router;
 
