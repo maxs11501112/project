@@ -70,81 +70,11 @@ module.exports = function(router){
         if (req.body.studentName) var newStudentName = req.body.studentName
         requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName}),function(err){
                 if (err) {
-                    console.log(err)
+                    res.json({success : false,message : 'Error : '+err})
                 }else{
-                    res.json({success : true})
+                    res.json({success : true,message : 'Data has been Updated successfully'})
                 }
         })
-        // if (req.body.title) {
-        // var newTitle = req.body.title
-        // requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle}),function(err){
-        //     if (err) {
-        //         console.log(err)
-        //     }else{
-        //         res.json({success : true})
-        //     }
-        // })    
-        // }
-        // if (req.body.term) {
-        //     var newTerm = req.body.term
-        //     requestForm.findByIdAndUpdate(editRequestForm,({term : newTerm}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
-        // if (req.body.year) {
-        //     var newYear = req.body.year
-        //     requestForm.findByIdAndUpdate(editRequestForm,({year : newYear}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
-        // if (req.body.tel) {
-        //     var newTel = req.body.tel
-        //     requestForm.findByIdAndUpdate(editRequestForm,({tel : newTel}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
-        // if (req.body.description) {
-        //     var newDescription = req.body.description
-        //     requestForm.findByIdAndUpdate(editRequestForm,({description : newDescription}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
-        // if (req.body.studentId) {
-        //     var newStudentId = req.body.studentId
-        //     requestForm.findByIdAndUpdate(editRequestForm,({studentId : newStudentId}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
-        // if (req.body.studentName) {
-        //     var newStudentName = req.body.studentName
-        //     requestForm.findByIdAndUpdate(editRequestForm,({studentName : newStudentName}),function(err){
-        //         if (err) {
-        //             console.log(err)
-        //         }else{
-        //             res.json({success : true})
-        //         }
-        //     }) 
-        // }
     })
 
     router.get('/edit/:id', function(req,res){
@@ -166,16 +96,17 @@ module.exports = function(router){
                 return next(error);
             }else{
                 res.status(200).json({
-                    msg: data
+                    message : 'Deleted Success',
+                    success : true
                 });
             }
         })
     })
 
-    //approve Request Form
-    router.get('/approve-RequestForm/:id',function(req, res){
+    //submit Request Form
+    router.get('/submit-RequestForm/:id',function(req, res){
         var approveRequestForm = req.params.id;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit'}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit',isSubmit: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
@@ -286,7 +217,7 @@ module.exports = function(router){
                             res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name })
                         }
                     }else{
-                        res.json({ success: false, message: 'Insufficient Permissions' })
+                        res.json({ success: false, names: mainUser.name , message: 'Insufficient Permissions' })
                     }
                 }
             })

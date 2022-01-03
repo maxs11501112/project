@@ -44,8 +44,8 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
     })
 
-    .when('/manageRequestForm',{
-        templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm.html',
+    .when('/requestFormList',{
+        templateUrl : 'app/views/pages/manageRequestForm/requestFormList.html',
         controller : 'crudCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })

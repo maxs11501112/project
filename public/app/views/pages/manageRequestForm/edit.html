@@ -6,57 +6,140 @@
 </head>
 
 <div class="container">
+
     <div class="row justify-content-center align-items-center" style="height:80vh">
 
-    <div class="col-10">
+        <div class="col-7">
 
         <div class="page-header">
-            <h1>แก้ไขใบคำร้อง</h1> 
+            <h1>การจัดการใบคำร้อง</h1> 
         </div>
 
 
         <form ng-submit='edit.updateRequestForm(regData)'>
+            <div class="row">
+                <div class="col">
+                    <label>รหัสนักศึกษา :</label>
+                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
+                </div>
+                <div class="col">
+                    <label>ชื่อ-นามสกุล :</label>
+                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
+                </div>
+            </div>
+
+            <br>
+            
+            <div class="row">
+                <div class="col">
+                    <label>เรื่อง :</label>
+                    <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
+                </div>
+                <div class="col">
+                    <label>ชั้นปี :</label>
+                    <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>เบอร์โทรศัพท์ :</label>
+                    <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
+                </div>
+                <div class="col col-md-2">
+                    <label for="term 0">เทอมต้น :</label><br>
+                    <input type="radio" id="0" name="term" value="ต้น" ng-model='newTerm'>
+                </div>
+                <div class="col col-md-2">
+                    <label for="term 1">เทอมปลาย :</label><br>
+                    <input type="radio" id="1" name="term" value="ปลาย" ng-model='newTerm'>
+                </div>
+                <div class="col col-md-2">
+                    <label for="term 2">ซัมเมอร์ :</label><br>
+                    <input type="radio" id="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>รายละเอียด :</label>
+                    <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'></textarea> 
+                </div>
+            </div>
+
+            <br>
+
+                
+            <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
+            <button type="button" ng-click="edit.submitRequestForm()" class="btn btn-success">ส่งใบคำร้อง</button>
+            <button type="button" ng-click="edit.deleteRequestForm()" class="btn btn-danger">ลบ</button>
+        
+        </form>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- อันเก่า VVVVVVV 
                 
             <div class="col-6">
 
 
-            <!-- stdregData -->
             <label>รหัสนักศึกษา :</label>
                 <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
             <br>
 
-            <!-- stdName -->
             <label>ชื่อ-นามสกุล :</label>
                 <input class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
             <br>
 
-            <!-- Title -->
             <label>เรื่อง :</label>
                 <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
             <br>
 
-            <!-- Term -->
             <label for="term 0">เทอมต้น :</label>
                 <input type="radio" regData="0" name="term" value="ต้น" ng-model='newTerm'>
             <br>
 
-            <!-- Term -->
             <label for="term 1">เทอมปลาย :</label>
                 <input type="radio" regData="1" name="term" value="ปลาย" ng-model='newTerm'>
             <br>
 
-            <!-- Term -->
             <label for="term 2">ซัมเมอร์ :</label>
                 <input type="radio" regData="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
             <br>
             <br>
                 
-            <!-- Year -->
             <label>ชั้นปี :</label>
                 <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
             <br>
                 
-            <!-- Tel -->
             <label>เบอร์โทรศัพท์ :</label>
                 <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
             <br>
@@ -65,14 +148,16 @@
             <label>รายละเอียด:</label>
             <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'>
             </textarea> 
-            <br/>
+            <br/>-->
 
-                
-            <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
 
-        </form>
 
-        <br>
+
+
+
+
+
+
     <!--
         <div class="text-center" ng-show='main.loading' >
             <div class="spinner-border" role="status">
@@ -92,8 +177,3 @@
             <div class="alert alert-danger"> {{ editForm1.errorMsg }}  </div>
         </div>
         -->
-
-    </div>
-
-    </div>
-</div>

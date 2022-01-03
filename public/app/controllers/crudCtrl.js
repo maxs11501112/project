@@ -17,12 +17,13 @@ angular.module('crudControllers',['crudServices'])
             if(data.data.success){
                 app.loading =false
                 //create success Msg
+                alert('success : '+data.data.message)
                 console.log('success : '+data.data.message);
                 app.successMsg = data.data.message;
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page
-                    $location.path('/manageRequestForm')
+                    $location.path('/requestFormList')
                 },2000)
             }else{
                 app.loading =false
@@ -35,49 +36,67 @@ angular.module('crudControllers',['crudServices'])
 
     }
     
+
     
-
-    // app.updateForm = function(regData){
-    //     Form.updateForm().then(function(data))
-    // }
-
-    app.approveRequestForm = function(id){
-        Form.approve(id).then(function(data){
-            Form.getForms().then(function(data){
-                app.forms = data.data.forms;
-                console.log('approve-RequestForm');
-            })
-        })
-    }
-
-    app.deleteRequestForm = function(id){
-        Form.delete(id).then(function(data){
-            Form.getForms().then(function(data){
-                app.forms = data.data.forms;
-                console.log('delete-RequestForm');
-            })
-        })
-    }
 
    
 })
 
-.controller('editCtrl',function(Form,$routeParams,$scope){
+.controller('editCtrl',function(Form,$routeParams,$scope,$timeout,$location){
     var app=this;
 
+    app.submitRequestForm = function(){
+        Form.submit($routeParams.id).then(function(data){
+            if(data.data.success){
+                app.loading =false
+                //create success Msg
+                console.log('success : '+data.data.message);
+                app.successMsg = data.data.message;
+                // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                $timeout(function(){
+                //redirect to home page
+                    $location.path('/requestFormList')
+                },1000)
+            }else{
+                app.loading =false
+                app.errorMsg = data.data.message;
+                console.log('error : '+data.data.message);
+            }
+            // Form.getForms().then(function(data){
+            //     app.forms = data.data.forms;
+            //     console.log('approve-RequestForm');
+            // })
+        })
+    }
+
+    app.deleteRequestForm = function(){
+        Form.delete($routeParams.id).then(function(data){
+            if(data.data.success){
+                app.loading =false
+                //create success Msg
+                console.log('success : '+data.data.message);
+                app.successMsg = data.data.message;
+                // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                $timeout(function(){
+                //redirect to home page
+                    $location.path('/requestFormList')
+                },1000)
+            }else{
+                app.loading =false
+                app.errorMsg = data.data.message;
+                console.log('error : '+data.data.message);
+            }
+            // Form.getForms().then(function(data){
+            //     app.forms = data.data.forms;
+            //     console.log('delete-RequestForm');
+            // })
+        })
+    }
 
     function getForm(){
         Form.getForm($routeParams.id).then(function(data) {
-            console.log('sawaddee : '+data.data.title)
-            console.log('sawaddeeeeee : '+$routeParams.id)
             if(data.data.success){
-                // console.log('newStudentId : '+data.data.form.studentId)
-                // console.log('newStudentNames : '+data.data.form.studentName)
-                // console.log('newTitle : '+data.data.form.title)
-                // console.log('newTerm : '+data.data.form.term)
-                // console.log('newYear : '+data.data.form.year)
-                // console.log('newTel : '+data.data.form.tel)
-                // console.log('newDescription : '+data.data.form.description)
+                console.log('success to get form')
                 $scope.newTitle = data.data.form.title;
                 $scope.newTerm = data.data.form.term;
                 $scope.newTel = data.data.form.tel;
@@ -86,7 +105,7 @@ angular.module('crudControllers',['crudServices'])
                 $scope.newStudentName = data.data.form.studentName;
                 $scope.newDescription = data.data.form.description;
             }else{
-                console.log('notsuccess')
+                console.log('fail to get form')
             }
         })
     }
@@ -94,6 +113,8 @@ angular.module('crudControllers',['crudServices'])
     getForm();
 
     app.updateRequestForm = function(){
+        app.loading = true
+        app.errorMsg = false
         var formObject = {};
 
         formObject.title = $scope.newTitle;
@@ -105,12 +126,22 @@ angular.module('crudControllers',['crudServices'])
         formObject.description = $scope.newDescription;
         Form.update($routeParams.id,formObject).then(function(data){
             if(data.data.success){
-                console.log('Success Update')
+                app.loading =false
+                //create success Msg
+                console.log('success : '+data.data.message);
+                app.successMsg = data.data.message;
+                // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                $timeout(function(){
+                //redirect to home page
+                    $location.path('/requestFormList')
+                },1000)
             }else{
-                console.log('Noooooo')
+                app.loading =false
+                app.errorMsg = data.data.message;
+                console.log('error : '+data.data.message);
             }
         })
-        getForm();
+        
 
     }
 

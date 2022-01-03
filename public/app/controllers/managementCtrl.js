@@ -16,6 +16,7 @@ angular.module('managementController',['userServices'])
             console.log('Username : '+data.data.username)
             console.log('Email : '+data.data.email)
             console.log('Permission : '+data.data.permissions)
+            console.log('Name : '+data.data.names)
             if(data.data.success){
                 if(data.data.permissions ==='advisor' || data.data.permissions ==='executive'){
                     console.log('aaaaaa : '+data.data.permissions)

@@ -34,6 +34,10 @@ var requestFormSchema = new Schema({
         type : String,
         default : "un-submit"
     },
+    isSubmit: {
+        type : Boolean,
+        default : false
+    },
     advisorComment: {
         type : String
     },

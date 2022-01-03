@@ -1,18 +1,21 @@
 angular.module('mainController',['authServices','userServices'])
 
-.controller('mainCtrl',function(User,Auth, $location, $timeout, $rootScope){
+.controller('mainCtrl',function(User,Auth, $location, $timeout, $rootScope,Form){
     var app =this;
     app.loadme = false
     app.isAdvisor = false
-    app.isSubmit = false
+    app.name;
 
 
     $rootScope.$on('$routeChangeStart', function(){
 
         User.getUsers().then(function(data){
             app.users = data.data.users;
+            app.name = data.data.names;
             if(data.data.permissions ==='advisor'||data.data.permissions ==='executive'){
                 app.isAdvisor = true
+            }else{
+                app.isAdvisor = false
             }
 
         })

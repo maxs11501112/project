@@ -15,8 +15,8 @@ angular.module('crudServices',[])
         }
 
         //approve Request Form
-        formFactory.approve = function(id){
-            return $http.get('/api/approve-RequestForm/'+id)
+        formFactory.submit = function(id){
+            return $http.get('/api/submit-RequestForm/'+id)
         }
 
         //delete Request Form

@@ -44,7 +44,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center">
           <li class="headMenu"><a href="/" class="nav-link px-4 link-warning">หน้าแรก</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn' href="/create" class="nav-link px-4 link-warning">สร้างใบคำร้อง</a></li>
-          <li class="headMenu"><a ng-show='main.isLoggedIn && !main.isAdvisor' href="/manageRequestForm" class="nav-link px-4 link-warning">จัดการใบคำร้อง</a></li>
+          <li class="headMenu"><a ng-show='main.isLoggedIn && !main.isAdvisor' href="/requestFormList" class="nav-link px-4 link-warning">รายการคำร้อง</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && main.isAdvisor' href="/user_data" class="nav-link px-4 link-warning">ข้อมูลผู้ใช้งาน</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && main.isAdvisor' href="/manageRequestForm-Advisor" class="nav-link px-4 link-warning">จัดการใบคำร้อง</a></li>
         </ul>
