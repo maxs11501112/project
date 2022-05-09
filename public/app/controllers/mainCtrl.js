@@ -14,6 +14,8 @@ angular.module('mainController',['authServices','userServices'])
         User.getUsers().then(function(data){
             app.users = data.data.users;
             app.name = data.data.names;
+            app.permissions = data.data.permissions;
+            app.branch = data.data.branch;
             if(data.data.permissions ==='advisor'){
                 app.isAdvisor = true
             }else{

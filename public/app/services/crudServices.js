@@ -52,6 +52,11 @@ angular.module('crudServices',[])
         formFactory.getForms = function(){
             return $http.get('/api/manageRequestForm');
         }
+
+        //send Email
+        formFactory.sendEmail = function(){
+            return $http.get('/api/sendNotification')
+        }
         
         return formFactory;
     })

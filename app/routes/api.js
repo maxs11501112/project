@@ -10,9 +10,38 @@ const form = express.Router();
 var jwt = require('jsonwebtoken');
 var user = require('../models/user');
 var secret = 'MaxDekHere';
+var nodemailer = require('nodemailer');
+var sender = "request_form_utcc@outlook.co.th";
+var s_pass = "022746579tT";
+var recipient = "tonasds007@hotmail.com";
+
+var transporter = nodemailer.createTransport({
+    service: "outlook",
+    auth: {
+        user: sender,
+        pass: s_pass
+    }
+});
 
 module.exports = function(router){
 
+    router.get('/sendNotification',function(req,res){
+        var options = {
+            from: "tonasds007@hotmail.com",
+            to: "tonkungzaza007@gmail.com",
+            subject: "Sending email with nodemailer",
+            text: "test! Wow it's work!!"
+        };
+
+        transporter.sendMail(options, function (err,info){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log("Sent: " + info.response);
+        })
+
+    })
 
     //get all Request Form
     router.get('/manageRequestForm',function(req,res){
@@ -53,6 +82,19 @@ module.exports = function(router){
         request.studentId = req.body.studentId
         request.studentName = req.body.studentName
         request.create = new Date().toLocaleString();
+        // request.branch = req.body.branch
+        // req.body.studentID.slice(9, 10)
+        var temp = req.body.studentId;
+        var br = temp.substr(9,1);;
+        if (br==1){
+            request.branch = "EE"
+        }else if (br==2){
+            request.branch = "CPE"
+        }else if (br==3){
+            request.branch = "LE"
+        }else{
+            request.branch = "unknows"
+        }
         if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' '||req.body.studentName== null|| req.body.studentName == ' ' ){
             res.json({ success : false, message : 'Please ensure data were provided'})
             
@@ -125,6 +167,22 @@ module.exports = function(router){
                     res.json({ success : false, message : 'Submit error'})
                 }
                 else{
+
+                    var options = {
+                        from: sender,
+                        to: recipient,
+                        subject: "Request form",
+                        text: "The request is awaiting your approval. \nPlease click 'http://localhost:8000/' to approve or reject."
+                    };
+
+                    transporter.sendMail(options, function (err,info){
+                        if(err){
+                            console.log(err);
+                            return;
+                        }
+                        console.log("Sent: " + info.response);
+                    })
+
                     res.json({ success : true, message : 'Submit!!'})
                 }
         })
@@ -280,7 +338,7 @@ module.exports = function(router){
                         if(!user){
                             res.json({ success : false, message: 'Users not found'});
                         }else{
-                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name })
+                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name, branch: mainUser.branch})
                         }
                     }else{
                         res.json({ success: false, names: mainUser.name , message: 'Insufficient Permissions' })

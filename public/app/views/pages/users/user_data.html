@@ -33,10 +33,10 @@
     <br> -->
 
     <div class="panel panel-success">
-        <div class="panel-heading" style="text-align: center;"><strong>User</strong></div> 
+        <div class="panel-heading" style="text-align: center;"><strong>ผู้ใช้งาน</strong></div> 
         
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <td align="center" scope="col">Name</th>
@@ -59,25 +59,6 @@
                     </tr>
                 </tbody>
             </table>
-
-
-            <div class="text-center" ng-show='main.loading' >
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden"></span>
-                </div>
-                <h3>Loading....</h3>
-            </div>
-
-
-            <div class="row show-hide-message" ng-show="register.successMsg">
-                <div class="alert alert-success">  {{ register.successMsg }}</div>
-            </div>
-
-            <br>
-
-            <div class="row show-hide-message" ng-show="register.errorMsg">
-                <div class="alert alert-danger"> {{ register.errorMsg }}  </div>
-            </div>
         </div>
     </div>
     </div>

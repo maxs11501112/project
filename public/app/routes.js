@@ -50,6 +50,12 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
+    .when('/requestFormList-Admin',{
+        templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Admin.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
+    })
+
     .when('/requestFormList-Advisor',{
         templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Advisor.html',
         controller : 'crudCtrl',
