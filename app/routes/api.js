@@ -24,6 +24,17 @@ module.exports = function(router){
         })
     })
 
+    //get all Request Form
+    router.get('/getOne/:id',function(req,res){
+        _id = req.params.id
+        requestForm.findById(_id,function(err,forms) {
+            if (err) throw err;
+            else{
+                res.json({ forms: forms})
+            }
+        })
+    })
+
     router.get('/get-all-user',function(req,res){
         User.find({},function(err,users) {
             if (err) throw err;
@@ -41,6 +52,7 @@ module.exports = function(router){
         request.description = req.body.description
         request.studentId = req.body.studentId
         request.studentName = req.body.studentName
+        request.create = new Date().toLocaleString();
         if (req.body.title == null || req.body.title == ' ' ||req.body.term == null  || req.body.term == ' ' ||req.body.year== null|| req.body.year == ' ' ||req.body.tel== null|| req.body.tel == ' ' ||req.body.studentId== null|| req.body.studentId == ' '||req.body.studentName== null|| req.body.studentName == ' ' ){
             res.json({ success : false, message : 'Please ensure data were provided'})
             
@@ -68,7 +80,9 @@ module.exports = function(router){
         if (req.body.description) var newDescription = req.body.description
         if (req.body.studentId) var newStudentId = req.body.studentId
         if (req.body.studentName) var newStudentName = req.body.studentName
-        requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName}),function(err){
+        if (req.body.advisorComment) var newAdvisorComment = req.body.advisorComment
+        if (req.body.executiveComment) var newExecutiveComment = req.body.executiveComment
+        requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName,advisorComment : newAdvisorComment,executiveComment : newExecutiveComment}),function(err){
                 if (err) {
                     res.json({success : false,message : 'Error : '+err})
                 }else{
@@ -108,10 +122,62 @@ module.exports = function(router){
         var approveRequestForm = req.params.id;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit',isSubmit: true}) ,function(err) {
                 if(err){
+                    res.json({ success : false, message : 'Submit error'})
+                }
+                else{
+                    res.json({ success : true, message : 'Submit!!'})
+                }
+        })
+    })
+
+    //Approve Request Form (Advisor)
+    router.get('/approve-RequestForm-Advisor/:id',function(req, res){
+        var approveRequestForm = req.params.id;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(advisor)',advisorApprove: true}) ,function(err) {
+                if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
                 else{
-                    res.json({ success : true, message : 'Approved!!'})
+                    res.json({ success : true, message : 'Approve!!'})
+                }
+        })
+    })
+
+    //Reject Request Form (Advisor)
+    router.get('/reject-RequestForm-Advisor/:id',function(req, res){
+        var approveRequestForm = req.params.id;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'rejected',advisorApprove: false,isSubmit: false}) ,function(err) {
+                if(err){
+                    res.json({ success : false, message : 'reject error'})
+                }
+                else{
+                    res.json({ success : true, message : 'reject!!'})
+                }
+        })
+    })
+
+    //Approve Request Form (Executive)
+    router.get('/approve-RequestForm-Executive/:id',function(req, res){
+        var approveRequestForm = req.params.id;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(executive)',executiveApprove: true}) ,function(err) {
+                if(err){
+                    res.json({ success : false, message : 'Approve error'})
+                }
+                else{
+                    res.json({ success : true, message : 'Approve!!'})
+                }
+        })
+    })
+
+    //Reject Request Form (Executive)
+    router.get('/reject-RequestForm-Executive/:id',function(req, res){
+        var approveRequestForm = req.params.id;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'rejected',executiveApprove: false,advisorApprove: false,isSubmit: false}) ,function(err) {
+                if(err){
+                    res.json({ success : false, message : 'reject error'})
+                }
+                else{
+                    res.json({ success : true, message : 'reject!!'})
                 }
         })
     })
@@ -210,7 +276,7 @@ module.exports = function(router){
                 if(!mainUser){
                     res.json({ success: false, message: 'No user not found'});
                 }else{
-                    if (mainUser.permission === 'advisor' || mainUser.permission === 'executive'){
+                    if (mainUser.permission === 'advisor' || mainUser.permission === 'executive' || mainUser.permission === 'admin'){
                         if(!user){
                             res.json({ success : false, message: 'Users not found'});
                         }else{

@@ -59,5 +59,13 @@ li.headMenu a:hover {
     color: rgb(0, 0, 0);
 }
 
+button.btn-custom1 {
+    background-color: rgba(248, 217, 80, 0.89);
+    color:rgb(0, 0, 0)
+}
 
+button.btn-custom2 {
+    background-color: rgba(248, 189, 80, 0.637);
+    color:rgba(0, 0, 0, 0.377)
+}
 

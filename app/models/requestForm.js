@@ -32,9 +32,17 @@ var requestFormSchema = new Schema({
     },
     formStatus: {
         type : String,
-        default : "un-submit"
+        default : "created"
     },
     isSubmit: {
+        type : Boolean,
+        default : false
+    },
+    advisorApprove: {
+        type : Boolean,
+        default : false
+    },
+    executiveApprove: {
         type : Boolean,
         default : false
     },
@@ -43,8 +51,20 @@ var requestFormSchema = new Schema({
     },
     executiveComment: {
         type : String
+    },
+    createDate: {
+        type : String
+    },
+    create: {
+        type : String
+    },
+    advisorApprove: {
+        type : String
+    },
+    executiveApprove: {
+        type : String
     }
 
 })
 
-module.exports= mongoose.model('requestForm',requestFormSchema)
+module.exports = mongoose.model('requestForm',requestFormSchema)

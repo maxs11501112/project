@@ -9,7 +9,7 @@
 
     <div class="col-50">
 
-<div class="page-header" align = 'center'>
+<div class="page-header">
     <h1>รายการคำร้อง</h1>
 </div>
 
@@ -34,7 +34,7 @@
             </thead>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms | filter: main.username">
+                <tr ng-repeat="form in crud.forms | filter: 'submit'">
                     <td align="center" scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
@@ -44,13 +44,9 @@
                     <td>{{form.description}}</td>
                     <td align="center">{{form.create}}</td>
                     <td align="center">{{form.formStatus}}</td>
-                    <td>
-                        <!--          ng-show="{{!form.isSubmit}}"           <button type="button" ng-click="crud.submitRequestForm(form._id)" class="btn btn-success">ยืนยัน</button> -->
-                        <a ng-show="{{!form.isSubmit}}" href="/edit/{{form._id}}"> <button type="button" class="btn btn-warning">จัดการใบคำร้อง</button></a>
-                        <a ng-show="{{form.isSubmit}}"> <button ng-disabled="true" type="button" class="btn btn-custom2">จัดการใบคำร้อง</button></a>
-                        <!-- <button type="button" ng-click="crud.deleteRequestForm(form._id)" class="btn btn-danger">ลบ</button> -->
+                    <td class="col-lg-auto justify-content-center d-flex">
+                        <a href="/approve-Advisor/{{form._id}}"> <button type="button" class="btn btn-warning">จัดการใบคำร้อง</button></a>
                     </td>
-                    
                 </tr>
             </tbody>
         </table>

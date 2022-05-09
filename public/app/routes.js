@@ -50,12 +50,29 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
-    .when('/manageRequestForm-Advisor',{
-        templateUrl : 'app/views/pages/manageRequestForm/manageRequestForm-Advisor.html',
+    .when('/requestFormList-Advisor',{
+        templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Advisor.html',
         controller : 'crudCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
+    .when('/approve-Advisor/:id',{
+        templateUrl : 'app/views/pages/manageRequestForm/approve-Advisor.html',
+        controller : 'editCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
+    })
+
+    .when('/requestFormList-Executive',{
+        templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Executive.html',
+        controller : 'crudCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
+    })
+
+    .when('/approve-Executive/:id',{
+        templateUrl : 'app/views/pages/manageRequestForm/approve-Executive.html',
+        controller : 'editCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
+    })
 
     .when('/user_data',{
         templateUrl : 'app/views/pages/users/user_data.html',

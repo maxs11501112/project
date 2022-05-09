@@ -4,6 +4,8 @@ angular.module('mainController',['authServices','userServices'])
     var app =this;
     app.loadme = false
     app.isAdvisor = false
+    app.isExecutive = false
+    app.isAdmin = false
     app.name;
 
 
@@ -12,12 +14,34 @@ angular.module('mainController',['authServices','userServices'])
         User.getUsers().then(function(data){
             app.users = data.data.users;
             app.name = data.data.names;
-            if(data.data.permissions ==='advisor'||data.data.permissions ==='executive'){
+            if(data.data.permissions ==='advisor'){
                 app.isAdvisor = true
             }else{
                 app.isAdvisor = false
             }
+            
+        })
 
+        User.getUsers().then(function(data){
+            app.users = data.data.users;
+            app.name = data.data.names;
+            if(data.data.permissions ==='executive'){
+                app.isExecutive = true
+            }else{
+                app.isExecutive = false
+            }
+            
+        })
+
+        User.getUsers().then(function(data){
+            app.users = data.data.users;
+            app.name = data.data.names;
+            if(data.data.permissions ==='admin'){
+                app.isAdmin = true
+            }else{
+                app.isAdmin = false
+            }
+            
         })
 
 

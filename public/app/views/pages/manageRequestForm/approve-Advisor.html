@@ -12,19 +12,19 @@
         <div class="col-7">
 
         <div class="page-header">
-            <h1>การจัดการใบคำร้อง</h1> 
+            <h1>การอนุมัติคำร้อง</h1> 
         </div>
 
 
-        <form ng-submit='edit.updateRequestForm(regData)'>
+        <form ng-submit='edit.approveRequestFormAdvisor()'>
             <div class="row">
                 <div class="col">
                     <label>รหัสนักศึกษา :</label>
-                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
+                    <input disabled="true" class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
                 </div>
                 <div class="col">
                     <label>ชื่อ-นามสกุล :</label>
-                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
+                    <input disabled="true" class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
                 </div>
             </div>
 
@@ -33,11 +33,11 @@
             <div class="row">
                 <div class="col">
                     <label>เรื่อง :</label>
-                    <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
+                    <input disabled="true" class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
                 </div>
                 <div class="col">
                     <label>ชั้นปี :</label>
-                    <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
+                    <input disabled="true" class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
                 </div>
             </div>
 
@@ -46,19 +46,19 @@
             <div class="row">
                 <div class="col">
                     <label>เบอร์โทรศัพท์ :</label>
-                    <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
+                    <input disabled="true" class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
                 </div>
                 <div class="col col-md-2">
                     <label for="term 0">เทอมต้น :</label><br>
-                    <input type="radio" id="0" name="term" value="ต้น" ng-model='newTerm'>
+                    <input disabled="true" type="radio" id="0" name="term" value="ต้น" ng-model='newTerm'>
                 </div>
                 <div class="col col-md-2">
                     <label for="term 1">เทอมปลาย :</label><br>
-                    <input type="radio" id="1" name="term" value="ปลาย" ng-model='newTerm'>
+                    <input disabled="true" type="radio" id="1" name="term" value="ปลาย" ng-model='newTerm'>
                 </div>
                 <div class="col col-md-2">
                     <label for="term 2">ซัมเมอร์ :</label><br>
-                    <input type="radio" id="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
+                    <input disabled="true" type="radio" id="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col">
                     <label>รายละเอียด :</label>
-                    <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'></textarea> 
+                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'></textarea> 
                 </div>
             </div>
 
@@ -76,32 +76,22 @@
             <div class="row">
                 <div class="col">
                     <label>ความเห็นอาจารย์ที่ปรึกษา :</label>
-                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="advisorComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newAdvisorComment'></textarea> 
+                    <textarea rows=”4”  cols= “6” class="form-control" type="text" name="advisorComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newAdvisorComment'></textarea> 
                 </div>
             </div>
 
             <br>
 
-            <div class="row">
-                <div class="col">
-                    <label>ความเห็นคณะบดี :</label>
-                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="executiveComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newExecutiveComment'></textarea> 
-                </div>
-            </div>
-
-            <br>
 
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
-                    <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
-                    <button type="button" ng-click="edit.submitRequestForm()" class="btn btn-success">ส่งใบคำร้อง</button>
-                    <button type="button" ng-click="edit.deleteRequestForm()" class="btn btn-danger">ลบ</button>
+                    <button class="btn btn-success" type="submit"">อนุมัติ</button>
+                    <button type="button" ng-click="edit.advisorRejectRequestForm()" class="btn btn-danger">ปฏิเสธ</button>
                 </div>
             </div>
         
+
         </form>
-        <br>
-        <br>
 
 
         </div>

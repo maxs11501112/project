@@ -17,7 +17,7 @@ app.use('/api',appRoutes)
 
 mongoose.set('setDefaultsOnInsert', false);
 
-mongoose.connect('mongodb://localhost:27017/tutoral',function(err){
+mongoose.connect('mongodb://root:12345678@localhost:27017/?authSource=admin',function(err){
     if (err){
         console.log('Can not connected to the database : '+err)
     }else{
