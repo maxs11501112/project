@@ -14,9 +14,13 @@ angular.module('userServices',[])
         userFactory.getUsers = function(){
             return $http.get('/api/management')
         }
-
+        
         userFactory.deleteUser = function(username){
             return $http.delete('/api/delete-User/' + username);
+        }
+
+        userFactory.getAdvisorEmail = function(branch,permission){
+            return $http.get('/api/get-Advisor-Email/' + branch + '/' + permission );
         }
 
         return userFactory;

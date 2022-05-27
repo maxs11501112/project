@@ -56,6 +56,12 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
+    .when('/view/:id',{
+        templateUrl : 'app/views/pages/manageRequestForm/view.html',
+        controller : 'editCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
+    })
+
     .when('/requestFormList-Advisor',{
         templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Advisor.html',
         controller : 'crudCtrl',
@@ -85,7 +91,7 @@ var app = angular.module('appRoutes',['ngRoute'])
         controller : 'managementCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'management',
         authenticated : true,
-        permission : [ 'advisor','executive']
+        permission : [ 'advisor','executive','admin']
     })
 
     .otherwise({ redirectTo: '/'})

@@ -20,21 +20,21 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <td align="center" scope="col">รหัสนักศึกษา</th>
-                    <td align="center" scope="col">ชื่อนักศึกษา</th>
-                    <td align="center" scope="col">เรื่อง</th>
-                    <td align="center" scope="col">เทอม</th>
-                    <td align="center" scope="col">ชั้นปี</th>
-                    <td align="center" scope="col">เบอร์โทรศัพท์</th>
-                    <td align="center" scope="col">รายละเอียด</th>
-                    <td align="center" scope="col">วันที่สร้าง</th>
-                    <td align="center" scope="col">สถานะ</th>
-                    <td align="center" scope="col">การจัดการ</th>
+                    <td align="center" ng-click="sort('studentId')" scope="col">รหัสนักศึกษา</td>
+                    <td align="center" scope="col">ชื่อนักศึกษา</td>
+                    <td align="center" scope="col">เรื่อง</td>
+                    <td align="center" scope="col">เทอม</td>
+                    <td align="center" ng-click="sort('year')" scope="col">ชั้นปี</td>
+                    <td align="center" scope="col">เบอร์โทรศัพท์</td>
+                    <td align="center" scope="col">รายละเอียด</td>
+                    <td align="center" ng-click="sort('create')" scope="col">วันที่สร้าง</td>
+                    <td align="center" ng-click="sort('formStatus')" scope="col">สถานะ</td>
+                    <td align="center" scope="col">การจัดการ</td>
                 </tr>
             </thead>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms | filter: main.branch | filter: 'submit'">
+                <tr ng-repeat="form in crud.forms | filter: main.branch | filter: 'submit' | orderBy: sortKey:reverse">
                     <td align="center" scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
@@ -44,7 +44,7 @@
                     <td>{{form.description}}</td>
                     <td align="center">{{form.create}}</td>
                     <td align="center">{{form.formStatus}}</td>
-                    <td class="col-lg-auto justify-content-center d-flex">
+                    <td align="center">
                         <a href="/approve-Advisor/{{form._id}}"> <button type="button" class="btn btn-warning">จัดการใบคำร้อง</button></a>
                     </td>
                 </tr>

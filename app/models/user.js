@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     email: {type : String, required:true , lowercase: true, unique: true },
     permission: {type : String, required:true },
     name: {type: String, required:true },
-    branch: {type: String, default: "EE"}
+    branch: {type: String}
 })
 
 UserSchema.pre('save', function(next) {

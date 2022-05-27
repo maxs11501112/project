@@ -10,12 +10,24 @@ const form = express.Router();
 var jwt = require('jsonwebtoken');
 var user = require('../models/user');
 var secret = 'MaxDekHere';
+
 var nodemailer = require('nodemailer');
+const { main } = require('@popperjs/core');
 var sender = "request_form_utcc@outlook.co.th";
 var s_pass = "022746579tT";
-var recipient = "tonasds007@hotmail.com";
+// var recipient = "tonasds007@hotmail.com";
 
 var transporter = nodemailer.createTransport({
+    // host: "smtp-mail.outlook.com", // hostname
+    // secureConnection: false, // TLS requires secureConnection to be false
+    // port: 587, // port for secure SMTP
+    // tls: {
+    //    ciphers:'SSLv3'
+    // },
+    // auth: {
+    //     user: sender,
+    //     pass: s_pass
+    // }
     service: "outlook",
     auth: {
         user: sender,
@@ -23,25 +35,9 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+
+
 module.exports = function(router){
-
-    router.get('/sendNotification',function(req,res){
-        var options = {
-            from: "tonasds007@hotmail.com",
-            to: "tonkungzaza007@gmail.com",
-            subject: "Sending email with nodemailer",
-            text: "test! Wow it's work!!"
-        };
-
-        transporter.sendMail(options, function (err,info){
-            if(err){
-                console.log(err);
-                return;
-            }
-            console.log("Sent: " + info.response);
-        })
-
-    })
 
     //get all Request Form
     router.get('/manageRequestForm',function(req,res){
@@ -159,20 +155,43 @@ module.exports = function(router){
         })
     })
 
+    //get advisor email
+    router.get('/get-Advisor-Email/:branch/:permission',function(req, res){
+        var branchs = req.params.branch;
+        var permissions = req.params.permission;
+        User.findOne({ branch: branchs, permission: permissions}, (error, data) => {
+            if (error) throw error;
+            if (!data){
+                res.json({ success : false})
+            }
+            else{
+                res.json({
+                    email: data.email,
+                    success: true
+                });
+            }
+        })
+    })
+
     //submit Request Form
-    router.get('/submit-RequestForm/:id',function(req, res){
+    router.get('/submit-RequestForm/:id/:branch',function(req, res){
         var approveRequestForm = req.params.id;
+        var branch = req.params.branch;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit',isSubmit: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Submit error'})
                 }
                 else{
+                    if(branch == 'EE') recipient = 'k.bunyasan1998@gmail.com';
+                    else if(branch == 'CPE') recipient = 'tonkungzaza007@gmail.com';
+                    else if(branch == 'LE') recipient = 'tonasds007@gmail.com';
 
+                    // Send E-mail
                     var options = {
                         from: sender,
                         to: recipient,
                         subject: "Request form",
-                        text: "The request is awaiting your approval. \nPlease click 'http://localhost:8000/' to approve or reject."
+                        text: "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Advisor/"+approveRequestForm+"' to approve or reject."
                     };
 
                     transporter.sendMail(options, function (err,info){
@@ -182,7 +201,6 @@ module.exports = function(router){
                         }
                         console.log("Sent: " + info.response);
                     })
-
                     res.json({ success : true, message : 'Submit!!'})
                 }
         })
@@ -314,16 +332,16 @@ module.exports = function(router){
         res.send( req.decoded )
     })
 
-    router.get('/permission',function(req,res){
-        User.findOne({ username: req.decoded.username },function(err,user){
-            if (err) throw err;
-            if(!user){
-                res.json({ success: false, message: 'No user not found'});
-            }else{
-                res.json({ success: true, permissions: user.permission });
-            }
-        })
-    })
+    // router.get('/permission',function(req,res){
+    //     User.findOne({ username: req.decoded.username },function(err,user){
+    //         if (err) throw err;
+    //         if(!user){
+    //             res.json({ success: false, message: 'No user not found'});
+    //         }else{
+    //             res.json({ success: true, permissions: user.permission });
+    //         }
+    //     })
+    // })
 
 
     router.get('/management',function(req,res){
@@ -334,11 +352,11 @@ module.exports = function(router){
                 if(!mainUser){
                     res.json({ success: false, message: 'No user not found'});
                 }else{
-                    if (mainUser.permission === 'advisor' || mainUser.permission === 'executive' || mainUser.permission === 'admin'){
+                    if (mainUser.permission === 'advisor' || mainUser.permission === 'executive' || mainUser.permission === 'admin'|| mainUser.permission === 'student'|| mainUser.permission === 'rd'){
                         if(!user){
                             res.json({ success : false, message: 'Users not found'});
                         }else{
-                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name, branch: mainUser.branch})
+                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name, branch: mainUser.branch, _id: mainUser._id})
                         }
                     }else{
                         res.json({ success: false, names: mainUser.name , message: 'Insufficient Permissions' })

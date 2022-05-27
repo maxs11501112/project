@@ -15,8 +15,8 @@ angular.module('crudServices',[])
         }
 
         //submit Request Form
-        formFactory.submit = function(id){
-            return $http.get('/api/submit-RequestForm/'+id)
+        formFactory.submit = function(id,branch){
+            return $http.get('/api/submit-RequestForm/'+id+'/'+branch)
         }
 
         //approve Request Form (Advisor)
@@ -51,11 +51,6 @@ angular.module('crudServices',[])
         //get all Request Form 
         formFactory.getForms = function(){
             return $http.get('/api/manageRequestForm');
-        }
-
-        //send Email
-        formFactory.sendEmail = function(){
-            return $http.get('/api/sendNotification')
         }
         
         return formFactory;

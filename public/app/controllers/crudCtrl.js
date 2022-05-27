@@ -1,4 +1,4 @@
-angular.module('crudControllers',['crudServices'])
+angular.module('crudControllers',['crudServices','userServices','authServices'])
 
 .controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope){
     var app = this;
@@ -6,6 +6,14 @@ angular.module('crudControllers',['crudServices'])
     Form.getForms().then(function(data){
         app.forms = data.data.forms;
     })
+
+    $scope.reverse = false;
+    $scope.sortKey = 'create';
+
+    $scope.sort = function (keyname) {
+        $scope.sortKey = keyname;
+        $scope.reverse = !$scope.reverse;
+    }
 
     app.createForm = function(regData){
         app.loading = true
@@ -28,40 +36,71 @@ angular.module('crudControllers',['crudServices'])
                 app.errorMsg = data.data.message;
                 console.log('error : '+data.data.message);
             }
-
-
         })
-
     }
-    
-
-    
-
-   
 })
 
-.controller('editCtrl',function(Form,$routeParams,$scope,$timeout,$location){
+.controller('editCtrl',function(Auth,User,Form,$routeParams,$scope,$timeout,$location){
     var app=this;
 
-    app.submitRequestForm = function(){
-        Form.submit($routeParams.id).then(function(data){
-            if(data.data.success){
-                app.loading =false
-                //create success Msg
-                console.log('success : '+data.data.message);
-                app.successMsg = data.data.message;
-                // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
-                $timeout(function(){
-                //redirect to home page
-                    $location.path('/requestFormList')
-                },1000)
-            }else{
-                app.loading =false
-                app.errorMsg = data.data.message;
-                console.log('error : '+data.data.message);
-            }
+    // app.getUser = function(){
+    //     Auth.getUser().then(function(data){
+    //         console.log('Username : '+data.data.username)
+    //         console.log('Email : '+data.data.email)
+    //         app.username = data.data.username
+    //         app.useremail = data.data.email
+    //         app.userbranch = data.data.branch
+    //     })
+    // }
+
+    app.getEmail = function(){
+        var b = 'CPE';
+        var p = 'advisor';
+        User.getAdvisorEmail(b,p).then(function(data){
+            alert(data.data.email);
+            console.log(data.data.success);
         })
     }
+
+    app.getUsers = function(){
+        User.getUsers().then(function(data){
+            app.users = data.data.users;
+            app.names = data.data.names;
+            app.branch = data.data.branch;
+            app.success = data.data.success;
+            app._id = data.data._id;
+        });
+    }
+
+    // this.getUser();
+    this.getUsers();
+
+    app.test = function(temp){
+        alert(temp);
+    }
+
+    app.submitRequestForm = function(branch){
+        User.getAdvisorEmail(b,p).then(
+            function(data){
+            Form.submit($routeParams.id,branch).then(function(data){
+                if(data.data.success){
+                    app.loading =false
+                    //create success Msg
+                    console.log('success : '+data.data.message);
+                    app.successMsg = data.data.message;
+                    // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                    $timeout(function(){
+                    //redirect to home page
+                        $location.path('/requestFormList')
+                    },1000)
+                }else{
+                    app.loading =false
+                    app.errorMsg = data.data.message;
+                    console.log('error : '+data.data.message);
+                }
+            })
+        }
+    )}
 
     app.deleteRequestForm = function(){
         Form.delete($routeParams.id).then(function(data){
@@ -249,14 +288,6 @@ angular.module('crudControllers',['crudServices'])
             }
         })
     }
-
-    app.test = function(){
-        var agree=confirm("Are you sure you wish to continue?");
-        if (agree)
-         return true ;
-        else
-         return false ;
-        }
 
 
 })

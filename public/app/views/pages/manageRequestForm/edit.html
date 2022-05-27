@@ -78,11 +78,6 @@
                     <label>ความเห็นอาจารย์ที่ปรึกษา :</label>
                     <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="advisorComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newAdvisorComment'></textarea> 
                 </div>
-            </div>
-
-            <br>
-
-            <div class="row">
                 <div class="col">
                     <label>ความเห็นคณะบดี :</label>
                     <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="executiveComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newExecutiveComment'></textarea> 
@@ -94,8 +89,9 @@
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
                     <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
-                    <button type="button" ng-click="edit.submitRequestForm()" class="btn btn-success">ส่งใบคำร้อง</button>
+                    <button type="button" ng-click="edit.submitRequestForm(edit.branch)" class="btn btn-success">ส่งใบคำร้อง</button>
                     <button type="button" ng-click="edit.deleteRequestForm()" class="btn btn-danger">ลบ</button>
+                    <button type="button" ng-click="edit.getEmail()" class="btn btn-warning">test</button>
                 </div>
             </div>
         
