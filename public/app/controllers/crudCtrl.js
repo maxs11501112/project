@@ -1,11 +1,25 @@
 angular.module('crudControllers',['crudServices','userServices','authServices'])
 
-.controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope){
+.controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope,User){
     var app = this;
+
+    app.getUsers = function(){
+        User.getUsers().then(function(data){
+            app.name = data.data.names;
+            app.username = data.data.usernames;
+
+            $scope.newStudentId = app.username;
+            $scope.newStudentName = app.name;
+        });
+    }
+
+    // this.getUser();
+    this.getUsers();
 
     Form.getForms().then(function(data){
         app.forms = data.data.forms;
     })
+
 
     $scope.reverse = false;
     $scope.sortKey = 'create';
@@ -18,6 +32,8 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     app.createForm = function(regData){
         app.loading = true
         app.errorMsg = false
+        app.regData.studentId = app.username;
+        app.regData.studentName = app.name;
         Form.create(app.regData).then(function(data){
 
             if(data.data.success){
@@ -43,20 +59,9 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
 .controller('editCtrl',function(Auth,User,Form,$routeParams,$scope,$timeout,$location){
     var app=this;
 
-    // app.getUser = function(){
-    //     Auth.getUser().then(function(data){
-    //         console.log('Username : '+data.data.username)
-    //         console.log('Email : '+data.data.email)
-    //         app.username = data.data.username
-    //         app.useremail = data.data.email
-    //         app.userbranch = data.data.branch
-    //     })
-    // }
-
-    app.getEmail = function(){
-        var b = 'CPE';
-        var p = 'advisor';
-        User.getAdvisorEmail(b,p).then(function(data){
+    app.getEmail = function(studentId){
+        var b = studentId;
+        User.getStudentEmail(b).then(function(data){
             alert(data.data.email);
             console.log(data.data.success);
         })
@@ -75,14 +80,10 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     // this.getUser();
     this.getUsers();
 
-    app.test = function(temp){
-        alert(temp);
-    }
-
     app.submitRequestForm = function(branch){
-        User.getAdvisorEmail(b,p).then(
-            function(data){
-            Form.submit($routeParams.id,branch).then(function(data){
+        User.getAdvisorEmail(branch).then(function(data){
+            var email = data.data.email
+            Form.submit($routeParams.id,email).then(function(data){
                 if(data.data.success){
                     app.loading =false
                     //create success Msg
@@ -135,6 +136,8 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
                 $scope.newDescription = data.data.form.description;
                 $scope.newAdvisorComment = data.data.form.advisorComment;
                 $scope.newExecutiveComment = data.data.form.executiveComment;
+                $scope.newClosedNote = data.data.form.closedNote;
+                $scope.newFormStatus = data.data.form.formStatus;
             }else{
                 console.log('fail to get form')
             }
@@ -171,89 +174,131 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     }
 
     
+    app.implement = function(studentId){
+        app.loading = true
+        app.errorMsg = FontFaceSetLoadEvent
+        var formObject = {};
+        
+        formObject.closedNote = $scope.newClosedNote;
+        var newStudentId = studentId;
+        User.getStudentEmail(newStudentId).then(function(data){
+            var email = data.data.email
+            Form.implement($routeParams.id,email).then(function(data){
+                Form.update($routeParams.id,formObject).then(function(data){
+                    if(data.data.success){
+                        app.loading =false
+                        //create success Msg
+                        console.log('success : '+data.data.message);
+                        app.successMsg = data.data.message;
+                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                        $timeout(function(){
+                        //redirect to home page
+                            $location.path('/requestFormList-Registration-Department')
+                        },1000)
+                    }else{
+                        app.loading =false
+                        app.errorMsg = data.data.message;
+                        console.log('error : '+data.data.message);
+                    }
+                })
+            }) 
+        })
+    }
 
-    app.advisorRejectRequestForm = function(){
+    app.advisorRejectRequestForm = function(studentId){
         app.loading = true
         app.errorMsg = FontFaceSetLoadEvent
         var formObject = {};
         
         formObject.advisorComment = $scope.newAdvisorComment;
-        Form.advisorReject($routeParams.id).then(function(data){
-            Form.update($routeParams.id,formObject).then(function(data){
-                if(data.data.success){
-                    app.loading =false
-                    //create success Msg
-                    console.log('success : '+data.data.message);
-                    app.successMsg = data.data.message;
-                    // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
-                    $timeout(function(){
-                    //redirect to home page
-                        $location.path('/requestFormList-Advisor')
-                    },1000)
-                }else{
-                    app.loading =false
-                    app.errorMsg = data.data.message;
-                    console.log('error : '+data.data.message);
-                }
-            })
-        }) 
+        var newStudentId = studentId;
+        User.getStudentEmail(newStudentId).then(function(data){
+            var email = data.data.email
+            Form.advisorReject($routeParams.id,email).then(function(data){
+                Form.update($routeParams.id,formObject).then(function(data){
+                    if(data.data.success){
+                        app.loading =false
+                        //create success Msg
+                        console.log('success : '+data.data.message);
+                        app.successMsg = data.data.message;
+                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                        $timeout(function(){
+                        //redirect to home page
+                            $location.path('/requestFormList-Advisor')
+                        },1000)
+                    }else{
+                        app.loading =false
+                        app.errorMsg = data.data.message;
+                        console.log('error : '+data.data.message);
+                    }
+                })
+            }) 
+        })
     }
 
-    app.approveRequestFormExecutive = function(){
+    app.approveRequestFormExecutive = function(studentId){
         app.loading = true
         app.errorMsg = FontFaceSetLoadEvent
         var formObject = {};
 
         formObject.executiveComment = $scope.newExecutiveComment;
-        Form.executiveApprove($routeParams.id).then(function(data){
-            Form.update($routeParams.id,formObject).then(function(data){
-                if(data.data.success){
-                    app.loading =false
-                    //create success Msg
-                    console.log('success : '+data.data.message);
-                    app.successMsg = data.data.message;
-                    // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
-                    $timeout(function(){
-                    //redirect to home page
-                        $location.path('/requestFormList-Executive')
-                    },1000)
-                }else{
-                    app.loading =false
-                    app.errorMsg = data.data.message;
-                    console.log('error : '+data.data.message);
-                }
+        var newStudentId = studentId;
+        User.getStudentEmail(newStudentId).then(function(data){
+            var email = data.data.email
+            Form.executiveApprove($routeParams.id,email).then(function(data){
+                Form.update($routeParams.id,formObject).then(function(data){
+                    if(data.data.success){
+                        app.loading =false
+                        //create success Msg
+                        console.log('success : '+data.data.message);
+                        app.successMsg = data.data.message;
+                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                        $timeout(function(){
+                        //redirect to home page
+                            $location.path('/requestFormList-Executive')
+                        },1000)
+                    }else{
+                        app.loading =false
+                        app.errorMsg = data.data.message;
+                        console.log('error : '+data.data.message);
+                    }
+                })
             })
         })
     }
 
     
 
-    app.executiveRejectRequestForm = function(){
+    app.executiveRejectRequestForm = function(studentId){
         app.loading = true
         app.errorMsg = FontFaceSetLoadEvent
         var formObject = {};
         
 
         formObject.executiveComment = $scope.newExecutiveComment;
-        Form.executiveReject($routeParams.id).then(function(data){
-            Form.update($routeParams.id,formObject).then(function(data){
-                if(data.data.success){
-                    app.loading =false
-                    //create success Msg
-                    console.log('success : '+data.data.message);
-                    app.successMsg = data.data.message;
-                    // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
-                    $timeout(function(){
-                    //redirect to home page
-                        $location.path('/requestFormList-Executive')
-                    },1000)
-                }else{
-                    app.loading =false
-                    app.errorMsg = data.data.message;
-                    console.log('error : '+data.data.message);
-                }
-            })
-        }) 
+        var newStudentId = studentId;
+        User.getStudentEmail(newStudentId).then(function(data){
+            var email = data.data.email
+            Form.executiveReject($routeParams.id,email).then(function(data){
+                Form.update($routeParams.id,formObject).then(function(data){
+                    if(data.data.success){
+                        app.loading =false
+                        //create success Msg
+                        console.log('success : '+data.data.message);
+                        app.successMsg = data.data.message;
+                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                        $timeout(function(){
+                        //redirect to home page
+                            $location.path('/requestFormList-Executive')
+                        },1000)
+                    }else{
+                        app.loading =false
+                        app.errorMsg = data.data.message;
+                        console.log('error : '+data.data.message);
+                    }
+                })
+            }) 
+        })
     }
 
     app.updateRequestForm = function(){

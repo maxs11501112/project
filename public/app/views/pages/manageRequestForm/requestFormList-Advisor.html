@@ -34,7 +34,7 @@
             </thead>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms | filter: main.branch | filter: 'submit' | orderBy: sortKey:reverse">
+                <tr ng-repeat="form in crud.forms | filter: main.branch | filter: 'Submit' | orderBy: sortKey:reverse">
                     <td align="center" scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>

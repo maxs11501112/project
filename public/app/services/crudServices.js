@@ -15,8 +15,13 @@ angular.module('crudServices',[])
         }
 
         //submit Request Form
-        formFactory.submit = function(id,branch){
-            return $http.get('/api/submit-RequestForm/'+id+'/'+branch)
+        formFactory.submit = function(id,email){
+            return $http.get('/api/submit-RequestForm/'+id+'/'+email)
+        }
+
+        //The request has been processed successfully.
+        formFactory.implement = function(id,email){
+            return $http.get('/api/implement/'+id+'/'+email)
         }
 
         //approve Request Form (Advisor)
@@ -25,18 +30,18 @@ angular.module('crudServices',[])
         }
 
         //reject Request Form (Advisor)
-        formFactory.advisorReject = function(id){
-            return $http.get('/api/reject-RequestForm-Advisor/'+id)
+        formFactory.advisorReject = function(id,email){
+            return $http.get('/api/reject-RequestForm-Advisor/'+id+'/'+email)
         }
 
         //approve Request Form (Executive)
-        formFactory.executiveApprove = function(id){
-            return $http.get('/api/approve-RequestForm-Executive/'+id)
+        formFactory.executiveApprove = function(id,email){
+            return $http.get('/api/approve-RequestForm-Executive/'+id+'/'+email)
         }
 
         //reject Request Form (Executive)
-        formFactory.executiveReject = function(id){
-            return $http.get('/api/reject-RequestForm-Executive/'+id)
+        formFactory.executiveReject = function(id,email){
+            return $http.get('/api/reject-RequestForm-Executive/'+id+'/'+email)
         }
 
         //delete Request Form

@@ -32,9 +32,13 @@ var requestFormSchema = new Schema({
     },
     formStatus: {
         type : String,
-        default : "created"
+        default : "Created"
     },
     isSubmit: {
+        type : Boolean,
+        default : false
+    },
+    isProcessed: {
         type : Boolean,
         default : false
     },
@@ -52,16 +56,13 @@ var requestFormSchema = new Schema({
     executiveComment: {
         type : String
     },
+    closedNote: {
+        type : String
+    },
     createDate: {
         type : String
     },
     create: {
-        type : String
-    },
-    advisorApprove: {
-        type : String
-    },
-    executiveApprove: {
         type : String
     },
     branch: {

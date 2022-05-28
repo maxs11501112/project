@@ -1,18 +1,17 @@
 <head>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <div class="container">
-
     <div class="row justify-content-center align-items-center" style="height:80vh">
 
         <div class="col-7">
 
-        <div class="page-header">
-            <h1>การจัดการใบคำร้อง</h1> 
+        <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการใบคำร้อง</h1>
+            <span class="badge bg-warning col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
         </div>
 
 
@@ -20,11 +19,11 @@
             <div class="row">
                 <div class="col">
                     <label>รหัสนักศึกษา :</label>
-                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
+                    <input disabled="true" class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
                 </div>
                 <div class="col">
                     <label>ชื่อ-นามสกุล :</label>
-                    <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
+                    <input disabled="true" class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
                 </div>
             </div>
 
@@ -86,12 +85,21 @@
 
             <br>
 
+            <div class="row">
+                <div class="col">
+                    <label>ความเห็นสำนักทะเบียน :</label>
+                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="closedNote" placeholder="กรุณาใส่ รายละเอียด" ng-model='newClosedNote'></textarea> 
+                </div>
+            </div>
+
+            <br>
+
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
                     <button class = "btn btn-primary" type="submit">ยืนยันการแก้ไข</button>
                     <button type="button" ng-click="edit.submitRequestForm(edit.branch)" class="btn btn-success">ส่งใบคำร้อง</button>
                     <button type="button" ng-click="edit.deleteRequestForm()" class="btn btn-danger">ลบ</button>
-                    <button type="button" ng-click="edit.getEmail()" class="btn btn-warning">test</button>
+                    <!-- <button type="button" ng-click="edit.getEmail()" class="btn btn-warning">test</button> -->
                 </div>
             </div>
         
@@ -101,6 +109,9 @@
 
 
         </div>
+
+        <br>
+        <br>
 
     </div>
 

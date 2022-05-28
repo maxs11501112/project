@@ -5,7 +5,7 @@ angular.module('mainController',['authServices','userServices'])
     app.loadme = false
     app.isAdvisor = false
     app.isExecutive = false
-    app.isAdmin = false
+    app.isRD = false
     app.name;
 
 
@@ -38,10 +38,10 @@ angular.module('mainController',['authServices','userServices'])
         User.getUsers().then(function(data){
             app.users = data.data.users;
             app.name = data.data.names;
-            if(data.data.permissions ==='admin'){
-                app.isAdmin = true
+            if(data.data.permissions ==='rd'){
+                app.isRD = true
             }else{
-                app.isAdmin = false
+                app.isRD = false
             }
             
         })

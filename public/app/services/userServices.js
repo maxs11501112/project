@@ -19,8 +19,12 @@ angular.module('userServices',[])
             return $http.delete('/api/delete-User/' + username);
         }
 
-        userFactory.getAdvisorEmail = function(branch,permission){
-            return $http.get('/api/get-Advisor-Email/' + branch + '/' + permission );
+        userFactory.getAdvisorEmail = function(branch){
+            return $http.get('/api/get-Advisor-Email/' + branch);
+        }
+
+        userFactory.getStudentEmail = function(studentId){
+            return $http.get('/api/get-Student-Email/' + studentId);
         }
 
         return userFactory;

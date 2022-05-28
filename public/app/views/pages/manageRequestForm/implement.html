@@ -16,7 +16,8 @@
                 <span class="badge bg-warning col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
             </div>
 
-        <form ng-submit='edit.approveRequestFormExecutive()'>
+
+        <form ng-submit='edit.updateRequestForm(regData)'>
             <div class="row">
                 <div class="col">
                     <label>รหัสนักศึกษา :</label>
@@ -75,22 +76,35 @@
 
             <div class="row">
                 <div class="col">
+                    <label>ความเห็นอาจารย์ที่ปรึกษา :</label>
+                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="advisorComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newAdvisorComment'></textarea> 
+                </div>
+                <div class="col">
                     <label>ความเห็นคณะบดี :</label>
-                    <textarea rows=”4”  cols= “6” class="form-control" type="text" name="executiveComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newExecutiveComment'></textarea> 
+                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="executiveComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newExecutiveComment'></textarea> 
                 </div>
             </div>
 
             <br>
 
+            <div class="row">
+                <div class="col">
+                    <label>ความเห็นสำนักทะเบียน :</label>
+                    <textarea rows=”4”  cols= “6” class="form-control" type="text" name="closedNote" placeholder="กรุณาใส่ รายละเอียด" ng-model='newClosedNote'></textarea> 
+                </div>
+            </div>
+
+            <br>
 
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
-                    <button class ="btn btn-success" type="submit">อนุมัติ</button>
-                    <button type="button" ng-click="edit.executiveRejectRequestForm(newStudentId)" class="btn btn-danger">ปฏิเสธ</button>
+                    <button type="button" ng-click="edit.implement(newStudentId)" class="btn btn-success">ดำเนินการเสร็จสิ้น</button>
                 </div>
             </div>
         
         </form>
+        <br>
+        <br>
 
 
         </div>

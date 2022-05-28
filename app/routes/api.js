@@ -15,19 +15,26 @@ var nodemailer = require('nodemailer');
 const { main } = require('@popperjs/core');
 var sender = "request_form_utcc@outlook.co.th";
 var s_pass = "022746579tT";
-// var recipient = "tonasds007@hotmail.com";
+
+mail = function(recipient,text){
+    // Send E-mail
+    var options = {
+        from: sender,
+        to: recipient,
+        subject: "Request form",
+        text: text
+    };
+
+    transporter.sendMail(options, function (err,info){
+        if(err){
+            console.log(err);
+            return;
+        }
+        console.log("Sent: " + info.response);
+    })
+}
 
 var transporter = nodemailer.createTransport({
-    // host: "smtp-mail.outlook.com", // hostname
-    // secureConnection: false, // TLS requires secureConnection to be false
-    // port: 587, // port for secure SMTP
-    // tls: {
-    //    ciphers:'SSLv3'
-    // },
-    // auth: {
-    //     user: sender,
-    //     pass: s_pass
-    // }
     service: "outlook",
     auth: {
         user: sender,
@@ -78,8 +85,6 @@ module.exports = function(router){
         request.studentId = req.body.studentId
         request.studentName = req.body.studentName
         request.create = new Date().toLocaleString();
-        // request.branch = req.body.branch
-        // req.body.studentID.slice(9, 10)
         var temp = req.body.studentId;
         var br = temp.substr(9,1);;
         if (br==1){
@@ -120,7 +125,8 @@ module.exports = function(router){
         if (req.body.studentName) var newStudentName = req.body.studentName
         if (req.body.advisorComment) var newAdvisorComment = req.body.advisorComment
         if (req.body.executiveComment) var newExecutiveComment = req.body.executiveComment
-        requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName,advisorComment : newAdvisorComment,executiveComment : newExecutiveComment}),function(err){
+        if (req.body.closedNote) var newClosedNote = req.body.closedNote
+        requestForm.findByIdAndUpdate(editRequestForm,({title : newTitle,term : newTerm,year : newYear,tel : newTel,description : newDescription,studentId : newStudentId,studentName : newStudentName,advisorComment : newAdvisorComment,executiveComment : newExecutiveComment,closedNote : newClosedNote}),function(err){
                 if (err) {
                     res.json({success : false,message : 'Error : '+err})
                 }else{
@@ -156,9 +162,9 @@ module.exports = function(router){
     })
 
     //get advisor email
-    router.get('/get-Advisor-Email/:branch/:permission',function(req, res){
+    router.get('/get-Advisor-Email/:branch',function(req, res){
         var branchs = req.params.branch;
-        var permissions = req.params.permission;
+        var permissions = 'advisor';
         User.findOne({ branch: branchs, permission: permissions}, (error, data) => {
             if (error) throw error;
             if (!data){
@@ -173,34 +179,37 @@ module.exports = function(router){
         })
     })
 
+    //get advisor email
+    router.get('/get-Student-Email/:studentId',function(req, res){
+        var studentIds = req.param.studentId;
+        var permissions = 'student';
+        User.findOne({ studentId: studentIds, permission: permissions}, (error, data) => {
+            if (error) throw error;
+            if (!data){
+                res.json({ success : false})
+            }
+            else{
+                res.json({
+                    email: data.email,
+                    success: true
+                });
+            }
+        })
+    })
+
     //submit Request Form
-    router.get('/submit-RequestForm/:id/:branch',function(req, res){
+    router.get('/submit-RequestForm/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
-        var branch = req.params.branch;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'submit',isSubmit: true}) ,function(err) {
+        var email = req.params.email;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Submit',isSubmit: true,advisorComment: '',executiveComment: '',closedNote: ''}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Submit error'})
                 }
                 else{
-                    if(branch == 'EE') recipient = 'k.bunyasan1998@gmail.com';
-                    else if(branch == 'CPE') recipient = 'tonkungzaza007@gmail.com';
-                    else if(branch == 'LE') recipient = 'tonasds007@gmail.com';
+                    recipient = email;
+                    text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Advisor/"+approveRequestForm+"' to approve or reject.";
+                    this.mail(recipient,text);
 
-                    // Send E-mail
-                    var options = {
-                        from: sender,
-                        to: recipient,
-                        subject: "Request form",
-                        text: "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Advisor/"+approveRequestForm+"' to approve or reject."
-                    };
-
-                    transporter.sendMail(options, function (err,info){
-                        if(err){
-                            console.log(err);
-                            return;
-                        }
-                        console.log("Sent: " + info.response);
-                    })
                     res.json({ success : true, message : 'Submit!!'})
                 }
         })
@@ -214,45 +223,82 @@ module.exports = function(router){
                     res.json({ success : false, message : 'Approve error'})
                 }
                 else{
+                    recipient = "tonasds007@hotmail.com";
+                    text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Advisor/"+approveRequestForm+"' to approve or reject.";
+                    this.mail(recipient,text);
+
                     res.json({ success : true, message : 'Approve!!'})
                 }
         })
     })
 
     //Reject Request Form (Advisor)
-    router.get('/reject-RequestForm-Advisor/:id',function(req, res){
+    router.get('/reject-RequestForm-Advisor/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'rejected',advisorApprove: false,isSubmit: false}) ,function(err) {
+        var email = req.params.email;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',advisorApprove: false,isSubmit: false}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'reject error'})
                 }
                 else{
+                    recipient = email;
+                    text = "Your request has been rejected by advisor. \nPlease click 'http://localhost:8000/edit/"+approveRequestForm+"' to edit and resubmit later..";
+                    this.mail(recipient,text);
+                    
                     res.json({ success : true, message : 'reject!!'})
                 }
         })
     })
 
     //Approve Request Form (Executive)
-    router.get('/approve-RequestForm-Executive/:id',function(req, res){
+    router.get('/approve-RequestForm-Executive/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
+        var email = req.params.email;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(executive)',executiveApprove: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
                 else{
+                    recipient = email;
+                    text = "Your request has been approved by executive. \nPlease click 'http://localhost:8000/edit/"+approveRequestForm+"' to show more info..";
+                    this.mail(recipient,text);
+
                     res.json({ success : true, message : 'Approve!!'})
                 }
         })
     })
 
-    //Reject Request Form (Executive)
-    router.get('/reject-RequestForm-Executive/:id',function(req, res){
+    //The request has been processed successfully.
+    router.get('/implement/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
+        var email = req.params.email;
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Processed',isProcessed: true}) ,function(err) {
+                if(err){
+                    res.json({ success : false, message : 'implement error'})
+                }
+                else{
+                    recipient = email;
+                    text = "Your request has been processed successfully. \nPlease click 'http://localhost:8000/edit/"+approveRequestForm+"' to show more info..";
+                    this.mail(recipient,text);
+
+                    res.json({ success : true, message : 'Processed!!'})
+                }
+        })
+    })
+
+    //Reject Request Form (Executive)
+    router.get('/reject-RequestForm-Executive/:id/:email',function(req, res){
+        var approveRequestForm = req.params.id;
+        var email = req.params.email;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'rejected',executiveApprove: false,advisorApprove: false,isSubmit: false}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'reject error'})
                 }
                 else{
+                    recipient = email;
+                    text = "Your request has been rejected by executive. \nPlease click 'http://localhost:8000/edit/"+approveRequestForm+"' to edit and resubmit later..";
+                    this.mail(recipient,text);
+
                     res.json({ success : true, message : 'reject!!'})
                 }
         })
@@ -356,7 +402,7 @@ module.exports = function(router){
                         if(!user){
                             res.json({ success : false, message: 'Users not found'});
                         }else{
-                            res.json({ success: true, users: users, permissions: mainUser.permission, names: mainUser.name, branch: mainUser.branch, _id: mainUser._id})
+                            res.json({ success: true, users: users,usernames:mainUser.username , permissions: mainUser.permission, names: mainUser.name, branch: mainUser.branch, _id: mainUser._id})
                         }
                     }else{
                         res.json({ success: false, names: mainUser.name , message: 'Insufficient Permissions' })

@@ -15,15 +15,15 @@
             </div>
 
 
-            <form ng-submit='createForm1.createForm(regData)'>
+            <form ng-submit='crud.createForm(regData)'>
                 <div class="row">
                     <div class="col">
                         <label>รหัสนักศึกษา :</label>
-                        <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='createForm1.regData.studentId'>
+                        <input disabled="true" class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
                     </div>
                     <div class="col">
                         <label>ชื่อ-นามสกุล :</label>
-                        <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='createForm1.regData.studentName'>
+                        <input disabled="true" class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
                     </div>
                 </div>
 
@@ -32,11 +32,11 @@
                 <div class="row">
                     <div class="col">
                         <label>เรื่อง :</label>
-                        <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='createForm1.regData.title'>
+                        <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='crud.regData.title'>
                     </div>
                     <div class="col">
                         <label>ชั้นปี :</label>
-                        <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='createForm1.regData.year'>
+                        <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='crud.regData.year'>
                     </div>
                 </div>
 
@@ -45,19 +45,19 @@
                 <div class="row">
                     <div class="col">
                         <label>เบอร์โทรศัพท์ :</label>
-                        <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='createForm1.regData.tel'>
+                        <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='crud.regData.tel'>
                     </div>
                     <div class="col col-md-2">
                         <label for="term 0">เทอมต้น :</label><br>
-                        <input type="radio" id="0" name="term" value="ต้น" ng-model='createForm1.regData.term'>
+                        <input type="radio" id="0" name="term" value="ต้น" ng-model='crud.regData.term'>
                     </div>
                     <div class="col col-md-2">
                         <label for="term 1">เทอมปลาย :</label><br>
-                        <input type="radio" id="1" name="term" value="ปลาย" ng-model='createForm1.regData.term'>
+                        <input type="radio" id="1" name="term" value="ปลาย" ng-model='crud.regData.term'>
                     </div>
                     <div class="col col-md-2">
                         <label for="term 2">ซัมเมอร์ :</label><br>
-                        <input type="radio" id="2" name="term" value="ซัมเมอร์" ng-model='createForm1.regData.term'>
+                        <input type="radio" id="2" name="term" value="ซัมเมอร์" ng-model='crud.regData.term'>
                     </div>
                 </div>
 
@@ -66,12 +66,14 @@
                 <div class="row">
                     <div class="col">
                         <label>รายละเอียด :</label>
-                        <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='createForm1.regData.description'></textarea> 
+                        <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='crud.regData.description'></textarea> 
                     </div>
                 </div>
 
                 <br>
-                <button class = "btn btn-primary" type="submit">สร้างใบคำร้อง</button>
+                <div class="d-flex justify-content-center">
+                    <button class = "btn btn-primary" type="submit">สร้างใบคำร้อง</button>
+                </div>
 
             </form>
 

@@ -35,7 +35,7 @@ var app = angular.module('appRoutes',['ngRoute'])
     .when('/create',{
         templateUrl : 'app/views/pages/manageRequestForm/create.html',
         controller : 'crudCtrl',
-        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'createForm1' 
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
     .when('/edit/:id',{
@@ -50,14 +50,20 @@ var app = angular.module('appRoutes',['ngRoute'])
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
-    .when('/requestFormList-Admin',{
-        templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Admin.html',
+    .when('/requestFormList-Registration-Department',{
+        templateUrl : 'app/views/pages/manageRequestForm/requestFormList-Registration-Department.html',
         controller : 'crudCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'crud' 
     })
 
     .when('/view/:id',{
         templateUrl : 'app/views/pages/manageRequestForm/view.html',
+        controller : 'editCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
+    })
+
+    .when('/implement/:id',{
+        templateUrl : 'app/views/pages/manageRequestForm/implement.html',
         controller : 'editCtrl',
         controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'edit' 
     })

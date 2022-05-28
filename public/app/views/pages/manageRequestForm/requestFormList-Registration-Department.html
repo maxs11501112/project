@@ -34,7 +34,7 @@
             </thead>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms | orderBy: sortKey:reverse">
+                <tr ng-repeat="form in crud.forms | orderBy: sortKey:reverse | filter: 'Approved(executive)'">
                     <td align="center" scope="row">{{form.studentId}}</td>
                     <td>{{form.studentName}}</td>
                     <td>{{form.title}}</td>
@@ -45,10 +45,8 @@
                     <td align="center">{{form.create}}</td>
                     <td align="center">{{form.formStatus}}</td>
                     <td align="center">
-                        <!--          ng-show="{{!form.isSubmit}}"           <button type="button" ng-click="crud.submitRequestForm(form._id)" class="btn btn-success">ยืนยัน</button> -->
-                        <a ng-show="{{form.isSubmit}}" href="/view/{{form._id}}"> <button type="button" class="btn btn-warning">ดูใบคำร้อง</button></a>
-                        <a ng-show="{{!form.isSubmit}}"> <button ng-disabled="true" type="button" class="btn btn-custom2">ดูใบคำร้อง</button></a>
-                        <!-- <button type="button" ng-click="crud.deleteRequestForm(form._id)" class="btn btn-danger">ลบ</button> -->
+                        <a ng-show="!{{form.isProcessed}}"  href="/implement/{{form._id}}"> <button type="button" class="btn btn-info">ดำเนินการ</button></a>
+                        <a ng-show="{{form.isProcessed}}" href="/view/{{form._id}}"> <button type="button" class="btn btn-info">ดูใบคำร้อง</button></a>
                     </td>
                     
                 </tr>

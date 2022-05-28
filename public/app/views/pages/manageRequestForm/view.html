@@ -11,9 +11,10 @@
 
         <div class="col-7">
 
-        <div class="page-header">
-            <h1>การจัดการใบคำร้อง</h1> 
-        </div>
+            <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการใบคำร้อง</h1>
+                <span class="badge bg-warning col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
+            </div>
 
 
         <form ng-submit='edit.updateRequestForm(regData)'>
@@ -81,6 +82,15 @@
                 <div class="col">
                     <label>ความเห็นคณะบดี :</label>
                     <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="executiveComment" placeholder="กรุณาใส่ รายละเอียด" ng-model='newExecutiveComment'></textarea> 
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>ความเห็นสำนักทะเบียน :</label>
+                    <textarea disabled="true" rows=”4”  cols= “6” class="form-control" type="text" name="closedNote" placeholder="กรุณาใส่ รายละเอียด" ng-model='newClosedNote'></textarea> 
                 </div>
             </div>
 
