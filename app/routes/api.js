@@ -290,7 +290,7 @@ module.exports = function(router){
     router.get('/reject-RequestForm-Executive/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
         var email = req.params.email;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'rejected',executiveApprove: false,advisorApprove: false,isSubmit: false}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',executiveApprove: false,advisorApprove: false,isSubmit: false}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'reject error'})
                 }

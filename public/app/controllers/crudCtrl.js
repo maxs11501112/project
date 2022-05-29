@@ -80,6 +80,10 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     // this.getUser();
     this.getUsers();
 
+    app.test = function(){
+        alert('btn work!')
+    }
+
     app.submitRequestForm = function(branch){
         User.getAdvisorEmail(branch).then(function(data){
             var email = data.data.email
@@ -138,6 +142,8 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
                 $scope.newExecutiveComment = data.data.form.executiveComment;
                 $scope.newClosedNote = data.data.form.closedNote;
                 $scope.newFormStatus = data.data.form.formStatus;
+                $scope.newExecutiveApprove = data.data.form.executiveApprove;
+                $scope.newAdvisorApprove = data.data.form.advisorApprove;
             }else{
                 console.log('fail to get form')
             }
