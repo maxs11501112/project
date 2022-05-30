@@ -3,4 +3,5 @@ angular.module('userApp',['appRoutes','userControllers','userServices','ngAnimat
 
 .config(function($httpProvider){
     $httpProvider.interceptors.push('AuthInterceptors')
+
 })
