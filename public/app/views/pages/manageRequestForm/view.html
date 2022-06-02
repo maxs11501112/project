@@ -96,11 +96,22 @@
 
             <br>
 
+            <div class="row show-hide-message" ng-show="edit.successMsg">
+                <div class="alert alert-success">  {{ edit.successMsg }}</div>
+            </div>
+        
+            <br>
+        
+            <div class="row show-hide-message" ng-show="edit.errorMsg">
+                <div class="alert alert-danger"> {{ edit.errorMsg }}  </div>
+            </div>
+
+            <br>
+
             <div class="d-flex justify-content-center">
-                <div class="col-5 justify-content-around d-flex">
-                    <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;color:rgb(0, 0, 0);" ng-click="" class="btn-sign">push</button>
+                <div class="col-6 justify-content-around d-flex">
                     <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;color:rgb(0, 0, 0);" ng-click="" class="btn-verify">ตรวจสอบ</button>
-                    <a ng-show="true" href="/view/6293222a831181790ba05fbc"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">ทดสอบ</button></a>
+                    <!-- <a ng-show="true" href="/view/6293222a831181790ba05fbc"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">ทดสอบ</button></a> -->
                 </div>
             </div>
         

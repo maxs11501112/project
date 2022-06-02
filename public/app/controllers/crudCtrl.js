@@ -130,7 +130,7 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         })
     }
 
-    function getForms(){
+    app.getForms = function(){
         Form.getForm($routeParams.id).then(function(data) {
             if(data.data.success){
                 $scope.newTitle = data.data.form.title;
@@ -168,8 +168,7 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
                 app.requestForm.closedNote = data.data.form.closedNote
 
                 Form.hash(app.requestForm).then(function(data){
-                    console.log(data.data.hashRequestForm)
-                    console.log(data.data.nothash)
+                    console.log('hash : '+data.data.hashRequestForm)
                     app.requestFormHashData = data.data.hashRequestForm;
                 })
             }else{
@@ -178,7 +177,7 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         })
     }
 
-    getForms();
+    app.getForms();
 
     app.approveRequestFormAdvisor = function(){
         app.loading = true
@@ -207,7 +206,6 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         })
     }
 
-    
     app.implement = function(studentId){
         app.loading = true
         app.errorMsg = FontFaceSetLoadEvent
@@ -219,21 +217,14 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
             var email = data.data.email
             Form.implement($routeParams.id,email).then(function(data){
                 Form.update($routeParams.id,formObject).then(function(data){
-                    if(data.data.success){
-                        app.loading =false
-                        //create success Msg
-                        console.log('success : '+data.data.message);
-                        app.successMsg = data.data.message;
-                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                    app.getForms();
+                    $timeout(function(){
+                        App.handleSign();
                         $timeout(function(){
                         //redirect to home page
                             $location.path('/requestFormList-Registration-Department')
-                        },1000)
-                    }else{
-                        app.loading =false
-                        app.errorMsg = data.data.message;
-                        console.log('error : '+data.data.message);
-                    }
+                        },5000)
+                    },2000)
                 })
             }) 
         })
@@ -281,27 +272,18 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
             var email = data.data.email
             Form.executiveApprove($routeParams.id,email).then(function(data){
                 Form.update($routeParams.id,formObject).then(function(data){
-                    if(data.data.success){
-                        app.loading =false
-                        //create success Msg
-                        console.log('success : '+data.data.message);
-                        app.successMsg = data.data.message;
-                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                    app.getForms();
+                    $timeout(function(){
+                        App.handleSign();
                         $timeout(function(){
                         //redirect to home page
                             $location.path('/requestFormList-Executive')
-                        },1000)
-                    }else{
-                        app.loading =false
-                        app.errorMsg = data.data.message;
-                        console.log('error : '+data.data.message);
-                    }
+                        },5000)
+                    },2000)
                 })
             })
         })
     }
-
-    
 
     app.executiveRejectRequestForm = function(studentId){
         app.loading = true
@@ -367,7 +349,6 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
             }
         })
     }
-
 
     app.getUsers = function(){
         User.getUsers().then(function(data){
@@ -448,26 +429,23 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         },
     
         handleSign: function (event) {
-            event.preventDefault();
     
             var signature = "";
             var srtSignatureInstance;
     
-            App.contracts.SRTSignature.deployed().then(function (instance) {
+            App.contracts.SRTSignature.deployed().then(async function (instance) {
                 srtSignatureInstance = instance;
     
                 docId = app.requestFormId;
                 signature = app.requestFormHashData;
-                // docId = "SRT01/2565"
-                // signature = "0x4581176e4289792499b0a657f1de073b090ce22de207999f95f15a9ad719676c24c03534227f320424aa0a56c3a45af1599678c17af8d5900886eea8363eefb01c"
-                // docId = "SRT02/2565"
-                // signature = "0x84e4f828108360a9d879800d1e42ff7b3f9f0aa14c34b0360aa16b55684d3bc903baef9bba41454047d0c9ca7ddf88b865cf0dc6325d162bba49185f5cd6c3501b"
     
                 console.log("\nfunction pushRequestForm()")
                 console.log("Request Form Id :", docId);
                 console.log("Request Form Hash Data :", signature);
-    
+
                 return srtSignatureInstance.pushDocument(docId, signature, { from: web3.eth.accounts[0] });
+                // let txConfirm = await web3.getTransaction(tx.hash)
+                // return console.log('Confirm transaction : '+txConfirm)
             }).then(function (result) {
                 console.log("Successfully submitted a Request Form into the Blockchain.");
                 console.log("From account : "+web3.eth.accounts[0])
@@ -479,15 +457,10 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     
         handleVerify: function (event) {
             event.preventDefault();
-    
 
             docId = app.requestFormId;
             signature = app.requestFormHashData;
-            // var docId = "SRT01/2565";
-            // var signature = "0x4581176e4289792499b0a657f1de073b090ce22de207999f95f15a9ad719676c24c03534227f320424aa0a56c3a45af1599678c17af8d5900886eea8363eefb01c";
-            // var docId = "SRT02/2565"
-            // var signature = "0x84e4f828108360a9d879800d1e42ff7b3f9f0aa14c34b0360aa16b55684d3bc903baef9bba41454047d0c9ca7ddf88b865cf0dc6325d162bba49185f5cd6c3501b";
-    
+        
             var srtSignatureInstance;
     
             App.contracts.SRTSignature.deployed().then(function (instance) {
@@ -498,6 +471,11 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
                 console.log("Request Form Id :", docId);
                 console.log("Request Form Hash Data :", signature);
                 console.log("result :", result);
+                if (result == true){
+                    alert('ใบคำร้องมีความถูกต้อง')
+                }else{
+                    alert('ใบคำร้องไม่ถูกต้อง')
+                }
                 return App.markSigned();
             }).catch(function (err) {
                 console.log(err.message);
