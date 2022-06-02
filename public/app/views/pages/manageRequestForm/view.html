@@ -13,7 +13,7 @@
 
             <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการใบคำร้อง</h1>
-                <span class="badge bg-warning col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
+                <span class="badge bg-info col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
             </div>
 
 
@@ -98,8 +98,9 @@
 
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
-                    <button ng-show="newExecutiveApprove" type="button" ng-click="" class="btn btn-sign btn-warning">push</button>
-                    <button ng-show="newExecutiveApprove" type="button" ng-click="" class="btn btn-verify btn-warning">ตรวจสอบ</button>
+                    <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;color:rgb(0, 0, 0);" ng-click="" class="btn-sign">push</button>
+                    <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;color:rgb(0, 0, 0);" ng-click="" class="btn-verify">ตรวจสอบ</button>
+                    <a ng-show="true" href="/view/6293222a831181790ba05fbc"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">ทดสอบ</button></a>
                 </div>
             </div>
         

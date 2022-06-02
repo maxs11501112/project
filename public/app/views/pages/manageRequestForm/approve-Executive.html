@@ -13,7 +13,7 @@
 
             <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการใบคำร้อง</h1>
-                <span class="badge bg-warning col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
+                <span class="badge bg-info col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
             </div>
 
         <form ng-submit='edit.approveRequestFormExecutive()'>
@@ -85,8 +85,8 @@
 
             <div class="d-flex justify-content-center">
                 <div class="col-5 justify-content-around d-flex">
-                    <button class ="btn btn-success" type="submit">อนุมัติ</button>
-                    <button type="button" ng-click="edit.executiveRejectRequestForm(newStudentId)" class="btn btn-danger">ปฏิเสธ</button>
+                    <button style="border-radius:30px;color:rgb(0, 0, 0);" type="submit">อนุมัติ</button>
+                    <button type="button" ng-click="edit.executiveRejectRequestForm(newStudentId)" style="border-radius:30px;color:rgb(0, 0, 0);">ปฏิเสธ</button>
                 </div>
             </div>
         

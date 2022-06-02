@@ -13,8 +13,8 @@
     <h1>รายการคำร้อง</h1>
 </div>
 
-<div class="panel panel-success">
-    <div class="panel-heading" style="text-align: center;"><strong>รายการคำร้อง</strong></div> 
+<div class="panel panel-default">
+    <div class="panel-heading" style="text-align: center;"><strong style="font-size: large;">รายการคำร้อง</strong></div>
     
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -45,8 +45,8 @@
                     <td align="center">{{form.create}}</td>
                     <td align="center">{{form.formStatus}}</td>
                     <td align="center">
-                        <a ng-show="{{!form.isSubmit}}" href="/edit/{{form._id}}"> <button type="button" class="btn btn-warning">การจัดการ</button></a>
-                        <a ng-show="{{form.isSubmit}}" href="/view/{{form._id}}"> <button type="button" class="btn btn-info">ดูใบคำร้อง</button></a>
+                        <a ng-show="{{!form.isSubmit}}" href="/edit/{{form._id}}"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">การจัดการ</button></a>
+                        <a ng-show="{{form.isSubmit}}" href="/view/{{form._id}}"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">ดูใบคำร้อง</button></a>
                     </td>
                     
                 </tr>
