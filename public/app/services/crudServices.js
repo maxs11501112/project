@@ -58,5 +58,10 @@ angular.module('crudServices',[])
             return $http.get('/api/manageRequestForm');
         }
         
+        //Hash Request Form
+        formFactory.hash = function(requestForm){
+            return $http.post('/api/hashRequestForm',requestForm)
+        }
+        
         return formFactory;
     })

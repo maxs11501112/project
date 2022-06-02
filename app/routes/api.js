@@ -8,6 +8,7 @@ const form = express.Router();
 
 //token --> https://github.com/auth0/node-jsonwebtoken
 var jwt = require('jsonwebtoken');
+var hash = require('object-hash');
 var user = require('../models/user');
 var secret = 'MaxDekHere';
 
@@ -111,7 +112,48 @@ module.exports = function(router){
         }
     })
 
+    //Hash Request Form
+    router.post('/hashRequestForm',function(req,res){
+        var requestForm = {};
+        if (req.body.title) requestForm.title = req.body.title
+        if (req.body.term) requestForm.term = req.body.term
+        if (req.body.studentId) requestForm.studentId = req.body.studentId
+        if (req.body.studentName) requestForm.studentName = req.body.studentName
+        if (req.body.description) requestForm.description = req.body.description
+        if (req.body.year) requestForm.year = req.body.year
+        if (req.body.tel) requestForm.tel = req.body.tel
+        if (req.body.create) requestForm.create = req.body.create
+        if (req.body.branch) requestForm.branch = req.body.branch
+        if (req.body.formStatus) requestForm.formStatus = req.body.formStatus
+        if (req.body.isSubmit) requestForm.isSubmit = req.body.isSubmit
+        if (req.body.isProcessed) requestForm.isProcessed = req.body.isProcessed
+        if (req.body.advisorApprove) requestForm.advisorApprove = req.body.advisorApprove
+        if (req.body.executiveApprove) requestForm.executiveApprove = req.body.executiveApprove
+        if (req.body.advisorComment) requestForm.advisorComment = req.body.advisorComment
+        if (req.body.executiveComment) requestForm.executiveComment = req.body.executiveComment
+        if (req.body.closedNote) requestForm.closedNote = req.body.closedNote
 
+        var hashed = hash(requestForm);
+
+        res.json({hashRequestForm: hashed, nothash: requestForm})
+        // title
+        // term
+        // studentId
+        // studentName
+        // description
+        // year
+        // tel
+        // create
+        // branch
+        // formStatus
+        // isSubmit
+        // isProcessed
+        // advisorApprove
+        // executiveApprove
+        // advisorComment
+        // executiveComment
+        // closedNote
+    })
 
     //update Request Form
     router.put('/update-RequestForm/:id',function(req, res){
@@ -378,18 +420,6 @@ module.exports = function(router){
         res.send( req.decoded )
     })
 
-    // router.get('/permission',function(req,res){
-    //     User.findOne({ username: req.decoded.username },function(err,user){
-    //         if (err) throw err;
-    //         if(!user){
-    //             res.json({ success: false, message: 'No user not found'});
-    //         }else{
-    //             res.json({ success: true, permissions: user.permission });
-    //         }
-    //     })
-    // })
-
-
     router.get('/management',function(req,res){
         User.find({},function(err,users){
             if (err) throw err;
@@ -430,8 +460,6 @@ module.exports = function(router){
             }
         })
     })
-
-    
 
     return router;
 

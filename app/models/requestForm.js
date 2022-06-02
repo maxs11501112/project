@@ -59,9 +59,6 @@ var requestFormSchema = new Schema({
     closedNote: {
         type : String
     },
-    createDate: {
-        type : String
-    },
     create: {
         type : String
     },
