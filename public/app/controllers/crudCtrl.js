@@ -56,7 +56,7 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
     }
 })
 
-.controller('editCtrl',function(User,Form,$routeParams,$scope,$timeout,$location){
+.controller('editCtrl',function(Auth,User,Form,$routeParams,$scope,$timeout,$location){
     var app=this;
 
     app.getEmail = function(studentId){
