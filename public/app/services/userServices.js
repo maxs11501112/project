@@ -33,6 +33,10 @@ angular.module('userServices',[])
             return $http.get('/api/get-Student-Email/' + studentId);
         }
 
+        userFactory.getExecutiveEmail = function(){
+            return $http.get('/api/get-Executive-Email');
+        }
+
         userFactory.validateUser = function(id,password){
             return $http.get('/api/validate_user/'+ id +'/'+password);
         }

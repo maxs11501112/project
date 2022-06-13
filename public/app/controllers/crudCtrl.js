@@ -203,23 +203,26 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         var formObject = {};
 
         formObject.advisorComment = $scope.newAdvisorComment;
-        Form.advisorApprove($routeParams.id).then(function(data){
-            Form.update($routeParams.id,formObject).then(function(data){
-                if(data.data.success){
-                    app.loading =false
-                    //create success Msg
-                    console.log('success : '+data.data.message);
-                    app.successMsg = data.data.message;
-                    // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
-                    $timeout(function(){
-                    //redirect to home page
-                        $location.path('/requestFormList-Advisor')
-                    },1000)
-                }else{
-                    app.loading =false
-                    app.errorMsg = data.data.message;
-                    console.log('error : '+data.data.message);
-                }
+        User.getExecutiveEmail().then(function(data){
+            var email = data.data.email;
+            Form.advisorApprove($routeParams.id,email).then(function(data){
+                Form.update($routeParams.id,formObject).then(function(data){
+                    if(data.data.success){
+                        app.loading =false
+                        //create success Msg
+                        console.log('success : '+data.data.message);
+                        app.successMsg = data.data.message;
+                        // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
+                        $timeout(function(){
+                        //redirect to home page
+                            $location.path('/requestFormList-Advisor')
+                        },1000)
+                    }else{
+                        app.loading =false
+                        app.errorMsg = data.data.message;
+                        console.log('error : '+data.data.message);
+                    }
+                })
             })
         })
     }

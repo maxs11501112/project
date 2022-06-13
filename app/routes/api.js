@@ -257,9 +257,26 @@ module.exports = function(router){
 
     //get advisor email
     router.get('/get-Student-Email/:studentId',function(req, res){
-        var studentIds = req.param.studentId;
+        var studentIds = req.params.studentId;
         var permissions = 'student';
-        User.findOne({ studentId: studentIds, permission: permissions}, (error, data) => {
+        User.findOne({ username: studentIds, permission: permissions}, (error, data) => {
+            if (error) throw error;
+            if (!data){
+                res.json({ success : false})
+            }
+            else{
+                res.json({
+                    email: data.email,
+                    success: true
+                });
+            }
+        })
+    })
+
+    //get advisor email
+    router.get('/get-Executive-Email',function(req, res){
+        var permissions = 'executive';
+        User.findOne({ permission: permissions}, (error, data) => {
             if (error) throw error;
             if (!data){
                 res.json({ success : false})
@@ -294,12 +311,13 @@ module.exports = function(router){
     //Approve Request Form (Advisor)
     router.get('/approve-RequestForm-Advisor/:id',function(req, res){
         var approveRequestForm = req.params.id;
+        var email = req.params.email;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(advisor)',advisorApprove: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
                 else{
-                    recipient = "tonasds007@hotmail.com";
+                    recipient = email;
                     text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Executive/"+approveRequestForm+"' to approve or reject.";
                     this.mail(recipient,text);
 
