@@ -13,7 +13,12 @@
 
             <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการใบคำร้อง</h1>
-                <span class="badge bg-info col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
+                <span ng-show="edit.isRejected && !isSubmit && !advisorApprove && !executiveApprove && !isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-danger">Status : {{newFormStatus}}</span>
+                <span ng-show="!edit.isRejected && !isSubmit && !advisorApprove && !executiveApprove && !isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0">Status : {{newFormStatus}}</span>
+                <span ng-show="!edit.isRejected && isSubmit && !advisorApprove && !executiveApprove && !isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-warning">Status : {{newFormStatus}}</span>
+                <span ng-show="!edit.isRejected && isSubmit && advisorApprove && !executiveApprove && !isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-info">Status : {{newFormStatus}}</span>
+                <span ng-show="!edit.isRejected && isSubmit && advisorApprove && executiveApprove && !isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-primary">Status : {{newFormStatus}}</span>
+                <span ng-show="!edit.isRejected && isSubmit && advisorApprove && executiveApprove && isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-success">Status : {{newFormStatus}}</span>
             </div>
 
 
@@ -110,7 +115,7 @@
 
             <div class="d-flex justify-content-center">
                 <div class="col-6 justify-content-around d-flex">
-                    <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;color:rgb(0, 0, 0);" ng-click="" class="btn-verify">ตรวจสอบ</button>
+                    <button ng-show="newExecutiveApprove" type="button" style="border-radius:30px;" ng-click="" class="btn-verify b-warning">ตรวจสอบ</button>
                     <!-- <a ng-show="true" href="/view/6293222a831181790ba05fbc"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">ทดสอบ</button></a> -->
                 </div>
             </div>

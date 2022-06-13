@@ -11,7 +11,7 @@
     <div class="col-4">
 
         <div class="page-header">
-            <h1>Register</h1> 
+            <h1>เพิ่มผู้ใช้งาน</h1> 
         </div>
 
 
@@ -20,26 +20,41 @@
 
 
             <!-- Name-->
-            <label>Name:</label>
-                <input class="form-control" type="text" name="name" placeholder="please enter name" ng-model='register.regData.name'>
+            <div class="row">
+                <label>Name :</label>
+                    <input class="form-control" type="text" name="name" placeholder="please enter name" ng-model='register.regData.name'>
+                <br>
+            </div>
+
             <br>
 
-
             <!-- Email-->
-            <label>Email:</label>
-                <input class="form-control" type="text" name="email" placeholder="please enter email" ng-model='register.regData.email'>
+            <div class="row">
+                <label>Email :</label>
+                    <input class="form-control" type="text" name="email" placeholder="please enter email" ng-model='register.regData.email'>
+                <br>
+            </div>
+
             <br>
 
             <!--Username-->
 
-            <label>Id:</label>
-                <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model='register.regData.username'>
+            <div class="row">
+                <label>Id :</label>
+                    <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model='register.regData.username'>
+                <br>
+            </div>
+
             <br>
 
             <!--Password-->
 
-            <label>Password:</label>
-                <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model='register.regData.password'>
+            <div class="row">
+                <label>Password :</label>
+                    <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model='register.regData.password'>
+                <br>
+            </div>
+
             <br>
 
 
@@ -47,9 +62,23 @@
                 <input class="form-control" type="text" name="permission" placeholder="please enter permission" ng-model='register.regData.permission'>
             <br> -->
 
+            <div class="row">
+                <div class="col">
+                  <label>Permission :</label>
+                </div>
+                <div class="col-lg-5">
+                  <select id="permission" name="permission" ng-model='register.regData.permission'>
+                    <option value="student">Student</option>
+                    <option value="advisor">Advisor</option>
+                    <option value="executive">Executive</option>
+                    <option value="rd">Registration Department</option>
+                  </select>
+                </div>
+            </div>
+
 
             
-            <label for="student">Student</label>
+            <!-- <label for="student">Student</label>
                 <input type="radio" id="student" name="permission" value="student" ng-model='register.regData.permission'>
             <br>
 
@@ -58,12 +87,12 @@
             <br>
 
             <label for="executive">Executive</label>
-                <input type="radio" id="executive" name="permission" value="executive" ng-model='register.regData.permission'>
-            <br>
+                <input type="radio" id="executive" name="permission" value="executive" ng-model='register.regData.permission'> -->
             <br>
            
-
-            <button class = "btn btn-primary" type="submit">Register</button>
+            <div>
+                <button class="b-success" style="border-radius:30px;" type="submit">เพิ่มผู้ใช้งาน</button>
+            </div>
 
         </form>
 

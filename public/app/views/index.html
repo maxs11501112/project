@@ -50,6 +50,7 @@
           <h6 class="mt-4 mx-3 pt-2" ng-show="main.isLoggedIn && main.isAdvisor"><a class="Txt" style="text-decoration: none" href="/requestFormList-Advisor">รายการคำร้อง</a></h6>
           <h6 class="mt-4 mx-3 pt-2" ng-show="main.isLoggedIn && main.isExecutive"><a class="Txt" style="text-decoration: none" href="/requestFormList-Executive">รายการคำร้อง</a></h6>
           <h6 class="mt-4 mx-3 pt-2" ng-show="main.isLoggedIn && main.isRD"><a class="Txt" style="text-decoration: none" href="/requestFormList-Registration-Department">รายการคำร้อง</a></h6>
+          <h6 class="mt-4 mx-3 pt-2" ng-show="main.isLoggedIn && main.isAdmin"><a class="Txt" style="text-decoration: none" href="/user_data">ข้อมูลผู้ใช้งาน</a></h6>
           <!-- <h6 class="Logo m-3"><a href="/">UTCC</a></h6>
           <h6 class="Logo m-2 pt-1"><a href="/">|</a></h6>
           <h6 ng-show='main.isLoggedIn && !main.isAdvisor && !main.isExecutive && !main.isAdmin && !main.isRD' class="txt mt-4 pt-1 px-3"><a href="/create">สร้างใบคำร้อง</a></h6>
@@ -59,7 +60,7 @@
           <h6 class="txt mt-4 pt-1 px-3"><a href="/">รายการคำร้อง</a></h6>
           <li class="headMenu"><a href="/" class="nav-link px-4 link-warning">หน้าแรก</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && !main.isAdvisor && !main.isExecutive && !main.isAdmin && !main.isRD' href="/create" class="nav-link px-4 link-warning">สร้างใบคำร้อง</a></li>
-          <li class="headMenu"><a ng-show='main.isLoggedIn && main.isAdmin' href="/user_data" class="nav-link px-4 link-warning">ข้อมูลผู้ใช้งาน</a></li>
+          <li class="headMenu"><a ng-show='main.isLoggedIn && main.isRD' href="/user_data" class="nav-link px-4 link-warning">ข้อมูลผู้ใช้งาน</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && !main.isAdvisor && !main.isExecutive && !main.isAdmin && !main.isRD' href="/requestFormList" class="nav-link px-4 link-warning">รายการคำร้อง</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && main.isAdvisor' href="/requestFormList-Advisor" class="nav-link px-4 link-warning">รายการคำร้อง</a></li>
           <li class="headMenu"><a ng-show='main.isLoggedIn && main.isExecutive' href="/requestFormList-Executive" class="nav-link px-4 link-warning">รายการคำร้อง</a></li>
@@ -67,7 +68,7 @@
         </ul>
         <ul class="nav me-lg-0">
           <h6 class="mt-4 mx-3 pt-2" ng-show="!main.isLoggedIn"><a class="Txt" style="text-decoration: none" href="/login">เข้าสู่ระบบ</a></h6>
-          <h6 class="mt-4 mx-3 pt-2" ng-show="!main.isLoggedIn"><a class="Txt" style="text-decoration: none" href="/register">ลงทะเบียนผู้ใช้</a></h6>
+          <!-- <h6 class="mt-4 mx-3 pt-2" ng-show="!main.isLoggedIn"><a class="Txt" style="text-decoration: none" href="/register">ลงทะเบียนผู้ใช้</a></h6> -->
           <h6 class="mt-4 mx-3 pt-2" ng-show="main.isLoggedIn"><a class="Txt" style="text-decoration: none" href="/profile">{{main.username}}</a></h6>
           <span class="mx-1 L" ng-show="main.isLoggedIn">|</span>
           <!-- <li class="headMenu"><a ng-show='!main.isLoggedIn' href="/login" class="nav-link px-4 link-warning">เข้าสู่ระบบ</a></li>
@@ -80,7 +81,8 @@
             </a>
             <ul class="dropdown-menu text-small pt-2" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" href="/profile">โปรไฟล์</a></li>
-              <!-- <li><hr class="dropdown-divider"></li> -->
+              <li><a class="dropdown-item" href="/change_password/{{main._id}}">เปลี่ยนรหัสผ่าน</a></li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#" ng-click="main.logout()">ออกจากระบบ</a></li>
             </ul>
           </div>

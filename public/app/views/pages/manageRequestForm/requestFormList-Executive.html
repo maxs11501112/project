@@ -25,27 +25,57 @@
                     <td align="center" scope="col">เรื่อง</td>
                     <td align="center" scope="col">เทอม</td>
                     <td align="center" ng-click="sort('year')" scope="col">ชั้นปี</td>
-                    <td align="center" scope="col">เบอร์โทรศัพท์</td>
+                    <!-- <td align="center" scope="col">เบอร์โทรศัพท์</td> -->
                     <td align="center" scope="col">รายละเอียด</td>
                     <td align="center" ng-click="sort('create')" scope="col">วันที่สร้าง</td>
                     <td align="center" ng-click="sort('formStatus')" scope="col">สถานะ</td>
                     <td align="center" scope="col">การจัดการ</td>
                 </tr>
             </thead>
+
+            <tbody>
+                <td style="vertical-align: middle;width:1%;"><input class="form-control" type="text" name="studentId" ng-model='studentIdFilter'></td>
+                <td style="vertical-align: middle;width:8%;"><input class="form-control" type="text" name="studentName" ng-model='studentNameFilter'></td>
+                <td style="vertical-align: middle;width:8%;"><input class="form-control" type="text" name="title" ng-model='titleFilter'></td>
+                <td style="vertical-align: middle;width:2%;"><input class="form-control" type="text" name="term" ng-model='termFilter'></td>
+                <td style="vertical-align: middle;width:2%;"><input class="form-control" type="text" name="year" ng-model='yearFilter'></td>
+                <!-- <td style="vertical-align: middle;width:0%;"><input class="form-control" type="text" name="studentId" ng-model='telFilter'></td> -->
+                <td style="vertical-align: middle;width:15%;"><input class="form-control" type="text" name="description" ng-model='descriptionFilter'></td>
+                <td style="vertical-align: middle;width:5%;"><input class="form-control" type="text" name="create" ng-model='createFilter'></td>
+                <td style="vertical-align: middle;width:2%;"><input class="form-control" type="text" name="formStatus" ng-model='formStatusFilter'></td>
+                <td style="vertical-align: middle;width:6%;" align="center">
+                    <a> <button class="b-search" ng-click="crud.search()" style="border-radius:30px;">ค้นหา</button></a>
+                </td>
+            </tbody>
             <!-- | filter: main.username | filter: 'un-submit'-->
             <tbody>
-                <tr ng-repeat="form in crud.forms | filter: 'Approved(advisor)' | orderBy: sortKey:reverse">
-                    <td align="center" scope="row">{{form.studentId}}</td>
-                    <td>{{form.studentName}}</td>
-                    <td>{{form.title}}</td>
-                    <td align="center">{{form.term}}</td>
-                    <td align="center">{{form.year}}</td>
-                    <td align="center">{{form.tel}}</td>
-                    <td>{{form.description}}</td>
-                    <td align="center">{{form.create}}</td>
-                    <td align="center">{{form.formStatus}}</td>
-                    <td align="center">
-                        <a href="/approve-Executive/{{form._id}}"> <button type="button" style="border-radius:30px;color:rgb(0, 0, 0);">การจัดการ</button></a>
+                <tr ng-repeat="form in crud.forms | filter: 'Approved(advisor)' | orderBy: sortKey:reverse   |
+                filter: {studentId: newStudentIdFilter}|
+                filter: {studentName: newStudentNameFilter}|
+                filter: {title: newTitleFilter}| 
+                filter: {term: newTermFilter}| 
+                filter: {year: newYearFilter}| 
+                filter: {description: newDescriptionFilter}| 
+                filter: {create: newCreateFilter}|
+                filter: {formStatus: newFormStatusFilter}">
+                    <td style="vertical-align: middle;" align="center" scope="row">{{form.studentId}}</td>
+                    <td style="vertical-align: middle;">{{form.studentName}}</td>
+                    <td style="vertical-align: middle;">{{form.title}}</td>
+                    <td style="vertical-align: middle;" align="center">{{form.term}}</td>
+                    <td style="vertical-align: middle;" align="center">{{form.year}}</td>
+                    <!-- <td style="vertical-align: middle;" align="center">{{form.tel}}</td> -->
+                    <td style="vertical-align: middle;">{{form.description}}</td>
+                    <td style="vertical-align: middle;" align="center">{{form.create}}</td>
+                    <td style="vertical-align: middle;" align="center">
+                        <span ng-show="{{form.isRejected}} && !{{form.isSubmit}} && !{{form.advisorApprove}} && !{{form.executiveApprove}} && !{{form.isProcessed}}" class="badge bg-danger">{{form.formStatus}}</span>
+                        <span ng-show="!{{form.isRejected}} && !{{form.isSubmit}} && !{{form.advisorApprove}} && !{{form.executiveApprove}} && !{{form.isProcessed}}" class="badge">{{form.formStatus}}</span>
+                        <span ng-show="!{{form.isRejected}} && {{form.isSubmit}} && !{{form.advisorApprove}} && !{{form.executiveApprove}} && !{{form.isProcessed}}" class="badge bg-warning">{{form.formStatus}}</span>
+                        <span ng-show="!{{form.isRejected}} && {{form.isSubmit}} && {{form.advisorApprove}} && !{{form.executiveApprove}} && !{{form.isProcessed}}" class="badge bg-info">{{form.formStatus}}</span>
+                        <span ng-show="!{{form.isRejected}} && {{form.isSubmit}} && {{form.advisorApprove}} && {{form.executiveApprove}} && !{{form.isProcessed}}" class="badge bg-primary">{{form.formStatus}}</span>
+                        <span ng-show="!{{form.isRejected}} && {{form.isSubmit}} && {{form.advisorApprove}} && {{form.executiveApprove}} && {{form.isProcessed}}" class="badge bg-success">{{form.formStatus}}</span>
+                    </td>
+                    <td style="vertical-align: middle;" align="center">
+                        <a href="/approve-Executive/{{form._id}}"> <button class="b-manage" type="button" style="border-radius:30px;color:rgb(0, 0, 0);">การจัดการ</button></a>
                     </td>
                 </tr>
             </tbody>

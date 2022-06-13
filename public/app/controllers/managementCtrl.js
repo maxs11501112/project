@@ -1,6 +1,6 @@
 angular.module('managementController',['userServices'])
 
-.controller('managementCtrl',function(User){
+.controller('managementCtrl',function(User,$routeParams,$scope){
     var app = this;
 
     app.loading = true;
@@ -8,6 +8,15 @@ angular.module('managementController',['userServices'])
     app.errorMsg = false;
     app.editAccess = false;
     app.deleteAccess = false;
+
+    app.search = function(){
+        console.log('work')
+        $scope.newUsernameFilter = $scope.usernameFilter;
+        $scope.newNameFilter = $scope.nameFilter;
+        $scope.newEmailFilter = $scope.emailFilter;
+        $scope.newPermissionFilter = $scope.permissionFilter;
+        $scope.newBranchFilter = $scope.branchFilter;
+    }
 
     function getUsers(){
         User.getUsers().then(function(data){
@@ -39,14 +48,106 @@ angular.module('managementController',['userServices'])
 
     getUsers();
 
-    app.deleteUser = function(username){
-        User.deleteUser(username).then(function(data){
+})
+
+
+.controller('editUserCtrl',function(User,$routeParams,$scope,$timeout,$location){
+    var app = this;
+
+    app.deleteUser = function(){
+        User.deleteUser($routeParams.id).then(function(data){
             if(data.data.success){
-                getUsers();
+                $timeout(function(){
+                    //redirect to home page
+                    $location.path('/user_data')
+                },1000)
             }else{
-                app.showMoreError = data.data.message;
+                console.log(data.data.message);
             }
         })
     }
+
+    function getUser(){
+        User.getUser($routeParams.id).then(function(data){
+            if(data.data.success){
+                console.log('Easy')
+                console.log('Username = '+data.data.user.username);
+                console.log('Name = '+data.data.user.name);
+                console.log('Email = '+data.data.user.email);
+                console.log('Branch = '+data.data.user.branch);
+                console.log('Permission = '+data.data.user.permission);
+                $scope.newUserName = data.data.user.username
+                $scope.newBranch = data.data.user.branch
+                $scope.newName = data.data.user.name
+                $scope.newEmail = data.data.user.email
+                $scope.newPermission = data.data.user.permission
+            }
+        })
+    }
+
+    getUser();
+
+    app.test = function(){
+        console.log('eiei')
+    }
+
+    app.changePassword = function(){
+        app.loading = true;
+        var userObject = {};
+        var oldPassword = $scope.oldPassword;
+        var new1Password = $scope.new1Password;
+        var new2Password = $scope.new2Password;
+        User.validateUser($routeParams.id,oldPassword).then(function(data){
+            if(data.data.success){
+                var temp = new1Password.localeCompare(new2Password);
+                if (temp === 0){
+                    console.log(data.data.message)
+                    userObject.password = new1Password;
+                    User.update($routeParams.id,userObject).then(function(data){
+                        if(data.data.success){
+                            app.loading = false;
+                            app.successMsg = data.data.message;
+                            $timeout(function(){
+                                //redirect to home page
+                                $location.path('/')
+                            },1000)
+                        }else{
+                            app.loading = false;
+                            console.log('error : '+data.data.message);
+                        }
+                    })
+                }else{
+                    app.loading = false;
+                    app.errorMsg = 'New password is not match.'
+                }
+            }else{
+                app.loading = false;
+                console.log('error : '+data.data.message)
+                app.errorMsg = data.data.message;
+            }
+        })
+    }
+
+    app.updateUser = function(){
+        var userObject = {};
+
+        userObject.username = $scope.newUserName;
+        userObject.password = $scope.newPassword;
+        userObject.name = $scope.newName;
+        userObject.email = $scope.newEmail;
+        userObject.permission = $scope.newPermission;
+        userObject.branch = $scope.newBranch;
+        User.update($routeParams.id,userObject).then(function(data){
+            if(data.data.success){
+                $timeout(function(){
+                    //redirect to home page
+                    $location.path('/user_data')
+                },1000)
+            }else{
+                console.log('error : '+data.data.message);
+            }
+        })
+    }
+
 
 });

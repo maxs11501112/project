@@ -21,7 +21,7 @@ angular.module('userControllers',['userServices'])
                 // timeout --->  $timeout([fn], [delay], [invokeApply], [Pass]);
                 $timeout(function(){
                 //redirect to home page
-                    $location.path('/')
+                    $location.path('/user_data')
                 },2000)
                 
 

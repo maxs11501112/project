@@ -3,8 +3,6 @@ main{
 }
 
 button{
-	background-color:#f9004d;
-	color: white;
 	text-decoration: none;
 	border: 1px solid transparent;
 	font-weight: bold;
@@ -13,9 +11,145 @@ button{
     font-weight:bold;
 	transition: .4s; 
 }
-button:hover{
+
+:root {
+    --success: #58aa52;
+    --white: hsl(0, 0%, 100%);
+    --manage: #ed6530;
+    --search: #f9004d;
+    --view: #3b7ae5;
+    --warning: #ffbf00;
+}
+
+button.b-view{
+	background-color:var(--view);
+	color: white;
+}
+
+button.b-view:hover{
+    color:black;
 	background-color: transparent;
-	border: 1px solid #f9004d;
+	border: 1px solid var(--view);
+	cursor: pointer;
+}
+
+button.b-search{
+	background-color:var(--search);
+	color: white;
+}
+
+button.b-search:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--search);
+	cursor: pointer;
+}
+
+button.b-success{
+	background-color:var(--success);
+	color: white;
+}
+
+button.b-success:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--success);
+	cursor: pointer;
+}
+
+button.b-primary{
+	background-color:var(--bs-primary);
+	color: white;
+}
+
+button.b-primary:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-primary);
+	cursor: pointer;
+}
+
+button.b-manage{
+	background-color:var(--manage);
+	color: white;
+}
+
+button.b-manage:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--manage);
+	cursor: pointer;
+}
+
+button.b-secondary{
+	background-color:var(--bs-secondary);
+	color: white;
+}
+
+button.b-secondary:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-secondary);
+	cursor: pointer;
+}
+
+button.b-danger{
+	background-color:var(--bs-danger);
+	color: white;
+}
+
+button.b-danger:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-danger);
+	cursor: pointer;
+}
+
+button.b-warning{
+	background-color:var(--warning);
+	color: white;
+}
+
+button.b-warning:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--warning);
+	cursor: pointer;
+}
+
+button.b-info{
+	background-color:var(--bs-info);
+	color: white;
+}
+
+button.b-info:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-info);
+	cursor: pointer;
+}
+
+button.b-dark{
+	background-color:var(--bs-dark);
+	color: white;
+}
+
+button.b-dark:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-dark);
+	cursor: pointer;
+}
+
+button.b-light{
+	background-color:var(--bs-light);
+	color: white;
+}
+
+button.b-light:hover{
+    color:black;
+	background-color: transparent;
+	border: 1px solid var(--bs-light);
 	cursor: pointer;
 }
 

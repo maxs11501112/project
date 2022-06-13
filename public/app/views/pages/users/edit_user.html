@@ -1,0 +1,203 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height:80vh">
+
+        <div class="col-4">
+
+            <div class="page-header d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <h1 class="col-12 col-lg-auto me-lg-auto justify-content-center m-0">การจัดการผู้ใช้งาน</h1>
+            </div>
+
+
+        <form ng-submit='editUser.updateUser()'>
+
+            <div class="row">
+                <div class="col">
+                    <label>Username :</label>
+                    <input class="form-control" type="text" name="username" placeholder="กรุณาใส่ Username" ng-model='newUserName'>
+                </div>
+            </div>
+
+            <br>
+            
+            <div class="row">
+                <div class="col">
+                    <label>Password :</label>
+                    <input class="form-control" type="password" name="password" placeholder="กรุณาใส่ Password" ng-model='newPassword'>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>Name :</label>
+                    <input class="form-control" type="text" name="name" placeholder="กรุณาใส่ Name" ng-model='newName'>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>Email :</label>
+                    <input class="form-control" type="text" name="email" placeholder="กรุณาใส่ Email" ng-model='newEmail'>
+                </div>
+            </div>
+
+            <!-- <br>
+
+            <div class="row">
+                <div class="col">
+                    <label>Permission :</label>
+                    <input class="form-control" type="text" name="permission" placeholder="กรุณาใส่ Permission" ng-model='newPermission'>
+                </div>
+            </div> -->
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                  <label>Permission :</label>
+                </div>
+                <div class="col" align="center">
+                  <select id="permission" name="permission" ng-model='newPermission'>
+                    <option value="student">Student</option>
+                    <option value="advisor">Advisor</option>
+                    <option value="executive">Executive</option>
+                    <option value="rd">Registration Department</option>
+                  </select>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+
+            <br>
+
+            <div ng-show="newBranch" class="row">
+                <div class="col">
+                    <label>Branch :</label>
+                    <input class="form-control" type="text" name="branch" placeholder="กรุณาใส่ Branch" ng-model='newBranch'>
+                    <br>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="d-flex justify-content-center">
+                <div class="col-8 justify-content-around d-flex">
+                    <button class="b-success" style="border-radius:30px;" type="submit">ยืนยันการแก้ไข</button>
+                    <button class="b-danger" type="button" ng-click="editUser.deleteUser()" style="border-radius:30px;">ลบบัญชี</button>
+                </div>
+            </div>
+        
+        </form>
+        <br>
+        <br>
+
+
+        </div>
+
+        <br>
+        <br>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- อันเก่า VVVVVVV 
+                
+            <div class="col-6">
+
+
+            <label>รหัสนักศึกษา :</label>
+                <input class="form-control" type="text" name="studentId" placeholder="กรุณาใส่ รหัสนักศึกษา" ng-model='newStudentId'>
+            <br>
+
+            <label>ชื่อ-นามสกุล :</label>
+                <input class="form-control" type="text" name="studentName" placeholder="กรุณาใส่ ชื่อ-นามสกุล" ng-model='newStudentName'>
+            <br>
+
+            <label>เรื่อง :</label>
+                <input class="form-control" type="text" name="title" placeholder="กรุณาใส่ ชื่อเรื่อง" ng-model='newTitle'>
+            <br>
+
+            <label for="term 0">เทอมต้น :</label>
+                <input type="radio" regData="0" name="term" value="ต้น" ng-model='newTerm'>
+            <br>
+
+            <label for="term 1">เทอมปลาย :</label>
+                <input type="radio" regData="1" name="term" value="ปลาย" ng-model='newTerm'>
+            <br>
+
+            <label for="term 2">ซัมเมอร์ :</label>
+                <input type="radio" regData="2" name="term" value="ซัมเมอร์" ng-model='newTerm'>
+            <br>
+            <br>
+                
+            <label>ชั้นปี :</label>
+                <input class="form-control" type="text" name="year" placeholder="กรุณาใส่ ชั้นปี" ng-model='newYear'>
+            <br>
+                
+            <label>เบอร์โทรศัพท์ :</label>
+                <input class="form-control" type="text" name="tel" placeholder="กรุณาใส่ เบอร์โทรศัพท์" ng-model='newTel'>
+            <br>
+            </div>
+
+            <label>รายละเอียด:</label>
+            <textarea rows=”4”  cols= “6” class="form-control" type="text" name="description" placeholder="กรุณาใส่ รายละเอียด" ng-model='newDescription'>
+            </textarea> 
+            <br/>-->
+
+
+
+
+
+
+
+
+
+    <!--
+        <div class="text-center" ng-show='main.loading' >
+            <div class="spinner-border" role="status">
+                <span class="visually-hregDataden"></span>
+            </div>
+            <h3>Loading....</h3>
+        </div>
+
+
+        <div class="row show-hregDatae-message" ng-show="editForm1.successMsg">
+            <div class="alert alert-success">  {{ editForm1.successMsg }}</div>
+        </div>
+
+        <br>
+
+        <div class="row show-hregDatae-message" ng-show="editForm1.errorMsg">
+            <div class="alert alert-danger"> {{ editForm1.errorMsg }}  </div>
+        </div>
+        -->

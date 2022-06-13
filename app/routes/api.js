@@ -7,6 +7,7 @@ const app = express();
 const form = express.Router();
 
 //token --> https://github.com/auth0/node-jsonwebtoken
+var bcrypt = require('bcrypt-nodejs')
 var jwt = require('jsonwebtoken');
 var hash = require('object-hash');
 var user = require('../models/user');
@@ -177,6 +178,28 @@ module.exports = function(router){
         })
     })
 
+    //update User
+    router.put('/update-User/:id',function(req, res){
+        editUser = req.params.id
+        if (req.body.username) var newUsername = req.body.username
+        if (req.body.password) var newPassword = req.body.password
+        if (req.body.name) var newName = req.body.name
+        if (req.body.email) var newEmail = req.body.email
+        if (req.body.permission) var newPermission = req.body.permission
+        if (req.body.branch) var newBranch = req.body.branch
+        bcrypt.hash(newPassword, null, null, function(err, hash) {
+            if(err) throw err;
+            newPassword = hash;
+            User.findByIdAndUpdate(editUser,({username: newUsername,password: newPassword,name: newName,email: newEmail,permission: newPermission,branch: newBranch}),function(err){
+                    if (err) {
+                        res.json({success : false,message : 'Error : '+err})
+                    }else{
+                        res.json({success : true,message : 'User has been Updated successfully'})
+                    }
+            })
+        })
+    })
+
     router.get('/edit/:id', function(req,res){
         requestForm.findOne({ _id : req.params.id},function(err,form){
             if (err) throw err;
@@ -184,6 +207,17 @@ module.exports = function(router){
                 res.json({ success : false})
             }else{
                 res.json({ success : true ,form : form})
+            }
+        })
+    })
+
+    router.get('/edit_user/:id', function(req,res){
+        User.findOne({ _id : req.params.id},function(err,user){
+            if (err) throw err;
+            if (!user){
+                res.json({ success : false})
+            }else{
+                res.json({ success : true ,user : user})
             }
         })
     })
@@ -266,7 +300,7 @@ module.exports = function(router){
                 }
                 else{
                     recipient = "tonasds007@hotmail.com";
-                    text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Advisor/"+approveRequestForm+"' to approve or reject.";
+                    text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Executive/"+approveRequestForm+"' to approve or reject.";
                     this.mail(recipient,text);
 
                     res.json({ success : true, message : 'Approve!!'})
@@ -278,7 +312,7 @@ module.exports = function(router){
     router.get('/reject-RequestForm-Advisor/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
         var email = req.params.email;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',advisorApprove: false,isSubmit: false}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',advisorApprove: false,isSubmit: false,isRejected: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'reject error'})
                 }
@@ -320,7 +354,7 @@ module.exports = function(router){
                 }
                 else{
                     recipient = email;
-                    text = "Your request has been processed successfully. \nPlease click 'http://localhost:8000/edit/"+approveRequestForm+"' to show more info..";
+                    text = "Your request has been processed successfully. \nPlease click 'http://localhost:8000/view/"+approveRequestForm+"' to show more info..";
                     this.mail(recipient,text);
 
                     res.json({ success : true, message : 'Processed!!'})
@@ -332,7 +366,7 @@ module.exports = function(router){
     router.get('/reject-RequestForm-Executive/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
         var email = req.params.email;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',executiveApprove: false,advisorApprove: false,isSubmit: false}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Rejected',executiveApprove: false,advisorApprove: false,isSubmit: false,isRejected: true}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'reject error'})
                 }
@@ -396,6 +430,28 @@ module.exports = function(router){
         })
     })
 
+    router.get('/validate_user/:id/:password',function(req,res){
+        User.findOne({ _id : req.params.id}).select('password').exec(function(err,user){
+            if(err) throw err;
+            if(!user){
+                res.json({success: false, message:'Could not autheticate user'})
+            } else if (user){
+                if(req.params.password){
+                    var validPassword = user.comparePassword(req.params.password)
+                }else{
+                    res.json({success : false ,message : 'No password provided'})
+                }
+                
+                if (!validPassword){
+                    res.json({success : false ,message : 'Could not autheticate password'})
+                }else{
+                    res.json({success : true ,message : 'Password is true.'})
+                }
+            }
+            
+        })
+    })
+
     router.use(function(req,res,next){
         var token = req.body.token || req.body.query || req.headers['x-access-token']
 
@@ -442,24 +498,39 @@ module.exports = function(router){
         })
     })
 
-    router.delete('/delete-User/:username',function(req,res){
-        var deletedUser = req.params.username;
-        User.findOne({username: req.decoded.username }, function(err,mainUser){
-            if (err) throw err;
-            if(!mainUser){
-                res.json({ success: false, message: 'No user found'});
+    //delete Request Form
+    router.delete('/delete-User/:id',function(req, res, next){
+        var deleteUser = req.params.id;
+        User.findByIdAndRemove(deleteUser, (error, data) => {
+            if (error) {
+                return next(error);
             }else{
-                if(mainUser.permission === 'student'){
-                    res.json({ success: false, message: 'Insufficient Permissions'});
-                }else{
-                    User.findOneAndRemove({ username: deletedUser }, function(err,user){
-                        if (err) throw err;
-                        res.json({ success: true });
-                    })
-                }
+                res.status(200).json({
+                    message : 'Deleted Success',
+                    success : true
+                });
             }
         })
     })
+
+    // router.delete('/delete-User/:id',function(req,res){
+    //     var deletedUser = req.params.id;
+    //     User.findOne({username: req.decoded.username }, function(err,mainUser){
+    //         if (err) throw err;
+    //         if(!mainUser){
+    //             res.json({ success: false, message: 'No user found'});
+    //         }else{
+    //             if(mainUser.permission === 'student'){
+    //                 res.json({ success: false, message: 'Insufficient Permissions'});
+    //             }else{
+    //                 User.findOneAndRemove({ username: deletedUser }, function(err,user){
+    //                     if (err) throw err;
+    //                     res.json({ success: true });
+    //                 })
+    //             }
+    //         }
+    //     })
+    // })
 
     return router;
 

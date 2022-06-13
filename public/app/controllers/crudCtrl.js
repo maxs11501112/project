@@ -2,6 +2,20 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
 
 .controller('crudCtrl',function($location,$timeout,Form,$routeParams,$scope,User){
     var app = this;
+    app.regData = {};
+
+
+    app.search = function(){
+        console.log('work')
+        $scope.newStudentIdFilter = $scope.studentIdFilter;
+        $scope.newStudentNameFilter = $scope.studentNameFilter;
+        $scope.newTitleFilter = $scope.titleFilter;
+        $scope.newTermFilter = $scope.termFilter;
+        $scope.newYearFilter = $scope.yearFilter;
+        $scope.newDescriptionFilter = $scope.descriptionFilter;
+        $scope.newCreateFilter = $scope.createFilter;
+        $scope.newFormStatusFilter = $scope.formStatusFilter;
+    }
 
     app.getUsers = function(){
         User.getUsers().then(function(data){
@@ -35,7 +49,6 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
         app.regData.studentId = app.username;
         app.regData.studentName = app.name;
         Form.create(app.regData).then(function(data){
-
             if(data.data.success){
                 app.loading =false
                 //create success Msg
@@ -146,6 +159,11 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
                 $scope.newFormStatus = data.data.form.formStatus;
                 $scope.newExecutiveApprove = data.data.form.executiveApprove;
                 $scope.newAdvisorApprove = data.data.form.advisorApprove;
+                $scope.isSubmit = data.data.form.isSubmit;
+                $scope.isProcessed = data.data.form.isProcessed;
+                $scope.advisorApprove = data.data.form.advisorApprove;
+                $scope.executiveApprove = data.data.form.executiveApprove;
+                $scope.isRejected = data.data.form.isRejected;
 
                 app.requestFormId = data.data.form._id;
 
@@ -356,7 +374,7 @@ angular.module('crudControllers',['crudServices','userServices','authServices'])
             app.username = data.data.usernames;
             app.permission = data.data.permissions;
 
-            if(app.permission == 'executive'||app.permission == 'rd'){
+            if(app.permission == 'executive'||app.permission == 'rd'||app.permission == 'student'){
                 App.init();
             }
         });

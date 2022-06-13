@@ -9,12 +9,20 @@ angular.module('userServices',[])
             return $http.post('/api/users', regData)
         }
 
+        userFactory.update = function(id,data){
+            return $http.put('/api/update-User/'+id,data)
+        }
+
         userFactory.getUsers = function(){
             return $http.get('/api/management')
         }
         
-        userFactory.deleteUser = function(username){
-            return $http.delete('/api/delete-User/' + username);
+        userFactory.deleteUser = function(id){
+            return $http.delete('/api/delete-User/' + id);
+        }
+
+        userFactory.getUser = function(id){
+            return $http.get('/api/edit_user/'+id);
         }
 
         userFactory.getAdvisorEmail = function(branch){
@@ -24,6 +32,11 @@ angular.module('userServices',[])
         userFactory.getStudentEmail = function(studentId){
             return $http.get('/api/get-Student-Email/' + studentId);
         }
+
+        userFactory.validateUser = function(id,password){
+            return $http.get('/api/validate_user/'+ id +'/'+password);
+        }
+
 
         return userFactory;
     })

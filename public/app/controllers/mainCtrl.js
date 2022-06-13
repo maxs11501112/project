@@ -6,14 +6,20 @@ angular.module('mainController',['authServices','userServices'])
     app.isAdvisor = false
     app.isExecutive = false
     app.isRD = false
-    app.name;
+    app.isAdmin = false
+    app.name
+    app._id;
 
 
+
+
+    
     $rootScope.$on('$routeChangeStart', function(){
 
         User.getUsers().then(function(data){
             app.users = data.data.users;
             app.name = data.data.names;
+            app._id = data.data._id
             app.permissions = data.data.permissions;
             app.branch = data.data.branch;
             if(data.data.permissions ==='advisor'){
@@ -42,6 +48,17 @@ angular.module('mainController',['authServices','userServices'])
                 app.isRD = true
             }else{
                 app.isRD = false
+            }
+            
+        })
+
+        User.getUsers().then(function(data){
+            app.users = data.data.users;
+            app.name = data.data.names;
+            if(data.data.permissions ==='admin'){
+                app.isAdmin = true
+            }else{
+                app.isAdmin = false
             }
             
         })

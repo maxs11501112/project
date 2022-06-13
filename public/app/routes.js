@@ -100,6 +100,18 @@ var app = angular.module('appRoutes',['ngRoute'])
         permission : [ 'advisor','executive','admin']
     })
 
+    .when('/edit_user/:id',{
+        templateUrl : 'app/views/pages/users/edit_user.html',
+        controller : 'editUserCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'editUser' 
+    })
+
+    .when('/change_password/:id',{
+        templateUrl : 'app/views/pages/users/change_password.html',
+        controller : 'editUserCtrl',
+        controllerAs : /*ข้าขอตั้งชื่อเจ้าสิ่งนี้ว่า*/ 'editUser' 
+    })
+
     .otherwise({ redirectTo: '/'})
 
     $locationProvider.html5Mode({

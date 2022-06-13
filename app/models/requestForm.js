@@ -50,6 +50,10 @@ var requestFormSchema = new Schema({
         type : Boolean,
         default : false
     },
+    isRejected: {
+        type : Boolean,
+        default : false
+    },
     advisorComment: {
         type : String
     },
