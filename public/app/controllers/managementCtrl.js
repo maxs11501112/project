@@ -92,40 +92,57 @@ angular.module('managementController',['userServices'])
     }
 
     app.changePassword = function(){
+        app.errorMsg = false;
+        app.successMsg = false;
         app.loading = true;
         var userObject = {};
         var oldPassword = $scope.oldPassword;
         var new1Password = $scope.new1Password;
         var new2Password = $scope.new2Password;
-        User.validateUser($routeParams.id,oldPassword).then(function(data){
-            if(data.data.success){
-                var temp = new1Password.localeCompare(new2Password);
-                if (temp === 0){
-                    console.log(data.data.message)
-                    userObject.password = new1Password;
-                    User.update($routeParams.id,userObject).then(function(data){
-                        if(data.data.success){
-                            app.loading = false;
-                            app.successMsg = data.data.message;
-                            $timeout(function(){
-                                //redirect to home page
-                                $location.path('/')
-                            },1000)
-                        }else{
-                            app.loading = false;
-                            console.log('error : '+data.data.message);
-                        }
-                    })
+
+        if (oldPassword && new1Password && new2Password){
+            User.validateUser($routeParams.id,oldPassword).then(function(data){
+                if(data.data.success){
+                    var temp = new1Password.localeCompare(new2Password);
+                    if (temp === 0){
+                        console.log(data.data.message)
+                        userObject.password = new1Password;
+                        User.update($routeParams.id,userObject).then(function(data){
+                            if(data.data.success){
+                                app.loading = false;
+                                app.successMsg = data.data.message;
+                                $timeout(function(){
+                                    //redirect to home page
+                                    $location.path('/')
+                                },1000)
+                            }else{
+                                app.loading = false;
+                                console.log('error : '+data.data.message);
+                            }
+                        })
+                    }else{
+                        app.loading = false;
+                        app.errorMsg = 'New password is not match.'
+                    }
                 }else{
                     app.loading = false;
-                    app.errorMsg = 'New password is not match.'
+                    console.log('error : '+data.data.message)
+                    app.errorMsg = data.data.message;
                 }
-            }else{
-                app.loading = false;
-                console.log('error : '+data.data.message)
-                app.errorMsg = data.data.message;
-            }
-        })
+            })
+        }else if(new2Password && new1Password){
+            app.loading = false;
+            app.errorMsg = 'Please enter your old Password';
+        }else if(oldPassword && new2Password){
+            app.loading = false;
+            app.errorMsg = 'Please enter your new Password';
+        }else if(oldPassword && new1Password){
+            app.loading = false;
+            app.errorMsg = 'Please enter your confirmation Password';
+        }else{
+            app.loading = false;
+            app.errorMsg = 'Please enter your information';
+        }
     }
 
     app.updateUser = function(){

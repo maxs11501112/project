@@ -255,7 +255,7 @@ module.exports = function(router){
         })
     })
 
-    //get advisor email
+    //get student email
     router.get('/get-Student-Email/:studentId',function(req, res){
         var studentIds = req.params.studentId;
         var permissions = 'student';
@@ -312,7 +312,7 @@ module.exports = function(router){
     router.get('/approve-RequestForm-Advisor/:id',function(req, res){
         var approveRequestForm = req.params.id;
         var email = req.params.email;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(advisor)',advisorApprove: true}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(advisor)',advisorApprove: true}) ,function(err,data) {
                 if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
