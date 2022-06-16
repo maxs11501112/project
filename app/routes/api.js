@@ -294,7 +294,7 @@ module.exports = function(router){
     router.get('/submit-RequestForm/:id/:email',function(req, res){
         var approveRequestForm = req.params.id;
         var email = req.params.email;
-        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Submit',isSubmit: true,advisorComment: '',executiveComment: '',closedNote: ''}) ,function(err) {
+        requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Submit',isSubmit: true,isRejected: false,advisorComment: '',executiveComment: '',closedNote: ''}) ,function(err) {
                 if(err){
                     res.json({ success : false, message : 'Submit error'})
                 }
@@ -309,17 +309,22 @@ module.exports = function(router){
     })
 
     //Approve Request Form (Advisor)
-    router.get('/approve-RequestForm-Advisor/:id',function(req, res){
+    router.put('/approve-RequestForm-Advisor/:id',function(req, res){
         var approveRequestForm = req.params.id;
-        var email = req.params.email;
+        var studentEmail = req.body.student;
+        var executiveEmail = req.body.executive;
         requestForm.findByIdAndUpdate(approveRequestForm,({formStatus: 'Approved(advisor)',advisorApprove: true}) ,function(err,data) {
                 if(err){
                     res.json({ success : false, message : 'Approve error'})
                 }
                 else{
-                    recipient = email;
-                    text = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Executive/"+approveRequestForm+"' to approve or reject.";
-                    this.mail(recipient,text);
+                    recipientExecutive = executiveEmail;
+                    textExecutive = "The request is awaiting your approval. \nPlease click 'http://localhost:8000/approve-Executive/"+approveRequestForm+"' to approve or reject.";
+                    this.mail(recipientExecutive,textExecutive);
+
+                    recipientStudent = studentEmail;
+                    textStudent = "Your request has been approved by executive. \nPlease click 'http://localhost:8000/view/"+approveRequestForm+"' to show more info..";
+                    this.mail(recipientStudent,textStudent);
 
                     res.json({ success : true, message : 'Approve!!'})
                 }

@@ -26,7 +26,7 @@ angular.module('crudServices',[])
 
         //approve Request Form (Advisor)
         formFactory.advisorApprove = function(id,email){
-            return $http.get('/api/approve-RequestForm-Advisor/'+id+'/'+email)
+            return $http.put('/api/approve-RequestForm-Advisor/'+id,email)
         }
 
         //reject Request Form (Advisor)

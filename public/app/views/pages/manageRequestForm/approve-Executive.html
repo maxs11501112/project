@@ -21,7 +21,7 @@
                 <span ng-show="!edit.isRejected && isSubmit && advisorApprove && executiveApprove && isProcessed" class="badge col-12 col-lg-auto me-lg-0 justify-content-center mb-0 bg-success">Status : {{newFormStatus}}</span>
             </div>
 
-        <form ng-submit='edit.approveRequestFormExecutive()'>
+        <form ng-submit='edit.approveRequestFormExecutive(newStudentId)'>
             <div class="row">
                 <div class="col">
                     <label>รหัสนักศึกษา :</label>
